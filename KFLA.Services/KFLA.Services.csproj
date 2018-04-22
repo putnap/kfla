@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KFLA.Contract\KFLA.Contract.csproj" />
+    <ProjectReference Include="..\KFLA.Data\KFLA.Data.csproj" />
+  </ItemGroup>
+
+</Project>
