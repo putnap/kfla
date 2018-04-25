@@ -36,7 +36,6 @@ namespace KFLA.Data.Repositories
         {
             if (!dbContext.Competencies.Any())
                 RefreshExcel();
-
             return dbContext.Competencies
                 .Include(o => o.Cluster)
                 .Include(o => o.Factor)

@@ -3,37 +3,17 @@ import { Link, NavLink } from 'react-router-dom';
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
-        return <div className='main-nav'>
-                <div className='navbar navbar-inverse'>
-                <div className='navbar-header'>
-                    <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
-                        <span className='sr-only'>Toggle navigation</span>
-                        <span className='icon-bar'></span>
-                        <span className='icon-bar'></span>
-                        <span className='icon-bar'></span>
-                    </button>
-                    <Link className='navbar-brand' to={ '/' }>KFLA</Link>
-                </div>
-                <div className='clearfix'></div>
-                <div className='navbar-collapse collapse'>
-                    <ul className='nav navbar-nav'>
-                        <li>
-                            <NavLink to={ '/' } exact activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> Home
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={ '/questions' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-education'></span> Questions
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/competencies'} activeClassName='active'>
-                                <span className='glyphicon glyphicon-education'></span> Competencies
-                            </NavLink>
-                        </li>
-                    </ul>
-                </div>
+        return <div className='navbar navbar-expand-md navbar-dark bg-dark top-navbar' role='navigation'>
+            <NavLink to={'/'} activeClassName='active' className='nav-link'>
+                <span className='visible-xs navbar-brand'>Home</span>
+            </NavLink>
+            <div className='navbar-nav'>
+                <NavLink to={'/questions'} activeClassName='active' className='nav-item nav-link'>
+                    Questions
+                </NavLink>
+                <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link'>
+                    Competencies
+                </NavLink>
             </div>
         </div>;
     }

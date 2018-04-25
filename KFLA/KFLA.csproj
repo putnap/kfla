@@ -22,9 +22,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\Button.tsx" />
     <None Remove="ClientApp\components\CompetenciesContainer.tsx" />
-    <None Remove="ClientApp\components\Questions.tsx" />
-    <None Remove="ClientApp\models\Competency.ts" />
+    <None Remove="ClientApp\components\CompetencyList.tsx" />
+    <None Remove="ClientApp\components\questions\QuestionList.tsx" />
+    <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
+    <None Remove="ClientApp\components\questions\QuestionsPrintTemplate.tsx" />
+    <None Remove="ClientApp\models\Cluster.tsx" />
+    <None Remove="ClientApp\models\Competency.tsx" />
+    <None Remove="ClientApp\models\Factor.tsx" />
+    <None Remove="ClientApp\models\Question.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,9 +41,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\CompetenciesContainer.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Questions.tsx" />
-    <TypeScriptCompile Include="ClientApp\models\Competency.ts" />
+    <TypeScriptCompile Include="ClientApp\components\Button.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\competencies\CompetenciesContainer.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\competencies\CompetencyList.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\EmptyListWarning.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\questions\QuestionList.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\questions\QuestionsContainer.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\questions\QuestionsPrintTemplate.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\Factor.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\Cluster.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\Question.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\Competency.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
