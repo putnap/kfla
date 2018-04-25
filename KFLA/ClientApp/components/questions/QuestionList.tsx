@@ -37,7 +37,7 @@ export class QuestionList extends React.Component<QuestionListProps, any> {
 
     render() {
         return (
-            <section className='row'>
+            <section className='container'>
                 <div className='col'>
                     {
                         this.props.competencies.map(competency => {

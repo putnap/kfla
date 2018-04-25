@@ -76,19 +76,7 @@
 }
 
 .contentContainer {
-    padding-top: 75px;
-}
-
-@media (max-width: 767px) {
-    .contentContainer {
-        width: auto;
-    }
-}
-
-@media (min-width: 767px) {
-    .contentContainer {
-        width: 767px;
-    }
+    padding-top: 72px;
 }
 
 #react-print {
@@ -103,4 +91,11 @@
     #react-print {
         display: block;
     }
+}
+
+.evaluations {
+    position: fixed;
+    background: #fff;
+    z-index: 10;
+    width: 100%;
 }

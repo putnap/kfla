@@ -30,6 +30,7 @@
     <None Remove="ClientApp\components\questions\QuestionsPrintTemplate.tsx" />
     <None Remove="ClientApp\models\Cluster.tsx" />
     <None Remove="ClientApp\models\Competency.tsx" />
+    <None Remove="ClientApp\models\Evaluation.tsx" />
     <None Remove="ClientApp\models\Factor.tsx" />
     <None Remove="ClientApp\models\Question.tsx" />
   </ItemGroup>
@@ -48,6 +49,7 @@
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsPrintTemplate.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\Evaluation.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Factor.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Cluster.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Question.tsx" />
