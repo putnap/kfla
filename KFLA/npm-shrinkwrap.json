@@ -187,7 +187,8 @@
     "asap": {
       "version": "2.0.5",
       "resolved": "https://registry.npmjs.org/asap/-/asap-2.0.5.tgz",
-      "integrity": "sha1-UidltQw1EEkOUtfc/ghe+bqWlY8="
+      "integrity": "sha1-UidltQw1EEkOUtfc/ghe+bqWlY8=",
+      "dev": true
     },
     "asn1.js": {
       "version": "4.10.1",
@@ -1198,7 +1199,8 @@
     "core-js": {
       "version": "1.2.7",
       "resolved": "https://registry.npmjs.org/core-js/-/core-js-1.2.7.tgz",
-      "integrity": "sha1-ZSKUwUZR2yj6k70tX/KYOk8IxjY="
+      "integrity": "sha1-ZSKUwUZR2yj6k70tX/KYOk8IxjY=",
+      "dev": true
     },
     "core-util-is": {
       "version": "1.0.2",
@@ -1480,6 +1482,7 @@
       "version": "0.1.12",
       "resolved": "https://registry.npmjs.org/encoding/-/encoding-0.1.12.tgz",
       "integrity": "sha1-U4tm8+5izRq1HsMjgp0flIDHS+s=",
+      "dev": true,
       "requires": {
         "iconv-lite": "0.4.18"
       }
@@ -1683,6 +1686,7 @@
       "version": "0.8.12",
       "resolved": "https://registry.npmjs.org/fbjs/-/fbjs-0.8.12.tgz",
       "integrity": "sha1-ELXZL3bUVXX9Y6IX1OoCvqL47QQ=",
+      "dev": true,
       "requires": {
         "core-js": "1.2.7",
         "isomorphic-fetch": "2.2.1",
@@ -1763,7 +1767,7 @@
     "fsevents": {
       "version": "1.2.2",
       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-1.2.2.tgz",
-      "integrity": "sha512-iownA+hC4uHFp+7gwP/y5SzaiUo7m2vpa0dhpzw8YuKtiZsz7cIXsFbXpLEeBM6WuCQyw1MH4RRe6XI8GFUctQ==",
+      "integrity": "sha1-T1mPD2mycxiO9KYspOngis4xS78=",
       "dev": true,
       "optional": true,
       "requires": {
@@ -2468,7 +2472,8 @@
     "iconv-lite": {
       "version": "0.4.18",
       "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.18.tgz",
-      "integrity": "sha1-I9hlaxaq5nQqwpcy6o8DNqR4nPI="
+      "integrity": "sha1-I9hlaxaq5nQqwpcy6o8DNqR4nPI=",
+      "dev": true
     },
     "icss-replace-symbols": {
       "version": "1.1.0",
@@ -2740,7 +2745,8 @@
     "is-stream": {
       "version": "1.1.0",
       "resolved": "https://registry.npmjs.org/is-stream/-/is-stream-1.1.0.tgz",
-      "integrity": "sha1-EtSj3U5o4Lec6428hBc66A2RykQ="
+      "integrity": "sha1-EtSj3U5o4Lec6428hBc66A2RykQ=",
+      "dev": true
     },
     "is-svg": {
       "version": "2.1.0",
@@ -2782,6 +2788,7 @@
       "version": "2.2.1",
       "resolved": "https://registry.npmjs.org/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz",
       "integrity": "sha1-YRrhrPFPXoH3KVB0coGf6XM1WKk=",
+      "dev": true,
       "requires": {
         "node-fetch": "1.7.1",
         "whatwg-fetch": "2.0.3"
@@ -2802,7 +2809,8 @@
     "js-tokens": {
       "version": "3.0.1",
       "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.1.tgz",
-      "integrity": "sha1-COnxMkhKLEWjCQfp3E1VZ7fxFNc="
+      "integrity": "sha1-COnxMkhKLEWjCQfp3E1VZ7fxFNc=",
+      "dev": true
     },
     "js-yaml": {
       "version": "3.7.0",
@@ -2941,6 +2949,7 @@
       "version": "1.3.1",
       "resolved": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.3.1.tgz",
       "integrity": "sha1-0aitM/qc4OcT1l/dCsi3SNR4yEg=",
+      "dev": true,
       "requires": {
         "js-tokens": "3.0.1"
       }
@@ -3254,7 +3263,7 @@
     "nan": {
       "version": "2.10.0",
       "resolved": "https://registry.npmjs.org/nan/-/nan-2.10.0.tgz",
-      "integrity": "sha512-bAdJv7fBLhWC+/Bls0Oza+mvTaNQtP+1RyhhhvD95pgUJz6XM5IzgmxOkItJ9tkoCiplvAnXI1tNmmUD/eScyA==",
+      "integrity": "sha1-ltDNYQ69WNS03pzAxoKM2pnHVI8=",
       "dev": true,
       "optional": true
     },
@@ -3317,6 +3326,7 @@
       "version": "1.7.1",
       "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-1.7.1.tgz",
       "integrity": "sha1-iZyz0KPJL5UsR/G4dvTIrqvUANU=",
+      "dev": true,
       "requires": {
         "encoding": "0.1.12",
         "is-stream": "1.1.0"
@@ -3447,7 +3457,8 @@
     "object-assign": {
       "version": "4.1.1",
       "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz",
-      "integrity": "sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM="
+      "integrity": "sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=",
+      "dev": true
     },
     "object-copy": {
       "version": "0.1.0",
@@ -4235,6 +4246,7 @@
       "version": "7.3.1",
       "resolved": "https://registry.npmjs.org/promise/-/promise-7.3.1.tgz",
       "integrity": "sha1-BktyYCsY+Q8pGSuLG8QY/9Hr078=",
+      "dev": true,
       "requires": {
         "asap": "2.0.5"
       }
@@ -4380,32 +4392,6 @@
           "requires": {
             "amdefine": "1.0.1"
           }
-        }
-      }
-    },
-    "react-print": {
-      "version": "1.3.1",
-      "resolved": "https://registry.npmjs.org/react-print/-/react-print-1.3.1.tgz",
-      "integrity": "sha1-3GbkonnhDtwMxIQWmqng4fsoXhI=",
-      "requires": {
-        "react": "15.0.1",
-        "react-dom": "15.0.1"
-      },
-      "dependencies": {
-        "react": {
-          "version": "15.0.1",
-          "resolved": "https://registry.npmjs.org/react/-/react-15.0.1.tgz",
-          "integrity": "sha1-Ji1PBzo4TCoEIa+4LZfI999YHAk=",
-          "requires": {
-            "fbjs": "0.8.12",
-            "loose-envify": "1.3.1",
-            "object-assign": "4.1.1"
-          }
-        },
-        "react-dom": {
-          "version": "15.0.1",
-          "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-15.0.1.tgz",
-          "integrity": "sha1-M8Z/VXtDqyemuj7DIAMhaBkhxI0="
         }
       }
     },
@@ -4731,7 +4717,8 @@
     "setimmediate": {
       "version": "1.0.5",
       "resolved": "https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz",
-      "integrity": "sha1-KQy7Iy4waULX1+qbg3Mqt4VvgoU="
+      "integrity": "sha1-KQy7Iy4waULX1+qbg3Mqt4VvgoU=",
+      "dev": true
     },
     "sha.js": {
       "version": "2.4.11",
@@ -5228,7 +5215,8 @@
     "ua-parser-js": {
       "version": "0.7.13",
       "resolved": "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.13.tgz",
-      "integrity": "sha1-zZ3S+GSTs/RNvu7zeA/adMXuFL4="
+      "integrity": "sha1-zZ3S+GSTs/RNvu7zeA/adMXuFL4=",
+      "dev": true
     },
     "uglify-js": {
       "version": "2.8.29",
@@ -5634,7 +5622,8 @@
     "whatwg-fetch": {
       "version": "2.0.3",
       "resolved": "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz",
-      "integrity": "sha1-nITsLc9oGH/wC8ZOEnS0QhduHIQ="
+      "integrity": "sha1-nITsLc9oGH/wC8ZOEnS0QhduHIQ=",
+      "dev": true
     },
     "whet.extend": {
       "version": "0.9.9",
