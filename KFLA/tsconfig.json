@@ -7,6 +7,8 @@
     "jsx": "react",
     "sourceMap": true,
     "skipDefaultLibCheck": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": false,
     "strict": true,
     "types": ["webpack-env"]
   },

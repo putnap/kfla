@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\%40types\react-dnd-html5-backend\index.d.ts" />
+    <None Remove="ClientApp\@types\react-dnd\index.d.ts" />
     <None Remove="ClientApp\components\Button.tsx" />
     <None Remove="ClientApp\components\CompetenciesContainer.tsx" />
     <None Remove="ClientApp\components\CompetencyList.tsx" />
@@ -42,6 +44,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\@types\react-dnd-html5-backend\index.d.ts" />
+    <TypeScriptCompile Include="ClientApp\@types\react-dnd\index.d.ts" />
     <TypeScriptCompile Include="ClientApp\components\Button.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetenciesContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetencyList.tsx" />
