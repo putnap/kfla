@@ -18,20 +18,32 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ViewModels\**" />
     <Content Remove="ClientApp\**" />
+    <Content Remove="ViewModels\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="ViewModels\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="ClientApp\%40types\react-dnd-html5-backend\index.d.ts" />
+    <None Remove="ClientApp\%40types\types.tsx" />
     <None Remove="ClientApp\@types\react-dnd\index.d.ts" />
+    <None Remove="ClientApp\CompetencyStore.tsx" />
     <None Remove="ClientApp\components\Button.tsx" />
     <None Remove="ClientApp\components\CompetenciesContainer.tsx" />
+    <None Remove="ClientApp\components\competencies\CompetencyItem.tsx" />
+    <None Remove="ClientApp\components\competencies\EvaluationItem.tsx" />
+    <None Remove="ClientApp\components\competencies\EvaluationList.tsx" />
+    <None Remove="ClientApp\components\competencies\EvaluationResult.tsx" />
     <None Remove="ClientApp\components\CompetencyList.tsx" />
+    <None Remove="ClientApp\components\Loader.tsx" />
     <None Remove="ClientApp\components\questions\QuestionList.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsPrintTemplate.tsx" />
     <None Remove="ClientApp\models\Cluster.tsx" />
     <None Remove="ClientApp\models\Competency.tsx" />
+    <None Remove="ClientApp\models\DragData.tsx" />
     <None Remove="ClientApp\models\Evaluation.tsx" />
     <None Remove="ClientApp\models\Factor.tsx" />
     <None Remove="ClientApp\models\Question.tsx" />
@@ -46,22 +58,26 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\@types\react-dnd-html5-backend\index.d.ts" />
     <TypeScriptCompile Include="ClientApp\@types\react-dnd\index.d.ts" />
+    <TypeScriptCompile Include="ClientApp\@types\types.tsx" />
+    <TypeScriptCompile Include="ClientApp\stores\CompetencyStore.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Button.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetenciesContainer.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\competencies\CompetencyItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetencyList.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\competencies\EvaluationResult.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\competencies\EvaluationItem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\competencies\EvaluationList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\EmptyListWarning.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Loader.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsPrintTemplate.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Evaluation.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Factor.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Cluster.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\DragData.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Question.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Competency.tsx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>

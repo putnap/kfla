@@ -1,0 +1,3 @@
+﻿interface DragData {
+    competencyID: number
+}
