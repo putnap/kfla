@@ -1,7 +1,8 @@
-﻿import { Question } from "./Question";
-import { Cluster } from "./Cluster";
-import { Factor } from "./Factor";
+﻿import { Question, QuestionJSON } from "./Question";
+import { Cluster, ClusterJSON } from "./Cluster";
+import { Factor, FactorJSON } from "./Factor";
 import { observable, action } from 'mobx';
+import { Evaluation } from "./Evaluation";
 
 interface CompetencyJSON {
     ID: number;
@@ -9,22 +10,27 @@ interface CompetencyJSON {
     Description: string;
     ClusterID: number;
     FactorID: number;
-    Cluster: Cluster;
-    Factor: Factor;
-    Questions: Question[];
+    Cluster: ClusterJSON;
+    Factor: FactorJSON;
+    Questions: QuestionJSON[];
     IsSelected: boolean;
     IsEvaluated: boolean;
 }
 
-export class Competency implements CompetencyJSON {
+export class Competency {
     ID: number;
     Name: string;
     Description: string;
     ClusterID: number;
     FactorID: number;
+    LessSkilled: string;
+    Skilled: string;
+    Talented: string;
+    OverusedSkill: string;
     Cluster: Cluster;
     Factor: Factor;
     Questions: Question[];
+    Evaluation: Evaluation;
     @observable IsSelected: boolean;
     @observable IsEvaluated: boolean;
 
@@ -33,12 +39,14 @@ export class Competency implements CompetencyJSON {
             // if it's a string, parse it first
             return JSON.parse(json, Competency.reviver);
         } else {
-            // create an instance of the User class
+            // create an instance of the class
             let user = Object.create(Competency.prototype);
             // copy all the fields from the json object
             return Object.assign(user, json, {
                 // convert fields that need converting
-                Questions: json.Questions.map(questionJSON => Question.fromJSON(questionJSON))
+                Cluster: Cluster.fromJSON(json.Cluster),
+                Factor: Factor.fromJSON(json.Factor),
+                Questions: json.Questions.map(questionJSON => Question.fromJSON(questionJSON)),
             });
         }
     }

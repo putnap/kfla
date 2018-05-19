@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { observer, inject } from 'mobx-react';
-import { DragDropContext, Backend } from "react-dnd";
+import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { Competency } from '../../models/Competency';
 import { Evaluation } from '../../models/Evaluation';
@@ -27,6 +27,8 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
         const store = this.props.competencyStore;
         if (!store!.isLoaded)
             store!.fetchCompetencies();
+        //else if (store!.evaluatedCompetencies.length > 0)
+        //    this.props.competencyStore.resetEvaluation();
     }
 
     resetEvaluation() {
@@ -44,10 +46,10 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
     public render() {
         const store = this.props.competencyStore;
         return <section>
-            <div className='row'>
+            <div className='row background-light'>
                 <NavMenu />
             </div>
-            <div className='row contentContainer'>
+            <div className='row background-light contentContainer height-100'>
                 <div className='col'>
                     <EvaluationList evaluations={store!.evaluations} />
                     {
@@ -56,11 +58,11 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
                 </div>
             </div>
             <div className='btn-floating-container'>
-                <button onClick={(e) => this.submitEvaluation()} disabled={!store.evaluationReady} className='btn btn-secondary rounded-circle'>
-                    S
+                <button onClick={(e) => this.submitEvaluation()} disabled={!store.evaluationReady} className='btn rounded-circle background-dark' title='Submit'>
+                    <i className='fas fa-check'></i>
                 </button>
-                <button onClick={(e) => this.resetEvaluation()} className='btn btn-secondary rounded-circle'>
-                    R
+                <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle background-dark' title='Reset'>
+                    <i className='fas fa-redo'></i>
                 </button>
             </div>
         </section>;

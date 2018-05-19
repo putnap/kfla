@@ -2,9 +2,9 @@
 
 export class Loader extends React.Component<{}, {}> {
     public render() {
-        return <div className='row'>
+        return <div className='row vertical-center'>
             <div className='col text-center'>
-                <span>Loading data...</span>
+                <div className='lds-roller'><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             </div>
         </div>  
     }

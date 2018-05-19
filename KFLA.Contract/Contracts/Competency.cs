@@ -12,6 +12,10 @@ namespace KFLA.Contract
         public string Description { get; set; }
         public int? ClusterID { get; set; }
         public int? FactorID { get; set; }
+        public string LessSkilled { get; set; }
+        public string Skilled { get; set; }
+        public string Talented { get; set; }
+        public string OverusedSkill { get; set; }
 
         public ClusterDto Cluster { get; set; }
         public FactorDto Factor { get; set; }

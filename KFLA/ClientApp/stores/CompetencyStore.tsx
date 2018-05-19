@@ -5,9 +5,9 @@ import { Evaluation } from '../models/Evaluation';
 
 let id = 0;
 const DEFAULT_EVALUATIONS: Evaluation[] = [
-    new Evaluation(++id, 'Evaluation 1', 1),
-    new Evaluation(++id, 'Evaluation 2', 2),
-    new Evaluation(++id, 'Evaluation 3', 1)
+    new Evaluation(++id, 'Evaluation 1', 5, '#499E6E'),
+    new Evaluation(++id, 'Evaluation 2', 5, '#000000'),
+    new Evaluation(++id, 'Evaluation 3', 5, '#929292')
 ]
 
 class EvaluationDto {
@@ -30,18 +30,26 @@ export class CompetencyStore {
         return this.competencies.filter(o => !o.IsEvaluated);
     }
 
+    @computed get evaluatedCompetencies(): Competency[] {
+        return this.competencies.filter(o => o.IsEvaluated);
+    }
+
     @computed get evaluationReady(): boolean {
         return this.evaluations.every(o => o.evaluatedCompetences == o.Limit);
     }
 
     @action evaluateCompetency(competencyID: number, evaluation: Evaluation) {
         const competency = this.competencies.filter(o => o.ID == competencyID)[0];
+        competency.Evaluation = evaluation;
         evaluation.Competencies.push(competency);
         competency.IsEvaluated = true;
     }
 
     @action resetEvaluation() {
-        this.competencies.map(o => o.IsEvaluated = false);
+        this.competencies.map(o => {
+            o.Evaluation = null;
+            o.IsEvaluated = false;
+        });
         this.evaluations.map(o => o.Competencies = []);
     }
 

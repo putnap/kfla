@@ -15,7 +15,7 @@ export class QuestionList extends React.Component<QuestionListProps, any> {
 
         window.matchMedia('print').addListener(() => {
             if (window.matchMedia('print').matches) {
-                let selectedCompetencies = this.props.competencies.filter(competency => { return competency.IsSelected; });
+                const selectedCompetencies = this.props.competencies.filter(competency => { return competency.IsSelected; });
                 ReactDOM.render(<QuestionsPrintTemplate competencies={selectedCompetencies} />, document.getElementById('print-mount'));
             }
             else {

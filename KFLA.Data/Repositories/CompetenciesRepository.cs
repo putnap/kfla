@@ -113,12 +113,16 @@ namespace KFLA.Data.Repositories
                         ID = int.Parse((string)row[0]),
                         Name = (string)row[1],
                         Description = (string)row[2],
+                        LessSkilled = (string)row[5],
+                        Skilled = (string)row[6],
+                        Talented = (string)row[7],
+                        OverusedSkill = (string)row[8],
                         Factor = factor,
                         Cluster = cluster,
                         Questions = new List<Question>()
                     };
 
-                    for (int i = 5; ;i++)
+                    for (int i = 9; row.ItemArray.Count() < i; i++)
                     {
                         if (row[i] is string value && !string.IsNullOrEmpty(value))
                             competency.Questions.Add(new Question() { QuestionContent = value });

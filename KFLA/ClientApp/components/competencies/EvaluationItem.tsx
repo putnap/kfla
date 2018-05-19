@@ -48,23 +48,54 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
                 height: '100%',
                 width: '100%',
                 zIndex: 1,
-                opacity: 0.5,
+                opacity: 0.3,
                 backgroundColor: color,
+                borderTopLeftRadius: '25px',
             }} />
         );
+    }
+
+    removeCompetencyFromEvaluation(competency: Competency) {
+        this.props.evaluation.removeCompetency(competency);
     }
 
     render() {
         const store = this.props.competencyStore;
         return this.props.connectDropTarget(
-            <div className='col'>
-                <div className='border border-dark p-3 m-2 bg-light text-dark'>
-                    <span className='p-3'>{this.props.evaluation.Name}</span>
-                    <span className='badge badge-dark'>{this.props.evaluation.evaluatedCompetences}/{this.props.evaluation.Limit}</span>
-                    {this.props.isOver && !this.props.canDrop && this.renderOverlay('red')}
-                    {!this.props.isOver && this.props.canDrop && this.renderOverlay('yellow')}
-                    {this.props.isOver && this.props.canDrop && this.renderOverlay('green')}
+            <div className='col mx-3 text-dark bg-white' style={{ borderTopLeftRadius: '25px' }}>
+                <div className='row'>
+                    <div className='col my-3'>
+                        <span className='font-weight-bold text-uppercase p-3'>{this.props.evaluation.Name}</span>
+                    </div>
+                    <div className='my-3 mr-5'>
+                        <span className='font-weight-bold color-dark'>{this.props.evaluation.evaluatedCompetences}/{this.props.evaluation.Limit}</span>
+                    </div>
+                    <button type="button" className='btn dropdown-toggle-split rounded-0 background-dark' style={{ width: '75px', height: '60px' }} data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' disabled={this.props.evaluation.evaluatedCompetences == 0}>
+                        <i className='fas fa-sort-down' style={{ fontSize: '150%' }}></i>
+                    </button>
+                    <div className='col dropdown-menu dropdown-menu-right container m-0 p-0 pb-1 rounded-0 border-0 background-dark'>
+                        {
+                            this.props.evaluation.Competencies.map(competency => {
+                                return <div className='mt-1' >
+                                    <div className='row'>
+                                        <div className='col my-1'>
+                                            <span className='dropdown-item-text text-white'>{competency.ID}. {competency.Name}</span>
+                                        </div>
+                                        <div className='col-1'>
+                                            <button type='button' className='btn ml-3 float-right' style={{ background: 'none', width: '75px' }} onClick={(e) => this.removeCompetencyFromEvaluation(competency)}>
+                                                <i className='fas fa-times text-white' style={{ fontSize: '150%' }}></i>
+                                            </button>
+                                        </div>
+                                        <div className='clearfix'></div>
+                                    </div>
+                                </div>;
+                            })
+                        }
+                    </div>
                 </div>
+                {this.props.isOver && !this.props.canDrop && this.renderOverlay('red')}
+                {!this.props.isOver && this.props.canDrop && this.renderOverlay('yellow')}
+                {this.props.isOver && this.props.canDrop && this.renderOverlay('green')}
             </div>
         );
     }

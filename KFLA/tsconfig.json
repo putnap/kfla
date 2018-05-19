@@ -3,14 +3,15 @@
     "baseUrl": ".",
     "module": "es2015",
     "moduleResolution": "node",
-    "target": "es6",
+    "target": "es5",
     "jsx": "react",
     "sourceMap": true,
     "skipDefaultLibCheck": true,
     "experimentalDecorators": true,
     "strictNullChecks": false,
     "strict": true,
-    "types": ["webpack-env"]
+    "types": [ "webpack-env" ],
+    "lib": [ "es6", "dom" ]
   },
   "exclude": [
       "bin",

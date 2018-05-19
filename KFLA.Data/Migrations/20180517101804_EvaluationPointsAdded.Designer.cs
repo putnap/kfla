@@ -11,9 +11,10 @@ using System;
 namespace KFLA.Data.Migrations
 {
     [DbContext(typeof(KFLADBContext))]
-    partial class KFLADBContextModelSnapshot : ModelSnapshot
+    [Migration("20180517101804_EvaluationPointsAdded")]
+    partial class EvaluationPointsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

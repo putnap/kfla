@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
-        return <div className='navbar navbar-expand-md navbar-dark bg-dark top-navbar' role='navigation'>
+        return <div className='navbar navbar-expand-md top-navbar background-light' role='navigation'>
             <NavLink to={'/'} activeClassName='active' className='nav-link'>
                 <span className='visible-xs navbar-brand'>Home</span>
             </NavLink>

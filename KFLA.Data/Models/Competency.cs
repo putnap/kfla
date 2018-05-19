@@ -12,6 +12,10 @@ namespace KFLA.Data.Models
         public string Description { get; set; }
         public int? ClusterID { get; set; }
         public int? FactorID { get; set; }
+        public string LessSkilled { get; set; }
+        public string Skilled { get; set; }
+        public string Talented { get; set; }
+        public string OverusedSkill { get; set; }
 
         public Factor Factor { get; set; }
         public Cluster Cluster { get; set; }

@@ -18,7 +18,7 @@ export class CompetencyList extends React.Component<CompetencyListProps, {}> {
         const store = this.props.competencyStore;
         const isEmpty = store.competencies.length == 0;
         return (
-            <div className='row pl-5 pr-5'>
+            <div className='row px-5'>
                 {
                     isEmpty ? <EmptyListWarning /> :
                     store.uneavluatedCompetencies.map(competency => {

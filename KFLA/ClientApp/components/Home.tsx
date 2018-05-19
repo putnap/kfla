@@ -12,7 +12,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
                     </div>
                 </div>
             </div>
-            <div className='col bg-light'>
+            <div className='col bg-light '>
                 <div className='row vertical-center'>
                     <div className='col text-center'>
                         <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link navigation-link'>Competencies</NavLink>
