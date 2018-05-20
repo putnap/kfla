@@ -36,10 +36,6 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
     }
 
     submitEvaluation() {
-        this.props.competencyStore.submitEvaluation(this.navigateToResults.bind(this));
-    }
-
-    navigateToResults() {
         this.props.history.push("/evaluation");
     }
 
@@ -53,7 +49,7 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
                 <div className='col'>
                     <EvaluationList evaluations={store!.evaluations} />
                     {
-                        store!.isLoading ? <Loader /> : <CompetencyList competencyStore={store!} />
+                        store!.isLoading ? <Loader text='Loading competencies...' /> : <CompetencyList competencyStore={store!} />
                     }
                 </div>
             </div>

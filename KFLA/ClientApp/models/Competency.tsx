@@ -1,7 +1,7 @@
 ﻿import { Question, QuestionJSON } from "./Question";
 import { Cluster, ClusterJSON } from "./Cluster";
 import { Factor, FactorJSON } from "./Factor";
-import { observable, action } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import { Evaluation } from "./Evaluation";
 
 interface CompetencyJSON {
@@ -33,6 +33,14 @@ export class Competency {
     Evaluation: Evaluation;
     @observable IsSelected: boolean;
     @observable IsEvaluated: boolean;
+
+    @action toggleSelection() {
+        this.IsSelected = !this.IsSelected;
+    }
+
+    @computed get selectedQuestions(): Question[] {
+        return this.Questions.filter(question => question.IsSelected);
+    }
 
     static fromJSON(json: CompetencyJSON | string): Competency {
         if (typeof json === 'string') {

@@ -6,11 +6,11 @@ export interface LayoutProps {
 
 export class Layout extends React.Component<LayoutProps, {}> {
     public render() {
-        return <div className='container-fluid px-0'>
-            <div id='react-no-print'>
+        return <div>
+            <div className='container-fluid' id='react-no-print'>
                 { this.props.children }
             </div>
-            <div id='react-print'></div>
+            <div className='container' id='react-print'></div>
         </div>;
     }
 }

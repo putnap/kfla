@@ -1,52 +1,75 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { observer, inject } from 'mobx-react';
 import { Competency } from '../../models/Competency';
 import { EmptyListWarning } from '../EmptyListWarning';
-import { QuestionList } from './QuestionList';
 import { NavMenu } from '../NavMenu';
+import { CompetencyStore } from '../../stores/CompetencyStore';
+import { Loader } from '../Loader';
+import { FactorList } from '../FactorList';
 
-interface QuestionsContainerState {
-    loadingData: boolean,
-    competencies: Competency[]
+interface QuestionsContainerProps extends RouteComponentProps<{}> {
+    competencyStore?: CompetencyStore
 }
 
-export class QuestionsContainer extends React.Component<RouteComponentProps<{}>, QuestionsContainerState> {
+@inject("competencyStore")
+@observer
+export class QuestionsContainer extends React.Component<QuestionsContainerProps, {}> {
 
-    constructor() {
-        super();
-
-        this.state = {
-            loadingData: true,
-            competencies: []
-        };
+    componentDidMount() {
+        const store = this.props.competencyStore;
+        if (!store!.isLoaded)
+            store!.fetchCompetencies();
+        //else if (store!.evaluatedCompetencies.length > 0)
+        //    this.props.competencyStore.resetEvaluation();
     }
 
-    public componentDidMount() {
-        fetch('api/competencies')
-            .then((response) => {
-                return response.text();
-            })
-            .then((data) => {
-                this.setState((state, props) => {
-                    state.competencies = JSON.parse(data);
-                    state.loadingData = false;
-                });
-            });
+    resetQuestionaire() {
+        this.props.competencyStore.resetQuestionaire();
+    }
+
+    submitQuestionaire() {
+        this.props.history.push("/questionaire");
+    }
+
+    renderCompetency(competency: Competency): JSX.Element {
+        return <div className='row'>
+            <div className='col-1 p-0 text-right'>
+                <span>{competency.ID}.</span>
+            </div>
+            <div className='col'>
+                <div className='font-weight-bold'>{competency.Name}</div>
+                <div>{competency.Description}</div>
+            </div>
+            <div className='col-1 p-0 align-self-center'>
+                <label className='check-container'>
+                    <input type='checkbox' checked={competency.IsSelected} onClick={(e) => competency.toggleSelection()} />
+                    <span className='checkmark'></span>
+                </label>
+            </div>
+        </div>;
     }
 
     public render() {
-        const hasData = this.state.competencies.length > 0;
-
+        const store = this.props.competencyStore;
         return <section>
-            <div className='row'>
+            <div className='row background-light'>
                 <NavMenu />
             </div>
-            <div className='row mx-auto contentContainer'>
-            {
-                this.state.loadingData ?
-                    <p className='text-center'>Loading data...</p> :
-                    hasData ? <QuestionList competencies={this.state.competencies} /> : <EmptyListWarning />
-            }
+            <div className='row background-light contentContainer height-100 px-5'>
+                <div className='col'>
+                    {
+                        store!.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.groupCompetencies(this.props.competencyStore.competencies)} renderCompetency={comp => this.renderCompetency(comp)} />
+                    }
+                </div>
+            </div>
+            <div className='btn-floating-container'>
+                <button onClick={(e) => this.submitQuestionaire()} disabled={!store.questionaireReady} className='btn rounded-circle background-dark' title='Submit'>
+                    <i className='fas fa-check'></i>
+                </button>
+                <button onClick={(e) => this.resetQuestionaire()} className='btn rounded-circle background-dark' title='Reset'>
+                    <i className='fas fa-redo'></i>
+                </button>
             </div>
         </section>;
         

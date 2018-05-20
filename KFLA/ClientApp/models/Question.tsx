@@ -1,4 +1,6 @@
-﻿export interface QuestionJSON {
+﻿import { observable, action } from 'mobx';
+
+export interface QuestionJSON {
     ID: number;
     QuestionContent: string;
 }
@@ -6,7 +8,11 @@
 export class Question {
     ID: number;
     QuestionContent: string;
-    Hide: boolean;
+    @observable IsSelected: boolean;
+
+    @action toggleSelection() {
+        this.IsSelected = !this.IsSelected;
+    }
 
     static fromJSON(json: QuestionJSON | string): Question {
         if (typeof json === 'string') {
@@ -16,7 +22,9 @@ export class Question {
             // create an instance of the class
             let user = Object.create(Question.prototype);
             // copy all the fields from the json object
-            return Object.assign(user, json);
+            return Object.assign(user, json, {
+                IsSelected: true
+            });
         }
     }
 

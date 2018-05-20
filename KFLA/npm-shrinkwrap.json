@@ -672,7 +672,7 @@
     "bootstrap": {
       "version": "4.1.1",
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.1.1.tgz",
-      "integrity": "sha512-SpiDSOcbg4J/PjVSt4ny5eY6j74VbVSjROY4Fb/WIUXBV9cnb5luyR4KnPvNoXuGnBK1T+nJIWqRsvU3yP8Mcg==",
+      "integrity": "sha1-OuyFAA+mGQhdqNLkmD39Z88hFMs=",
       "dev": true
     },
     "brace-expansion": {
@@ -3316,7 +3316,7 @@
         "hoist-non-react-statics": {
           "version": "2.5.0",
           "resolved": "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz",
-          "integrity": "sha512-6Bl6XsDT1ntE0lHbIhr4Kp2PGcleGZ66qu5Jqk8lc0Xc/IeG6gVLmwUGs/K0Us+L8VWoKgj0uWdPMataOsm31w==",
+          "integrity": "sha1-0sot/BnFqRxaZhXOjlZO8DR+KkA=",
           "dev": true
         }
       }

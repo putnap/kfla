@@ -38,10 +38,11 @@
     <None Remove="ClientApp\components\competencies\EvaluationPrintTemplate.tsx" />
     <None Remove="ClientApp\components\competencies\EvaluationResult.tsx" />
     <None Remove="ClientApp\components\CompetencyList.tsx" />
+    <None Remove="ClientApp\components\FactorList.tsx" />
     <None Remove="ClientApp\components\Loader.tsx" />
-    <None Remove="ClientApp\components\questions\QuestionList.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsPrintTemplate.tsx" />
+    <None Remove="ClientApp\components\questions\QuestionsResult.tsx" />
     <None Remove="ClientApp\models\Cluster.tsx" />
     <None Remove="ClientApp\models\Competency.tsx" />
     <None Remove="ClientApp\models\DragData.tsx" />
@@ -61,6 +62,8 @@
     <TypeScriptCompile Include="ClientApp\@types\react-dnd\index.d.ts" />
     <TypeScriptCompile Include="ClientApp\@types\types.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\EvaluationPrintTemplate.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\FactorList.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\questions\QuestionsResult.tsx" />
     <TypeScriptCompile Include="ClientApp\stores\CompetencyStore.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Button.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetenciesContainer.tsx" />
@@ -71,7 +74,6 @@
     <TypeScriptCompile Include="ClientApp\components\competencies\EvaluationList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\EmptyListWarning.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Loader.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\questions\QuestionList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsPrintTemplate.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Evaluation.tsx" />

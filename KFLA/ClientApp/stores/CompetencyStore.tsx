@@ -2,6 +2,8 @@
 import { encode, decode } from 'base-64';
 import { Competency } from '../models/Competency';
 import { Evaluation } from '../models/Evaluation';
+import { Factor } from '../models/Factor';
+import { Question } from '../models/Question';
 
 let id = 0;
 const DEFAULT_EVALUATIONS: Evaluation[] = [
@@ -34,6 +36,14 @@ export class CompetencyStore {
         return this.competencies.filter(o => o.IsEvaluated);
     }
 
+    @computed get selectedCompetencies(): Competency[] {
+        return this.competencies.filter(o => o.IsSelected && o.selectedQuestions.length > 0);
+    }
+
+    @computed get questionaireReady(): boolean {
+        return this.selectedCompetencies.length > 0;
+    }
+
     @computed get evaluationReady(): boolean {
         return this.evaluations.every(o => o.evaluatedCompetences == o.Limit);
     }
@@ -46,41 +56,18 @@ export class CompetencyStore {
     }
 
     @action resetEvaluation() {
-        this.competencies.map(o => {
+        this.competencies.forEach(o => {
             o.Evaluation = null;
             o.IsEvaluated = false;
         });
-        this.evaluations.map(o => o.Competencies = []);
+        this.evaluations.forEach(o => o.Competencies = []);
     }
 
-    @action submitEvaluation(callback: () => void) {
-        const dtos = this.evaluations.map(o => ({ i: o.ID, c: o.Competencies.map(o => o.ID) }));
-        const string = encode(JSON.stringify(dtos));
-        const json = decode(string);
-        const newDtos = JSON.parse(json);
-
-        callback();
-        //console.log(newDtos[0].c);
-
-        //fetch('api/Competencies/submit/?evaluations='+string)
-        //    //{
-        //    //    method: 'GET',
-        //    //    headers: {
-        //    //        'Accept': 'application/json',
-        //    //        'Content-Type': 'applicati  on/json',
-        //    //    },
-        //    //    body: string
-        //    //})
-        //    .then((response) => {
-        //        return response.text();
-        //    })
-        //    .then((data) => {
-        //        console.log(data);
-        //    });
-    }
-
-    @action decodeEvaluation(base64Evaluations: string) {
-
+    @action resetQuestionaire() {
+        this.competencies.forEach(o => {
+            o.Questions.map(q => q.IsSelected = true);
+            o.IsSelected = false;
+        });
     }
 
     @action fetchCompetencies() { 
@@ -98,8 +85,29 @@ export class CompetencyStore {
                         this.competencies = competenciesJSON.map(competencyJSON => Competency.fromJSON(competencyJSON));
                         this.isLoading = false;
                         this.isLoaded = true;
-                }), 1000);
+                }), 1500);
             });
+    }
+
+    groupCompetencies(competencies: Competency[]): Factor[] {
+        const factors: Factor[] = [];
+        competencies.forEach(competency => {
+            let factor = competency.Factor;
+            let cluster = competency.Cluster;
+            if (factors.filter(f => f.ID == competency.Factor.ID).length == 0)
+                factors.push(factor);
+            else
+                factor = factors.filter(f => f.ID == competency.Factor.ID)[0];
+
+            if (factor.Clusters.filter(c => c.ID == cluster.ID).length == 0)
+                factor.Clusters.push(cluster);
+            else
+                cluster = factor.Clusters.filter(c => c.ID == cluster.ID)[0];
+
+            if (cluster.Competencies.filter(c => c.ID == competency.ID).length == 0)
+                cluster.Competencies.push(competency);
+        });
+        return factors;
     }
 }
 

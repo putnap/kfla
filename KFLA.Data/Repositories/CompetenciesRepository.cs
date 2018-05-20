@@ -122,7 +122,7 @@ namespace KFLA.Data.Repositories
                         Questions = new List<Question>()
                     };
 
-                    for (int i = 9; row.ItemArray.Count() < i; i++)
+                    for (int i = 9; i < row.ItemArray.Count(); i++)
                     {
                         if (row[i] is string value && !string.IsNullOrEmpty(value))
                             competency.Questions.Add(new Question() { QuestionContent = value });
