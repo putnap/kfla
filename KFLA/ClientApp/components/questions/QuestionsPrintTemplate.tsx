@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Competency } from 'ClientApp/models/Competency';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface QuestionsPrintTemplateProps {
     competencies: Competency[]
@@ -19,7 +20,7 @@ export class QuestionsPrintTemplate extends React.Component<QuestionsPrintTempla
                             </h4>
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'>{competency.Description}</p>
-                                <p className='card-text font-weight-bold'><i className='far fa-question-circle color-dark'></i><span className='pl-2'>QUESTIONS</span></p>
+                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon={['far', 'question-circle']} className='color-dark' /><span className='pl-2'>QUESTIONS</span></p>
                                 {
                                     competency.selectedQuestions.map((question, i) => {
                                         return <div className='row mb-2'>

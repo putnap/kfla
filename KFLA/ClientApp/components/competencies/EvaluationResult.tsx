@@ -2,6 +2,7 @@
 import * as ReactDOM from 'react-dom';
 import { RouteComponentProps } from 'react-router';
 import { observer, inject } from 'mobx-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavMenu } from '../NavMenu';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Competency } from '../../models/Competency';
@@ -87,10 +88,10 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
             </div>
             <div className='btn-floating-container'>
                 <button onClick={(e) => this.printPage()} className='btn rounded-circle background-dark' title='Print'>
-                    <i className='fas fa-print'></i>
+                    <FontAwesomeIcon icon='print' />
                 </button>
                 <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle background-dark' title='Reset'>
-                    <i className='fas fa-redo'></i>
+                    <FontAwesomeIcon icon='redo' />
                 </button>
             </div>
         </section>;

@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer, inject } from 'mobx-react';
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
@@ -55,10 +56,10 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
             </div>
             <div className='btn-floating-container'>
                 <button onClick={(e) => this.submitEvaluation()} disabled={!store.evaluationReady} className='btn rounded-circle background-dark' title='Submit'>
-                    <i className='fas fa-check'></i>
+                    <FontAwesomeIcon icon='check' />
                 </button>
                 <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle background-dark' title='Reset'>
-                    <i className='fas fa-redo'></i>
+                    <FontAwesomeIcon icon='redo' />
                 </button>
             </div>
         </section>;

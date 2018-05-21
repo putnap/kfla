@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { observer, inject } from 'mobx-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Competency } from '../../models/Competency';
 import { EmptyListWarning } from '../EmptyListWarning';
 import { NavMenu } from '../NavMenu';
@@ -64,10 +65,10 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
             </div>
             <div className='btn-floating-container'>
                 <button onClick={(e) => this.submitQuestionaire()} disabled={!store.questionaireReady} className='btn rounded-circle background-dark' title='Submit'>
-                    <i className='fas fa-check'></i>
+                    <FontAwesomeIcon icon='check' />
                 </button>
                 <button onClick={(e) => this.resetQuestionaire()} className='btn rounded-circle background-dark' title='Reset'>
-                    <i className='fas fa-redo'></i>
+                    <FontAwesomeIcon icon='redo' />
                 </button>
             </div>
         </section>;

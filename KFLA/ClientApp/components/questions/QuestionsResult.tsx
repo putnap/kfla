@@ -2,6 +2,7 @@
 import * as ReactDOM from 'react-dom';
 import { RouteComponentProps } from 'react-router';
 import { observer, inject } from 'mobx-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Competency } from '../../models/Competency';
 import { EmptyListWarning } from '../EmptyListWarning';
 import { NavMenu } from '../NavMenu';
@@ -71,7 +72,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                         </h4>
                                         <div className='mr-3'>
                                             <p className='card-text font-weight-bold'>{competency.Description}</p>
-                                            <p className='card-text font-weight-bold'><i className='far fa-question-circle color-dark'></i><span className='pl-2'>QUESTIONS</span></p>
+                                            <p className='card-text font-weight-bold'><FontAwesomeIcon icon={['far', 'question-circle' ]} className='color-dark' /><span className='pl-2'>QUESTIONS</span></p>
                                             {
                                                 competency.Questions.map((question, i) => {
                                                     return <div className='row mb-2'>
@@ -97,10 +98,10 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
             </div>
             <div className='btn-floating-container'>
                 <button onClick={(e) => this.printPage()} className='btn rounded-circle background-dark' title='Print'>
-                    <i className='fas fa-print'></i>
+                    <FontAwesomeIcon icon='print' />
                 </button>
                 <button onClick={(e) => this.resetQuestionaire()} className='btn rounded-circle background-dark' title='Reset'>
-                    <i className='fas fa-redo'></i>
+                    <FontAwesomeIcon icon='redo' />
                 </button>
             </div>
         </section>;

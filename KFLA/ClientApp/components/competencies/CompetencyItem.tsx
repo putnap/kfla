@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import { Competency } from '../../models/Competency';
 import { observer, inject } from 'mobx-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Evaluation } from '../../models/Evaluation';
 import {
     DragSource, DragSourceConnector, DragSourceMonitor, ConnectDragSource, DragSourceSpec, DragSourceCollector
@@ -94,14 +95,14 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             </h4>
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'>{this.props.competency.Description}</p>
-                                <p className='card-text font-weight-bold'><i className='fas fa-plus-circle color-dark'></i><span className='pl-2'>SKILLED</span></p>
+                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='plus-circle' className='color-dark' /><span className='pl-2'>SKILLED</span></p>
                                 <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.Skilled)}</p>
                             </div>
                         </div>
                         <div className='card-footer'>
                             Lorem Ipsum dolor sit amet consecteteur odio non tellus natoque accumsan.
                         </div>
-                        <button type='button' className='btn position-absolute' style={{ background: 'none', top: '50%', right: '5px' }} onClick={(e) => this.flip()}><i className='fas fa-angle-right color-dark' style={{ fontSize: '200%' }}></i></button>
+                        <button type='button' className='btn position-absolute' style={{ background: 'none', top: '50%', right: '5px' }} onClick={(e) => this.flip()}><FontAwesomeIcon icon='angle-right' className='color-dark' style={{ fontSize: '200%' }} /></button>
                     </div>
                     <div className='face back background-dark'>
                         <div ref={ref => this.cardBack = ref} className='card-body' style={{ minHeight: this.state.cardHeight }}>
@@ -111,11 +112,11 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             </h4>
                             <div className='row mr-3'>
                                 <div className='col'>
-                                    <p className='card-text font-weight-bold'><i className='fas fa-exclamation-circle'></i><span className='pl-2'>OVERUSED SKILL</span></p>
+                                    <p className='card-text font-weight-bold'><FontAwesomeIcon icon='exclamation-circle' /><span className='pl-2'>OVERUSED SKILL</span></p>
                                     <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.OverusedSkill)}</p>
                                 </div>
                                 <div className='col'>
-                                    <p className='card-text font-weight-bold'><i className='fas fa-minus-circle'></i><span className='pl-2'>LESS SKILL</span></p>
+                                    <p className='card-text font-weight-bold'><FontAwesomeIcon icon='minus-circle' /><span className='pl-2'>LESS SKILL</span></p>
                                     <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.LessSkilled)}</p>
                                 </div>
                             </div>
@@ -123,7 +124,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                         <div className='card-footer'>
                             Lorem Ipsum dolor sit amet consecteteur odio non tellus natoque accumsan.
                         </div>
-                        <button type='button' className='btn position-absolute' style={{ background: 'none', top: '50%', right: '5px' }} onClick={(e) => this.flip()}><i className='fas fa-angle-left' style={{ fontSize: '200%', color: '#FFFFFF' }}></i></button>
+                        <button type='button' className='btn position-absolute' style={{ background: 'none', top: '50%', right: '5px' }} onClick={(e) => this.flip()}><FontAwesomeIcon icon='angle-left' className='color-dark' style={{ fontSize: '200%', color: '#FFFFFF' }} /></button>
                     </div>
                 </div>
             </div>

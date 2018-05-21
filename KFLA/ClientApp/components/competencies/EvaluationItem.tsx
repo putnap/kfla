@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import { observer, inject } from 'mobx-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Competency } from '../../models/Competency';
 import { Evaluation } from '../../models/Evaluation';
 import {
@@ -71,7 +72,7 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
                         <span className='font-weight-bold color-dark'>{this.props.evaluation.evaluatedCompetences}/{this.props.evaluation.Limit}</span>
                     </div>
                     <button type="button" className='btn dropdown-toggle-split rounded-0 background-dark' style={{ width: '75px', height: '60px' }} data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' disabled={this.props.evaluation.evaluatedCompetences == 0}>
-                        <i className='fas fa-sort-down' style={{ fontSize: '150%' }}></i>
+                        <FontAwesomeIcon icon='sort-down' style={{ fontSize: '150%' }}/>
                     </button>
                     <div className='col dropdown-menu dropdown-menu-right container m-0 p-0 pb-1 rounded-0 border-0 background-dark'>
                         {
@@ -83,7 +84,7 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
                                         </div>
                                         <div className='col-1'>
                                             <button type='button' className='btn ml-3 float-right' style={{ background: 'none', width: '75px' }} onClick={(e) => this.removeCompetencyFromEvaluation(competency)}>
-                                                <i className='fas fa-times text-white' style={{ fontSize: '150%' }}></i>
+                                                <FontAwesomeIcon icon='times' className='text-white' style={{ fontSize: '150%' }} />
                                             </button>
                                         </div>
                                         <div className='clearfix'></div>
