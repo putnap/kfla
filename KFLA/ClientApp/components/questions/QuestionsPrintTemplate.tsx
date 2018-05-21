@@ -20,7 +20,7 @@ export class QuestionsPrintTemplate extends React.Component<QuestionsPrintTempla
                             </h4>
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'>{competency.Description}</p>
-                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon={['far', 'question-circle']} className='color-dark' /><span className='pl-2'>QUESTIONS</span></p>
+                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>QUESTIONS</span></p>
                                 {
                                     competency.selectedQuestions.map((question, i) => {
                                         return <div className='row mb-2'>

@@ -44,8 +44,8 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
     private cardFront: HTMLDivElement;
     private cardBack: HTMLDivElement;
 
-    constructor() {
-        super();
+    constructor(props: CompetencyItemProps) {
+        super(props);
 
         this.state = {
             flipped: false,
