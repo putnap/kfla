@@ -4,12 +4,13 @@ import { Competency } from '../models/Competency';
 import { Evaluation } from '../models/Evaluation';
 import { Factor } from '../models/Factor';
 import { Question } from '../models/Question';
+import { Cluster } from '../models/Cluster';
 
 let id = 0;
 const DEFAULT_EVALUATIONS: Evaluation[] = [
-    new Evaluation(++id, 'Evaluation 1', 5, '#499E6E'),
-    new Evaluation(++id, 'Evaluation 2', 5, '#000000'),
-    new Evaluation(++id, 'Evaluation 3', 5, '#929292')
+    new Evaluation(++id, 'SKILLED', 12, '#499E6E'),
+    new Evaluation(++id, 'OVERUSED SKILL', 12, '#000000'),
+    new Evaluation(++id, 'LESS SKILL', 14, '#929292')
 ]
 
 class EvaluationDto {
@@ -24,6 +25,7 @@ class EvaluationDto {
 export class CompetencyStore {
     @observable evaluations: Evaluation[] = DEFAULT_EVALUATIONS;
     @observable competencies: Competency[] = [];
+    @observable factors: Factor[] = [];
     @observable isLoaded: boolean;
     @observable isLoading: boolean;
     @observable isSubmitting: boolean;
@@ -37,7 +39,7 @@ export class CompetencyStore {
     }
 
     @computed get selectedCompetencies(): Competency[] {
-        return this.competencies.filter(o => o.IsSelected && o.selectedQuestions.length > 0);
+        return this.competencies.filter(o => o.IsSelected && o.selectedQuestions.length);
     }
 
     @computed get questionaireReady(): boolean {
@@ -49,7 +51,7 @@ export class CompetencyStore {
     }
 
     @action evaluateCompetency(competencyID: number, evaluation: Evaluation) {
-        const competency = this.competencies.filter(o => o.ID == competencyID)[0];
+        const competency = this.competencies.find(o => o.ID == competencyID);
         competency.Evaluation = evaluation;
         evaluation.Competencies.push(competency);
         competency.IsEvaluated = true;
@@ -60,7 +62,7 @@ export class CompetencyStore {
             o.Evaluation = null;
             o.IsEvaluated = false;
         });
-        this.evaluations.forEach(o => o.Competencies = []);
+        this.evaluations.forEach(o => o.Competencies.splice(0, o.Competencies.length));
     }
 
     @action resetQuestionaire() {
@@ -83,28 +85,29 @@ export class CompetencyStore {
                     runInAction(() => {
                         const competenciesJSON: Competency[] = JSON.parse(data);
                         this.competencies = competenciesJSON.map(competencyJSON => Competency.fromJSON(competencyJSON));
+                        this.factors = this.groupCompetencies(this.competencies);
                         this.isLoading = false;
                         this.isLoaded = true;
                 }), 1500);
             });
     }
 
-    groupCompetencies(competencies: Competency[]): Factor[] {
+    @action groupCompetencies(competencies: Competency[]): Factor[] {
         const factors: Factor[] = [];
         competencies.forEach(competency => {
-            let factor = competency.Factor;
-            let cluster = competency.Cluster;
-            if (factors.filter(f => f.ID == competency.Factor.ID).length == 0)
+            let factor = new Factor(competency.Factor.ID, competency.Factor.Name);
+            let cluster = new Cluster(competency.Cluster.ID, competency.Cluster.Name);
+            if (!factors.some(f => f.ID == competency.Factor.ID))
                 factors.push(factor);
             else
-                factor = factors.filter(f => f.ID == competency.Factor.ID)[0];
+                factor = factors.find(f => f.ID == competency.Factor.ID);
 
-            if (factor.Clusters.filter(c => c.ID == cluster.ID).length == 0)
+            if (!factor.Clusters.some(c => c.ID == cluster.ID))
                 factor.Clusters.push(cluster);
             else
-                cluster = factor.Clusters.filter(c => c.ID == cluster.ID)[0];
+                cluster = factor.Clusters.find(c => c.ID == cluster.ID);
 
-            if (cluster.Competencies.filter(c => c.ID == competency.ID).length == 0)
+            if (!cluster.Competencies.some(c => c.ID == competency.ID))
                 cluster.Competencies.push(competency);
         });
         return factors;

@@ -35,7 +35,6 @@
     <None Remove="ClientApp\components\competencies\CompetencyItem.tsx" />
     <None Remove="ClientApp\components\competencies\EvaluationItem.tsx" />
     <None Remove="ClientApp\components\competencies\EvaluationList.tsx" />
-    <None Remove="ClientApp\components\competencies\EvaluationPrintTemplate.tsx" />
     <None Remove="ClientApp\components\competencies\EvaluationResult.tsx" />
     <None Remove="ClientApp\components\CompetencyList.tsx" />
     <None Remove="ClientApp\components\FactorList.tsx" />
@@ -61,7 +60,6 @@
     <TypeScriptCompile Include="ClientApp\@types\react-dnd-html5-backend\index.d.ts" />
     <TypeScriptCompile Include="ClientApp\@types\react-dnd\index.d.ts" />
     <TypeScriptCompile Include="ClientApp\@types\types.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\competencies\EvaluationPrintTemplate.tsx" />
     <TypeScriptCompile Include="ClientApp\components\FactorList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsResult.tsx" />
     <TypeScriptCompile Include="ClientApp\stores\CompetencyStore.tsx" />

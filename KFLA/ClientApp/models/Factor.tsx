@@ -1,4 +1,5 @@
-﻿import { Cluster } from "./Cluster";
+﻿import { observable } from 'mobx';
+import { Cluster } from "./Cluster";
 
 export interface FactorJSON {
     ID: number;
@@ -6,9 +7,14 @@ export interface FactorJSON {
 }
 
 export class Factor {
+    constructor(id: number, name: string) {
+        this.ID = id;
+        this.Name = name;
+        this.Clusters = [];
+    }
     ID: number;
     Name: string;
-    Clusters: Cluster[];
+    @observable Clusters: Cluster[];
 
     static fromJSON(json: FactorJSON | string): Factor {
         if (typeof json === 'string') {

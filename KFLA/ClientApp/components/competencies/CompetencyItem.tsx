@@ -48,12 +48,14 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
 
         this.state = {
             flipped: false,
+            cardHeight: null
         };
     }
 
     flip() {
         const currentState = this.state.flipped;
-        this.setState({ flipped: !currentState });
+        const currentHeight = this.state.cardHeight;
+        this.setState({ flipped: !currentState, cardHeight: currentHeight });
     }
 
     computeCardClass() {
@@ -74,15 +76,16 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
 
     componentDidMount() {
         if (this.cardFront.clientHeight > this.cardBack.clientHeight)
-            this.setState({ cardHeight: this.cardFront.clientHeight });
+            this.setState({ flipped: this.state.flipped, cardHeight: this.cardFront.clientHeight });
         else
-            this.setState({ cardHeight: this.cardBack.clientHeight });
+            this.setState({ flipped: this.state.flipped, cardHeight: this.cardBack.clientHeight });
     }
 
     render() {
+        const cardClasses = this.computeCardClass();
         return this.props.connectDragSource(
             <div className='col-4 mb-2' style={{ opacity: this.props.isDragging ? 0.5 : 1 }}>
-                <div className={this.computeCardClass()}>
+                <div className={cardClasses}>
                     <div className='face front'>
                         <div ref={ref => this.cardFront = ref} className='card-body' style={{ minHeight: this.state.cardHeight }}>
                             <h4 className='card-title pb-1 border-bottom border-dark'>

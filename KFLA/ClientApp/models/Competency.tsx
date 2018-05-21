@@ -29,8 +29,8 @@ export class Competency {
     OverusedSkill: string;
     Cluster: Cluster;
     Factor: Factor;
-    Questions: Question[];
-    Evaluation: Evaluation;
+    @observable Questions: Question[];
+    @observable Evaluation: Evaluation;
     @observable IsSelected: boolean;
     @observable IsEvaluated: boolean;
 

@@ -1,4 +1,5 @@
-﻿import { Competency } from "./Competency";
+﻿import { observable } from 'mobx';
+import { Competency } from "./Competency";
 
 export interface ClusterJSON {
     ID: number;
@@ -6,9 +7,14 @@ export interface ClusterJSON {
 }
 
 export class Cluster {
+    constructor(id: number, name: string) {
+        this.ID = id;
+        this.Name = name;
+        this.Competencies = [];
+    }
     ID: number;
     Name: string;
-    Competencies: Competency[];
+    @observable Competencies: Competency[];
 
     static fromJSON(json: ClusterJSON | string): Cluster {
         if (typeof json === 'string') {

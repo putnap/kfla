@@ -7,6 +7,7 @@ import { NavMenu } from '../NavMenu';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';
+import { Factor } from '../../models/Factor';
 
 interface QuestionsContainerProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
@@ -20,8 +21,6 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
         const store = this.props.competencyStore;
         if (!store!.isLoaded)
             store!.fetchCompetencies();
-        //else if (store!.evaluatedCompetencies.length > 0)
-        //    this.props.competencyStore.resetEvaluation();
     }
 
     resetQuestionaire() {
@@ -59,7 +58,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
             <div className='row background-light contentContainer height-100 px-5'>
                 <div className='col'>
                     {
-                        store!.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.groupCompetencies(this.props.competencyStore.competencies)} renderCompetency={comp => this.renderCompetency(comp)} />
+                        store!.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
                     }
                 </div>
             </div>

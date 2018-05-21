@@ -7,27 +7,28 @@ import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Competency } from '../../models/Competency';
 import { Evaluation } from '../../models/Evaluation';
 import { Factor } from '../../models/Factor';
-import { EvaluationPrintTemplate } from './EvaluationPrintTemplate';
 import { FactorList } from '../FactorList';
+import { Loader } from '../Loader';
 
 interface EvaluationResultProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
 }
 
-interface EvaluationResultState {
-    factors: Factor[];
-}
-
 @inject("competencyStore")
 @observer
-export class EvaluationResult extends React.Component<EvaluationResultProps, EvaluationResultState> {
+export class EvaluationResult extends React.Component<EvaluationResultProps, {}> {
 
     constructor(props: EvaluationResultProps) {
         super(props);
 
+        const renderCall = this.renderCompetency;
         window.matchMedia('print').addListener(() => {
             if (window.matchMedia('print').matches) {
-                ReactDOM.render(<EvaluationPrintTemplate factors={this.state.factors} renderCompetency={this.renderCompetency} />, document.getElementById('react-print'));
+                const store = this.props.competencyStore;
+                const factors = store.groupCompetencies(store.evaluatedCompetencies);
+                ReactDOM.render(<section>
+                    <FactorList factors={factors} renderCompetency={renderCall} animate={false} />
+                </section>, document.getElementById('react-print'));
             }
             else {
                 var element = document.getElementById('react-print');
@@ -35,10 +36,16 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, Eva
                     ReactDOM.unmountComponentAtNode(element);
             }
         });
+    }
 
-        this.state = {
-            factors: this.props.competencyStore.groupCompetencies(this.props.competencyStore.evaluatedCompetencies)
-        };
+    componentDidMount() {
+        const store = this.props.competencyStore;
+        if (!store.evaluationReady) {
+            store.resetEvaluation();
+            setTimeout(() => {
+                this.props.history.push("/competencies");
+            }, 2000)
+        }
     }
 
     printPage() {
@@ -64,13 +71,18 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, Eva
 
     public render() {
         const store = this.props.competencyStore;
+        const factors = store.groupCompetencies(store.evaluatedCompetencies);
         return <section>
             <div className='row background-light'>
                 <NavMenu />
             </div>
             <div className='row background-light contentContainer height-100'>
                 <div className='col'>
-                    <FactorList factors={this.state.factors} renderCompetency={this.renderCompetency} />
+                    {
+                        store.evaluationReady ?
+                            <FactorList factors={factors} renderCompetency={this.renderCompetency} animate={true} /> :
+                            <Loader text='No competencies evaluated. Redirrecting...' />
+                    }
                 </div>
             </div>
             <div className='btn-floating-container'>

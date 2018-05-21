@@ -44,6 +44,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
 
     componentDidUpdate() {
         if (!this.props.competencyStore.questionaireReady) {
+            this.props.competencyStore.resetQuestionaire();
             setTimeout(() => {
                 this.props.history.push("/questions");
             }, 2000)
