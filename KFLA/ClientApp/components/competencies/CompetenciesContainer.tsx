@@ -2,7 +2,6 @@
 import { RouteComponentProps } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer, inject } from 'mobx-react';
-import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { Competency } from '../../models/Competency';
 import { Evaluation } from '../../models/Evaluation';
@@ -14,13 +13,14 @@ import { Loader } from '../Loader';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Stores } from 'ClientApp/@types/types';
 import { Link } from 'react-router-dom';
+import withDragDropContext from '../withDragDropContext';
 
 interface CompetenciesContainerProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
 }
 
 @inject("competencyStore")
-@DragDropContext(HTML5Backend)
+@withDragDropContext
 @observer
 export class CompetenciesContainer extends React.Component<CompetenciesContainerProps, {}> {
 

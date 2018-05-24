@@ -41,6 +41,7 @@
     <None Remove="ClientApp\components\Loader.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsResult.tsx" />
+    <None Remove="ClientApp\components\withDragDropContext.tsx" />
     <None Remove="ClientApp\models\Cluster.tsx" />
     <None Remove="ClientApp\models\Competency.tsx" />
     <None Remove="ClientApp\models\DragData.tsx" />
@@ -61,6 +62,7 @@
     <TypeScriptCompile Include="ClientApp\@types\types.tsx" />
     <TypeScriptCompile Include="ClientApp\components\FactorList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsResult.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\withDragDropContext.tsx" />
     <TypeScriptCompile Include="ClientApp\stores\CompetencyStore.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Button.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetenciesContainer.tsx" />

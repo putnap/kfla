@@ -32,12 +32,12 @@
     "react-dnd-html5-backend": "^2.6.0",
     "react-dom": "^16.3.2",
     "react-hot-loader": "3.0.0-beta.7",
-    "react-router-dom": "4.1.1",
+    "react-router-dom": "4.2.2",
     "style-loader": "0.18.2",
     "typescript": "2.4.1",
     "url-loader": "0.5.9",
     "webpack": "^2.7.0",
-    "webpack-hot-middleware": "^2.22.1"
+    "webpack-hot-middleware": "2.22.2"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
