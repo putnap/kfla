@@ -65,14 +65,15 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
         return this.props.connectDropTarget(
             <div className='col mx-3 text-dark bg-white' style={{ borderTopLeftRadius: '25px' }}>
                 <div className='row'>
-                    <div className='col my-3'>
-                        <span className='font-weight-bold text-uppercase p-3'>{this.props.evaluation.Name}</span>
+                    <div className='col align-self-center' style={{ color: this.props.evaluation.Color }}>
+                        <FontAwesomeIcon icon={this.props.evaluation.Icon} className='mx-2' />
+                        <span className='font-weight-bold text-uppercase'>{this.props.evaluation.Name}</span>
                     </div>
-                    <div className='my-3 mr-5'>
+                    <div className='mr-5 align-self-center'>
                         <span className='font-weight-bold color-dark'>{this.props.evaluation.evaluatedCompetences}/{this.props.evaluation.Limit}</span>
                     </div>
                     <button type="button" className='btn dropdown-toggle-split rounded-0 background-dark' style={{ width: '75px', height: '60px' }} data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' disabled={this.props.evaluation.evaluatedCompetences == 0}>
-                        <FontAwesomeIcon icon='sort-down' style={{ fontSize: '150%' }}/>
+                        <FontAwesomeIcon icon='sort-down' style={{ fontSize: '150%' }} className='align-self-center' />
                     </button>
                     <div className='col dropdown-menu dropdown-menu-right container m-0 p-0 pb-1 rounded-0 border-0 background-dark'>
                         {

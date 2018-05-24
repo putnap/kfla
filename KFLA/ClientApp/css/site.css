@@ -168,22 +168,41 @@
     min-height: 100vh;
 }
 
-#react-print {
-    display: none;
-}
-
 @media print {
-    #react-no-print {
+    .react-no-print {
         display: none;
     }
 
-    #react-print {
+    /*#react-print {
+        visibility: visible;
+        overflow: visible;
+    }*/
+
+    .background-light {
+        background: none;
+    }
+
+    .contentContainer {
+        padding: 0;
         display: block;
     }
-}
 
-@page {
-    size: auto;
+    body {
+        -webkit-print-color-adjust: exact;
+    }
+    @page {
+        margin: 2cm 0cm;
+    }
+
+    .btn-floating-container {
+        display: none;
+    }
+
+    .card {
+        display: block;
+        page-break-inside: avoid;
+    }
+
 }
 
 

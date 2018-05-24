@@ -40,7 +40,6 @@
     <None Remove="ClientApp\components\FactorList.tsx" />
     <None Remove="ClientApp\components\Loader.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
-    <None Remove="ClientApp\components\questions\QuestionsPrintTemplate.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsResult.tsx" />
     <None Remove="ClientApp\models\Cluster.tsx" />
     <None Remove="ClientApp\models\Competency.tsx" />
@@ -73,7 +72,6 @@
     <TypeScriptCompile Include="ClientApp\components\EmptyListWarning.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Loader.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsContainer.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\questions\QuestionsPrintTemplate.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Evaluation.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Factor.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Cluster.tsx" />

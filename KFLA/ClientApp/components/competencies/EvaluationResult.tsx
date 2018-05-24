@@ -18,25 +18,11 @@ interface EvaluationResultProps extends RouteComponentProps<{}> {
 @inject("competencyStore")
 @observer
 export class EvaluationResult extends React.Component<EvaluationResultProps, {}> {
-
+    
     constructor(props: EvaluationResultProps) {
         super(props);
 
-        const renderCall = this.renderCompetency;
-        window.matchMedia('print').addListener(() => {
-            if (window.matchMedia('print').matches) {
-                const store = this.props.competencyStore;
-                const factors = store.groupCompetencies(store.evaluatedCompetencies);
-                ReactDOM.render(<section>
-                    <FactorList factors={factors} renderCompetency={renderCall} animate={false} />
-                </section>, document.getElementById('react-print'));
-            }
-            else {
-                var element = document.getElementById('react-print');
-                if (element != null)
-                    ReactDOM.unmountComponentAtNode(element);
-            }
-        });
+        this.renderCompetency = this.renderCompetency.bind(this);
     }
 
     componentDidMount() {
@@ -59,12 +45,13 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
     }
 
     renderCompetency(competency: Competency): JSX.Element {
-        return <div className='row' style={{ color: competency.Evaluation.Color }} >
-            <div className='col-1 text-right'>
+        return <div className='row competencyItem' style={{ color: competency.Evaluation.Color }} >
+            <div className='col-1 text-right p-0'>
                 <span>{competency.ID}.</span>
             </div>
             <div className='col'>
-                <div className='font-weight-bold'>{competency.Name}</div>
+                <FontAwesomeIcon icon={competency.Evaluation.Icon} />
+                <span className='ml-2 font-weight-bold'>{competency.Name}</span>
                 <div>{competency.Description}</div>
             </div>
         </div>;
@@ -74,10 +61,10 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
         const store = this.props.competencyStore;
         const factors = store.groupCompetencies(store.evaluatedCompetencies);
         return <section>
-            <div className='row background-light'>
+            <div className='row background-light react-no-print'>
                 <NavMenu />
             </div>
-            <div className='row background-light contentContainer height-100'>
+            <div className='row background-light contentContainer height-100 px-5'>
                 <div className='col'>
                     {
                         store.evaluationReady ?

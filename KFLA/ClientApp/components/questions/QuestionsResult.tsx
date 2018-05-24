@@ -9,7 +9,6 @@ import { NavMenu } from '../NavMenu';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';
-import { QuestionsPrintTemplate } from './QuestionsPrintTemplate';
 
 interface QuestionsResultProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
@@ -19,19 +18,13 @@ interface QuestionsResultProps extends RouteComponentProps<{}> {
 @observer
 export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
 
-    constructor(props: QuestionsResultProps) {
-        super(props);
-
-        window.matchMedia('print').addListener(() => {
-            if (window.matchMedia('print').matches) {
-                ReactDOM.render(<QuestionsPrintTemplate competencies={this.props.competencyStore.selectedCompetencies} />, document.getElementById('react-print'));
-            }
-            else {
-                var element = document.getElementById('react-print');
-                if (element != null)
-                    ReactDOM.unmountComponentAtNode(element);
-            }
-        });
+    componentDidUpdate() {
+        if (!this.props.competencyStore.questionaireReady) {
+            this.props.competencyStore.resetQuestionaire();
+            setTimeout(() => {
+                this.props.history.push("/questions");
+            }, 1500)
+        }
     }
 
     resetQuestionaire() {
@@ -43,20 +36,11 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
         window.print();
     }
 
-    componentDidUpdate() {
-        if (!this.props.competencyStore.questionaireReady) {
-            this.props.competencyStore.resetQuestionaire();
-            setTimeout(() => {
-                this.props.history.push("/questions");
-            }, 2000)
-        }
-    }
-
     public render() {
         const store = this.props.competencyStore;
 
         return <section>
-            <div className='row background-light'>
+            <div className='row background-light react-no-print'>
                 <NavMenu />
             </div>
             <div className='row background-light contentContainer height-100 px-5'>
@@ -76,7 +60,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                             {
                                                 competency.Questions.map((question, i) => {
                                                     return <div className='row mb-2'>
-                                                        <div className='col-1 align-self-center'>
+                                                        <div className='col-1 align-self-center react-no-print'>
                                                             <label className='check-container'>
                                                                 <input type='checkbox' checked={question.IsSelected} onClick={(e) => question.toggleSelection()} />
                                                                 <span className='checkmark'></span>
@@ -97,7 +81,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                 </div>
             </div>
             <div className='btn-floating-container'>
-                <button onClick={(e) => this.printPage()} className='btn rounded-circle background-dark' title='Print'>
+                <button onClick={(e) => this.printPage()} disabled={!store.questionaireReady} className='btn rounded-circle background-dark' title='Print'>
                     <FontAwesomeIcon icon='print' />
                 </button>
                 <button onClick={(e) => this.resetQuestionaire()} className='btn rounded-circle background-dark' title='Reset'>

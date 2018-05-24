@@ -21,26 +21,30 @@ export class FactorList extends React.Component<FactorListProps> {
 
     public render() {
         const renderCall = this.props.renderCompetency;
-        return <div className='row m-1'>
-            {
-                this.props.factors.map(factor => {
-                    return <div className='col-3 p-1'>
-                        <div className='bg-white p-3 h-100'>
-                            <h3 className='color-dark font-weight-bold mb-2'>{factor.Name}</h3>
-                            {
-                                factor.Clusters.map(cluster => {
-                                    return <div className='mb-4'>
-                                        <h5 className='color-dark font-weight-bold'>{cluster.Name}</h5>
-                                        {
-                                            cluster.Competencies.map(renderCall)
-                                        }
-                                    </div>;
-                                })
-                            }
-                        </div>
-                    </div>;
-                })
-            }
+        return <div className='row'>
+            <div className='col'>
+                {
+                    this.props.factors.map(factor => {
+                        return <div className='card mb-2'>
+                            <div className='card-body'>
+                                <h3 className='card-title color-dark font-weight-bold'>{factor.Name}</h3>
+                                <div className='row m-0'>
+                                    {
+                                        factor.Clusters.map(cluster => {
+                                            return <div className='col'>
+                                                <h5 className='color-dark font-weight-bold'>{cluster.Name}</h5>
+                                                {
+                                                    cluster.Competencies.map(renderCall)
+                                                }
+                                            </div>;
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        </div>;
+                    })
+                }
+            </div>
         </div>
     }
 }
