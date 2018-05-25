@@ -9,6 +9,7 @@ import { NavMenu } from '../NavMenu';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';
+import { Question } from '../../models/Question';
 
 interface QuestionsResultProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
@@ -36,6 +37,13 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
         window.print();
     }
 
+    getQuestionsClass(question: Question): string {
+        let classes = 'row mb-2';
+        if (!question.IsSelected)
+            classes += ' react-no-print';
+        return classes;
+    }
+
     public render() {
         const store = this.props.competencyStore;
 
@@ -59,7 +67,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                             <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>QUESTIONS</span></p>
                                             {
                                                 competency.Questions.map((question, i) => {
-                                                    return <div className='row mb-2'>
+                                                    return <div className={this.getQuestionsClass(question)} >
                                                         <div className='col-1 align-self-center react-no-print'>
                                                             <label className='check-container'>
                                                                 <input type='checkbox' checked={question.IsSelected} onClick={(e) => question.toggleSelection()} />
