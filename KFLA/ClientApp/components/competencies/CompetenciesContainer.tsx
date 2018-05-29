@@ -25,6 +25,7 @@ interface CompetenciesContainerProps extends RouteComponentProps<{}> {
 export class CompetenciesContainer extends React.Component<CompetenciesContainerProps, {}> {
 
     componentDidMount() {
+        document.title = 'Competency assessment';
         const store = this.props.competencyStore;
         if (!store!.isLoaded)
             store!.fetchCompetencies();
@@ -53,14 +54,14 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
                         store!.isLoading ? <Loader text='Loading competencies...' /> : <CompetencyList competencyStore={store!} />
                     }
                 </div>
-            </div>
-            <div className='btn-floating-container'>
-                <button onClick={(e) => this.submitEvaluation()} disabled={!store.evaluationReady} className='btn rounded-circle background-dark' title='Submit'>
-                    <FontAwesomeIcon icon='check' />
-                </button>
-                <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle background-dark' title='Reset'>
-                    <FontAwesomeIcon icon='redo' />
-                </button>
+                <div className='btn-floating-container'>
+                    <button onClick={(e) => this.submitEvaluation()} disabled={!store.evaluationReady} className='btn rounded-circle' title='Submit'>
+                        <FontAwesomeIcon icon='check' />
+                    </button>
+                    <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle' title='Reset'>
+                        <FontAwesomeIcon icon='redo' />
+                    </button>
+                </div>
             </div>
         </section>;
     }

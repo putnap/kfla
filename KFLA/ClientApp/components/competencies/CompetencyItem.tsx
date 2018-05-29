@@ -100,7 +100,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             </div>
                         </div>
                         <div className='card-footer'>
-                            Lorem Ipsum dolor sit amet consecteteur odio non tellus natoque accumsan.
+                            Korn Ferry Leadership Architect™ Global Competency Framework Sort Cards
                         </div>
                         <button type='button' className='btn position-absolute' style={{ background: 'none', top: '50%', right: '5px' }} onClick={(e) => this.flip()}><FontAwesomeIcon icon='angle-right' className='color-dark' style={{ fontSize: '200%' }} /></button>
                     </div>
@@ -122,7 +122,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             </div>
                         </div>
                         <div className='card-footer'>
-                            Lorem Ipsum dolor sit amet consecteteur odio non tellus natoque accumsan.
+                            Korn Ferry Leadership Architect™ Global Competency Framework Sort Cards
                         </div>
                         <button type='button' className='btn position-absolute' style={{ background: 'none', top: '50%', right: '5px' }} onClick={(e) => this.flip()}><FontAwesomeIcon icon='angle-left' className='color-dark' style={{ fontSize: '200%', color: '#FFFFFF' }} /></button>
                     </div>

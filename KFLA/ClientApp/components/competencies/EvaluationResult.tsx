@@ -10,6 +10,7 @@ import { Evaluation } from '../../models/Evaluation';
 import { Factor } from '../../models/Factor';
 import { FactorList } from '../FactorList';
 import { Loader } from '../Loader';
+import { LandscapeOrientation } from '../orientations';
 
 interface EvaluationResultProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
@@ -65,21 +66,23 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
                 <NavMenu />
             </div>
             <div className='row background-light contentContainer height-100 px-5'>
-                <div className='col'>
+                <LandscapeOrientation />
+                <div className='col evaluations'>
+                    <h4 className='pb-3 color-dark react-print'>Competency assesment</h4>
                     {
                         store.evaluationReady ?
                             <FactorList factors={factors} renderCompetency={this.renderCompetency} animate={true} /> :
                             <Loader text='No competencies evaluated. Redirrecting...' />
                     }
                 </div>
-            </div>
-            <div className='btn-floating-container'>
-                <button onClick={(e) => this.printPage()} className='btn rounded-circle background-dark' title='Print'>
-                    <FontAwesomeIcon icon='print' />
-                </button>
-                <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle background-dark' title='Reset'>
-                    <FontAwesomeIcon icon='redo' />
-                </button>
+                <div className='btn-floating-container'>
+                    <button onClick={(e) => this.printPage()} className='btn rounded-circle' title='Print'>
+                        <FontAwesomeIcon icon='print' />
+                    </button>
+                    <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle' title='Reset'>
+                        <FontAwesomeIcon icon='redo' />
+                    </button>
+                </div>
             </div>
         </section>;
     }

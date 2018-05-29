@@ -19,6 +19,7 @@ interface QuestionsContainerProps extends RouteComponentProps<{}> {
 export class QuestionsContainer extends React.Component<QuestionsContainerProps, {}> {
 
     componentDidMount() {
+        document.title = 'Behavior-based questions for interviewer';
         const store = this.props.competencyStore;
         if (!store!.isLoaded)
             store!.fetchCompetencies();
@@ -53,23 +54,23 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
     public render() {
         const store = this.props.competencyStore;
         return <section>
-            <div className='row background-light'>
+            <div className='row background-dark'>
                 <NavMenu />
             </div>
-            <div className='row background-light contentContainer height-100 px-5'>
+            <div className='row background-dark contentContainer height-100 px-5'>
                 <div className='col'>
                     {
                         store!.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
                     }
                 </div>
-            </div>
-            <div className='btn-floating-container'>
-                <button onClick={(e) => this.submitQuestionaire()} disabled={!store.questionaireReady} className='btn rounded-circle background-dark' title='Submit'>
-                    <FontAwesomeIcon icon='check' />
-                </button>
-                <button onClick={(e) => this.resetQuestionaire()} className='btn rounded-circle background-dark' title='Reset'>
-                    <FontAwesomeIcon icon='redo' />
-                </button>
+                <div className='btn-floating-container'>
+                    <button onClick={(e) => this.submitQuestionaire()} disabled={!store.questionaireReady} className='btn rounded-circle background-dark' title='Submit'>
+                        <FontAwesomeIcon icon='check' />
+                    </button>
+                    <button onClick={(e) => this.resetQuestionaire()} className='btn rounded-circle background-dark' title='Reset'>
+                        <FontAwesomeIcon icon='redo' />
+                    </button>
+                </div>
             </div>
         </section>;
         

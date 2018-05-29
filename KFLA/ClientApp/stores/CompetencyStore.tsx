@@ -9,8 +9,8 @@ import { Cluster } from '../models/Cluster';
 let id = 0;
 const DEFAULT_EVALUATIONS: Evaluation[] = [
     new Evaluation(++id, 'SKILLED', 12, '#499E6E', 'plus-circle'),
-    new Evaluation(++id, 'OVERUSED SKILL', 12, '#000000', 'exclamation-circle'),
-    new Evaluation(++id, 'LESS SKILL', 14, '#929292', 'minus-circle')
+    new Evaluation(++id, 'MEDIUM SKILL', 14, '#000000', 'exclamation-circle'),
+    new Evaluation(++id, 'LESS SKILL', 12, '#D34836', 'minus-circle')
 ]
 
 class EvaluationDto {
