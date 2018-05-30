@@ -125,11 +125,8 @@
     margin-top: 35px;
 }
 
-.background-light {
-    background: #D3E5EA;
-}
-
-.background-light .navbar {
+/* background light */
+.background-light, .background-light .navbar {
     background: #D3E5EA;
 }
 
@@ -145,12 +142,17 @@
     color: #9E9E9E;
 }
 
-.background-dark {
+/* background dark */
+.background-dark, .background-dark .navbar {
     background: #5798AC;
 }
 
-.background-dark .navbar {
-    background: #5798AC;
+.background-dark .loader, .background-dark .lds-roller div:after {
+    color: #FFFFFF;
+}
+
+.background-dark .lds-roller div:after {
+    background: #FFFFFF;
 }
 
 .background-dark .nav-link {
@@ -164,6 +166,32 @@
 .background-dark .nav-link:hover, .background-dark .nav-link:focus {
     color: #fff;
 }
+
+/* background lib */
+.background-lib, .background-lib .navbar {
+    background: #C8C8E2;
+}
+
+/*.background-lib .loader, .background-lib .lds-roller div:after {
+    color: #FFFFFF;
+}
+
+.background-lib .lds-roller div:after {
+    background: #FFFFFF;
+}*/
+
+.background-lib .nav-link {
+    color: #B5B5B5;
+}
+
+.background-lib .nav-link.active {
+    color: #666666;
+}
+
+.background-lib .nav-link:hover, .background-lib .nav-link:focus {
+    color: #9E9E9E;
+}
+
 
 .color-dark {
     color: #5798AC;
@@ -239,8 +267,8 @@
 
 }
 
-
-.evaluations {
+.competency-as-button:hover {
+    background: rgba(0, 0, 0, 0.03)
 }
 
 .btn-floating-container {

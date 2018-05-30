@@ -5,14 +5,12 @@ import { observer, inject } from 'mobx-react';
 import HTML5Backend from "react-dnd-html5-backend";
 import { Competency } from '../../models/Competency';
 import { Evaluation } from '../../models/Evaluation';
-import { EmptyListWarning } from '../EmptyListWarning';
 import { CompetencyList } from './CompetencyList';
 import { EvaluationList } from './EvaluationList';
 import { NavMenu } from '../NavMenu';
 import { Loader } from '../Loader';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { PageTitles } from '../../@types/types';
-import { Link } from 'react-router-dom';
 import withDragDropContext from '../withDragDropContext';
 
 interface CompetenciesContainerProps extends RouteComponentProps<{}> {

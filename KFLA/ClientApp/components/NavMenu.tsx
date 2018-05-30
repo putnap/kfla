@@ -8,6 +8,9 @@ export class NavMenu extends React.Component<{}, {}> {
                 <span className='visible-xs navbar-brand'>Home</span>
             </NavLink>
             <div className='navbar-nav'>
+                <NavLink to={'/library'} activeClassName='active' className='nav-item nav-link'>
+                    Library
+                </NavLink>
                 <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link'>
                     Competencies
                 </NavLink>

@@ -30,7 +30,6 @@
     <None Remove="ClientApp\%40types\types.tsx" />
     <None Remove="ClientApp\@types\react-dnd\index.d.ts" />
     <None Remove="ClientApp\CompetencyStore.tsx" />
-    <None Remove="ClientApp\components\Button.tsx" />
     <None Remove="ClientApp\components\CompetenciesContainer.tsx" />
     <None Remove="ClientApp\components\competencies\CompetencyItem.tsx" />
     <None Remove="ClientApp\components\competencies\EvaluationItem.tsx" />
@@ -38,6 +37,8 @@
     <None Remove="ClientApp\components\competencies\EvaluationResult.tsx" />
     <None Remove="ClientApp\components\CompetencyList.tsx" />
     <None Remove="ClientApp\components\FactorList.tsx" />
+    <None Remove="ClientApp\components\library\CompetencyItem.tsx" />
+    <None Remove="ClientApp\components\library\LibraryContainer.tsx" />
     <None Remove="ClientApp\components\Loader.tsx" />
     <None Remove="ClientApp\components\orientations.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
@@ -62,18 +63,18 @@
     <TypeScriptCompile Include="ClientApp\@types\react-dnd\index.d.ts" />
     <TypeScriptCompile Include="ClientApp\@types\types.tsx" />
     <TypeScriptCompile Include="ClientApp\components\FactorList.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\library\CompetencyItem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\library\LibraryContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\orientations.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsResult.tsx" />
     <TypeScriptCompile Include="ClientApp\components\withDragDropContext.tsx" />
     <TypeScriptCompile Include="ClientApp\stores\CompetencyStore.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Button.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetenciesContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetencyItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetencyList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\EvaluationResult.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\EvaluationItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\EvaluationList.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\EmptyListWarning.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Loader.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Evaluation.tsx" />

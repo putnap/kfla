@@ -5,7 +5,6 @@ import { Competency } from '../../models/Competency';
 import { Evaluation } from '../../models/Evaluation';
 import { CompetencyItem } from './CompetencyItem';
 import { CompetencyStore } from '../../stores/CompetencyStore';
-import { EmptyListWarning } from '../EmptyListWarning';
 
 interface CompetencyListProps {
     competencyStore: CompetencyStore

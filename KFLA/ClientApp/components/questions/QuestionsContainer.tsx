@@ -3,7 +3,6 @@ import { RouteComponentProps } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Competency } from '../../models/Competency';
-import { EmptyListWarning } from '../EmptyListWarning';
 import { NavMenu } from '../NavMenu';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Loader } from '../Loader';
