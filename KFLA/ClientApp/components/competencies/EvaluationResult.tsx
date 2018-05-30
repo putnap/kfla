@@ -46,13 +46,13 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
     }
 
     renderCompetency(competency: Competency): JSX.Element {
-        return <div className='row competencyItem' style={{ color: competency.Evaluation.Color }} >
+        return <div className='row competencyItem' >
             <div className='col-1 text-right p-0'>
                 <span>{competency.ID}.</span>
             </div>
             <div className='col'>
-                <FontAwesomeIcon icon={competency.Evaluation.Icon} />
-                <span className='ml-2 font-weight-bold'>{competency.Name}</span>
+                <FontAwesomeIcon icon={competency.Evaluation.Icon} style={{ color: competency.Evaluation.Color }} />
+                <span className='ml-2 font-weight-bold' style={{ color: competency.Evaluation.Color }}>{competency.Name}</span>
                 <div>{competency.Description}</div>
             </div>
         </div>;
@@ -68,7 +68,6 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
             <div className='row background-light contentContainer height-100 px-5'>
                 <LandscapeOrientation />
                 <div className='col evaluations'>
-                    <h4 className='pb-3 color-dark react-print'>Competency assesment</h4>
                     {
                         store.evaluationReady ?
                             <FactorList factors={factors} renderCompetency={this.renderCompetency} animate={true} /> :

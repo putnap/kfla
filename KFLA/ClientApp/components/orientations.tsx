@@ -2,7 +2,7 @@
 
 export const LandscapeOrientation = () => (
     <style type="text/css">
-        {"@media print{@page {size: A4 landscape} html {font-size: 55%}"}
+        {"@media print{@page {size: A4 landscape} html {font-size: 53%}"}
     </style>
 );
 

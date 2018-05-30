@@ -8,9 +8,9 @@ import { Cluster } from '../models/Cluster';
 
 let id = 0;
 const DEFAULT_EVALUATIONS: Evaluation[] = [
-    new Evaluation(++id, 'SKILLED', 12, '#499E6E', 'plus-circle'),
-    new Evaluation(++id, 'MEDIUM SKILL', 14, '#000000', 'exclamation-circle'),
-    new Evaluation(++id, 'LESS SKILL', 12, '#D34836', 'minus-circle')
+    new Evaluation(++id, 'Would describe', 12, '#499E6E', 'plus-circle'),
+    new Evaluation(++id, 'Might describe', 14, '#000000', 'circle'),
+    new Evaluation(++id, 'Would Not describe', 12, '#D34836', 'minus-circle')
 ]
 
 class EvaluationDto {
@@ -110,7 +110,26 @@ export class CompetencyStore {
             if (!cluster.Competencies.some(c => c.ID == competency.ID))
                 cluster.Competencies.push(competency);
         });
-        return factors;
+        
+        factors.forEach(o => o.Clusters = o.Clusters.sort((f1, f2) => {
+            if (f1.Name > f2.Name) {
+                return 1;
+            }
+            if (f1.Name < f2.Name) {
+                return -1;
+            }
+            return 0;
+        }));
+
+        return factors.sort((f1, f2) => {
+            if (f1.Name > f2.Name) {
+                return 1;
+            }
+            if (f1.Name < f2.Name) {
+                return -1;
+            }
+            return 0;
+        });
     }
 }
 

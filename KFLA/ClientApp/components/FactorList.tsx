@@ -26,14 +26,14 @@ export class FactorList extends React.Component<FactorListProps> {
                 this.props.factors.map(factor => {
                     return <div className='col-3 card mb-2'>
                         <div className='card-body'>
-                            <h3 className='card-title color-dark font-weight-bold'>{factor.Name}</h3>
+                            <h3 className='card-title font-weight-bold'>{factor.Name}</h3>
                             {
                                 factor.Clusters.map(cluster => {
                                     return <div className='row mb-3'>
                                         <div className='col'>
-                                            <h5 className='color-dark font-weight-bold'>{cluster.Name}</h5>
+                                            <h5 className='font-weight-bold'>{cluster.Name}</h5>
                                             {
-                                            cluster.Competencies.map(renderCall)
+                                                cluster.Competencies.map(renderCall)
                                             }
                                         </div>
                                     </div>;

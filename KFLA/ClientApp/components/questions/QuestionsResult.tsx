@@ -55,7 +55,6 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
             <div className='row background-dark contentContainer height-100 px-5'>
                 <PortraitOrientation />
                 <div className='col animate-bottom'>
-                    <h4 className='pb-3 color-dark react-print'>Behavior-based questions for interviewer</h4>
                     {
                         store.questionaireReady ?
                             store.selectedCompetencies.map(competency => {
@@ -71,14 +70,14 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                             {
                                                 competency.Questions.map((question, i) => {
                                                     return <div className={this.getQuestionsClass(question)} >
-                                                        <div className='col'>
-                                                            <span className='card-text' style={{ fontSize: '80%' }}>{i + 1}. {question.QuestionContent}</span>
-                                                        </div>
                                                         <div className='col-1 align-self-center react-no-print'>
                                                             <label className='check-container'>
                                                                 <input type='checkbox' checked={question.IsSelected} onClick={(e) => question.toggleSelection()} />
                                                                 <span className='checkmark'></span>
                                                             </label>
+                                                        </div>
+                                                        <div className='col'>
+                                                            <span className='card-text' style={{ fontSize: '80%' }}>{i + 1}. {question.QuestionContent}</span>
                                                         </div>
                                                     </div>
                                                 })

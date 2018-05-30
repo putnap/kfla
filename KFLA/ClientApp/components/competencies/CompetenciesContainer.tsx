@@ -11,7 +11,7 @@ import { EvaluationList } from './EvaluationList';
 import { NavMenu } from '../NavMenu';
 import { Loader } from '../Loader';
 import { CompetencyStore } from '../../stores/CompetencyStore';
-import { Stores } from 'ClientApp/@types/types';
+import { PageTitles } from '../../@types/types';
 import { Link } from 'react-router-dom';
 import withDragDropContext from '../withDragDropContext';
 
@@ -25,7 +25,7 @@ interface CompetenciesContainerProps extends RouteComponentProps<{}> {
 export class CompetenciesContainer extends React.Component<CompetenciesContainerProps, {}> {
 
     componentDidMount() {
-        document.title = 'Competency assessment';
+        document.title = PageTitles.COMPETENCIES;
         const store = this.props.competencyStore;
         if (!store!.isLoaded)
             store!.fetchCompetencies();

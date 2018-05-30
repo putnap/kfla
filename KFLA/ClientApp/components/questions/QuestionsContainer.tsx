@@ -9,6 +9,7 @@ import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';
 import { Factor } from '../../models/Factor';
+import { PageTitles } from '../../@types/types';
 
 interface QuestionsContainerProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
@@ -19,7 +20,7 @@ interface QuestionsContainerProps extends RouteComponentProps<{}> {
 export class QuestionsContainer extends React.Component<QuestionsContainerProps, {}> {
 
     componentDidMount() {
-        document.title = 'Behavior-based questions for interviewer';
+        document.title = PageTitles.QUESTIONS;
         const store = this.props.competencyStore;
         if (!store!.isLoaded)
             store!.fetchCompetencies();
@@ -35,18 +36,18 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
 
     renderCompetency(competency: Competency): JSX.Element {
         return <div className='row'>
+            <div className='col-1 p-0 align-self-center'>
+                <label className='check-container'>
+                    <input type='checkbox' checked={competency.IsSelected} onClick={(e) => competency.toggleSelection()} />
+                    <span className='checkmark'></span>
+                </label>
+            </div>
             <div className='col-1 p-0 text-right'>
                 <span>{competency.ID}.</span>
             </div>
             <div className='col'>
                 <div className='font-weight-bold'>{competency.Name}</div>
                 <div>{competency.Description}</div>
-            </div>
-            <div className='col-1 p-0 align-self-center'>
-                <label className='check-container'>
-                    <input type='checkbox' checked={competency.IsSelected} onClick={(e) => competency.toggleSelection()} />
-                    <span className='checkmark'></span>
-                </label>
             </div>
         </div>;
     }
