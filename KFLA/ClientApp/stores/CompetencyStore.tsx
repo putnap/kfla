@@ -1,6 +1,6 @@
 ﻿import { observable, computed, action, runInAction } from 'mobx';
 import { encode, decode } from 'base-64';
-import { Competency } from '../models/Competency';
+import { Competency, CompetencyJSON } from '../models/Competency';
 import { Evaluation } from '../models/Evaluation';
 import { Factor } from '../models/Factor';
 import { Question } from '../models/Question';
@@ -76,14 +76,14 @@ export class CompetencyStore {
         this.competencies = [];
         this.isLoaded = false;
         this.isLoading = true;
-        fetch('api/Competencies')
+        fetch('api/Competencies/getCompetencies')
             .then((response) => {
                 return response.text();
             })
             .then((data) => {
                 setTimeout(() =>
                     runInAction(() => {
-                        const competenciesJSON: Competency[] = JSON.parse(data);
+                        const competenciesJSON: CompetencyJSON[] = JSON.parse(data);
                         this.competencies = competenciesJSON.map(competencyJSON => Competency.fromJSON(competencyJSON));
                         this.factors = this.groupCompetencies(this.competencies);
                         this.isLoading = false;

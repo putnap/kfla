@@ -6,7 +6,8 @@ namespace KFLA.Contract.Repositories
 {
     public interface ICompetenciesRepository
     {
-        List<CompetencyDto> GetAll();
+        List<CompetencyDto> GetCompetencies();
+        List<StopperDto> GetStoppers();
         void RefreshExcel();
     }
 }

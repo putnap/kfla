@@ -8,6 +8,7 @@ import {
 } from "react-dnd";
 import { render } from 'react-dom';
 import { CompetencyStore } from '../../stores/CompetencyStore';
+import { Skills } from '../../@types/types';
 
 const dragSource: DragSourceSpec<CompetencyItemProps> = {
     beginDrag(props) {
@@ -95,11 +96,11 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             </h4>
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'>{this.props.competency.Description}</p>
-                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='plus-circle' className='color-dark' /><span className='pl-2'>SKILLED</span></p>
+                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='plus-circle' className='color-dark' /><span className='pl-2'>{Skills.SKILLED}</span></p>
                                 <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.Skilled)}</p>
                             </div>
                         </div>
-                        <div className='card-footer'>
+                        <div className='card-footer' style={{ fontSize: '9px' }}>
                             Korn Ferry Leadership Architect™ Global Competency Framework Sort Cards
                         </div>
                         <button type='button' className='btn position-absolute' style={{ background: 'none', top: '50%', right: '5px' }} onClick={(e) => this.flip()}><FontAwesomeIcon icon='angle-right' className='color-dark' style={{ fontSize: '200%' }} /></button>
@@ -112,16 +113,16 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             </h4>
                             <div className='row mr-3'>
                                 <div className='col'>
-                                    <p className='card-text font-weight-bold'><FontAwesomeIcon icon='exclamation-circle' /><span className='pl-2'>OVERUSED SKILL</span></p>
+                                    <p className='card-text font-weight-bold'><FontAwesomeIcon icon='exclamation-circle' /><span className='pl-2'>{Skills.OVERUSED}</span></p>
                                     <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.OverusedSkill)}</p>
                                 </div>
                                 <div className='col'>
-                                    <p className='card-text font-weight-bold'><FontAwesomeIcon icon='minus-circle' /><span className='pl-2'>LESS SKILL</span></p>
+                                    <p className='card-text font-weight-bold'><FontAwesomeIcon icon='minus-circle' /><span className='pl-2'>{Skills.LESS}</span></p>
                                     <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.LessSkilled)}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className='card-footer'>
+                        <div className='card-footer' style={{ fontSize: '9px' }}>
                             Korn Ferry Leadership Architect™ Global Competency Framework Sort Cards
                         </div>
                         <button type='button' className='btn position-absolute' style={{ background: 'none', top: '50%', right: '5px' }} onClick={(e) => this.flip()}><FontAwesomeIcon icon='angle-left' className='color-dark' style={{ fontSize: '200%', color: '#FFFFFF' }} /></button>

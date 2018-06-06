@@ -17,6 +17,8 @@ namespace KFLA.Data
         public DbSet<Cluster> Clusters { get; set; }
         public DbSet<Factor> Factors { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Stopper> Stoppers { get; set; }
+        public DbSet<StopperType> StopperTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -26,6 +28,8 @@ namespace KFLA.Data
             builder.Entity<Cluster>().HasKey(o => o.ID);
             builder.Entity<Factor>().HasKey(o => o.ID);
             builder.Entity<Question>().HasKey(o => o.ID);
+            builder.Entity<Stopper>().HasKey(o => o.ID);
+            builder.Entity<StopperType>().HasKey(o => o.ID);
         }
     }
 }

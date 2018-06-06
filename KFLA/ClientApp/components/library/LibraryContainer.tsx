@@ -9,40 +9,24 @@ import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';
 import { PageTitles } from '../../@types/types';
 import { CompetencyItem } from './CompetencyItem';
+import { StoppersList } from './StoppersList';
+import { CompetencyList } from './CompetencyList';
 
-interface LibraryContainerProps extends RouteComponentProps<{}> {
-    competencyStore?: CompetencyStore
-}
-
-@inject("competencyStore")
 @observer
-export class LibraryContainer extends React.Component<LibraryContainerProps, {}> {
+export class LibraryContainer extends React.Component<RouteComponentProps<{}>, {}> {
 
     componentDidMount() {
         document.title = PageTitles.LIBRARY;
-        const store = this.props.competencyStore;
-        if (!store!.isLoaded)
-            store!.fetchCompetencies();
-    }
-
-    renderCompetency(competency: Competency): JSX.Element {
-        return <CompetencyItem competency={competency} />
     }
 
     public render() {
-        const store = this.props.competencyStore;
-        return <section>
-            <div className='row background-lib'>
-                <NavMenu />
+        return <div className='row background-lib height-100'>
+            <NavMenu />
+            <div className='mx-5 w-100' style={{ padding: '65px 15px 0px 15px' }}>
+                <CompetencyList />
+                <StoppersList />
             </div>
-            <div className='row background-lib contentContainer height-100 px-5'>
-                <div className='col'>
-                    {
-                        store!.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
-                    }
-                </div>
-            </div>
-        </section>;
+        </div>;
         
     }
 }

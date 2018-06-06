@@ -12,7 +12,7 @@ export class EvaluationList extends React.Component<EvaluationListProps, {}> {
 
     render() {
         return (
-            <div className='row pb-2 sticky-top background-light px-5' style={{ top: '72px' }}>
+            <div className='row pb-2 sticky-top background-light' style={{ top: '65px' }}>
                 {
                     this.props.evaluations.map(evaluation => {
                         return <EvaluationItem evaluation={evaluation} key={evaluation.Name}/>

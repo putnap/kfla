@@ -23,10 +23,16 @@ namespace KFLA.API
             this.competenciesService = competenciesService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("getCompetencies")]
+        public IActionResult GetCompetencies()
         {
-            return Json(competenciesService.GetAll());
+            return Json(competenciesService.GetCompetencies());
+        }
+
+        [HttpGet("getStoppers")]
+        public IActionResult GetStoppers()
+        {
+            return Json(competenciesService.GetStoppers());
         }
 
         [HttpGet("refresh")]

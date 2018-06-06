@@ -53,16 +53,12 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
 
     public render() {
         const store = this.props.competencyStore;
-        return <section>
-            <div className='row background-dark'>
-                <NavMenu />
-            </div>
-            <div className='row background-dark contentContainer height-100 px-5'>
-                <div className='col'>
-                    {
-                        store!.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
-                    }
-                </div>
+        return <div className='row background-dark height-100 '>
+            <NavMenu />
+            <div className='mx-5 w-100' style={{ padding: '65px 15px 0px 15px' }}>
+                {
+                    store!.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
+                }
                 <div className='btn-floating-container'>
                     <button onClick={(e) => this.submitQuestionaire()} disabled={!store.questionaireReady} className='btn rounded-circle background-dark' title='Submit'>
                         <FontAwesomeIcon icon='check' />
@@ -72,7 +68,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
                     </button>
                 </div>
             </div>
-        </section>;
-        
+        </div>;
+
     }
 }

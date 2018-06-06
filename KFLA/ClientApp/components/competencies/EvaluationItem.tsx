@@ -63,8 +63,8 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
     render() {
         const store = this.props.competencyStore;
         return this.props.connectDropTarget(
-            <div className='col mx-3 text-dark bg-white' style={{ borderTopLeftRadius: '25px' }}>
-                <div className='row'>
+            <div className='col-4 text-dark'>
+                <div className='row bg-white m-0' style={{ borderTopLeftRadius: '25px', border: '1px solid rgba(0,0,0,.125)' }}>
                     <div className='col align-self-center' style={{ color: this.props.evaluation.Color }}>
                         <FontAwesomeIcon icon={this.props.evaluation.Icon} className='mx-2' />
                         <span className='font-weight-bold text-uppercase'>{this.props.evaluation.Name}</span>

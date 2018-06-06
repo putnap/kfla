@@ -4,7 +4,7 @@ import { Factor, FactorJSON } from "./Factor";
 import { observable, computed, action } from 'mobx';
 import { Evaluation } from "./Evaluation";
 
-interface CompetencyJSON {
+export interface CompetencyJSON {
     ID: number;
     Name: string;
     Description: string;

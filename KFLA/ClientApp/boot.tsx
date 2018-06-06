@@ -9,9 +9,10 @@ import { Provider } from 'mobx-react';
 import * as RoutesModule from './routes';
 import { CompetencyStore } from './stores/CompetencyStore';
 import { Stores } from './@types/types';
+import { StoppersStore } from './stores/StoppersStore';
 
 let routes = RoutesModule.routes;
-let stores: Stores = { competencyStore: new CompetencyStore() };
+let stores: Stores = { competencyStore: new CompetencyStore(), stoppersStore: new StoppersStore() };
 
 function renderApp() {
     // This code starts up the React app when it runs in a browser. It sets up the routing

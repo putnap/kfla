@@ -16,9 +16,14 @@ namespace KFLA.Services.Services
             this.competenciesRepository = competenciesRepository;
         }
 
-        public List<CompetencyDto> GetAll()
+        public List<CompetencyDto> GetCompetencies()
         {
-            return competenciesRepository.GetAll();
+            return competenciesRepository.GetCompetencies();
+        }
+
+        public List<StopperDto> GetStoppers()
+        {
+            return competenciesRepository.GetStoppers();
         }
 
         public void RefreshExcel()

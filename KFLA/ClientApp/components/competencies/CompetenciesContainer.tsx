@@ -41,17 +41,13 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
 
     public render() {
         const store = this.props.competencyStore;
-        return <section>
-            <div className='row background-light'>
-                <NavMenu />
-            </div>
-            <div className='row background-light contentContainer height-100'>
-                <div className='col'>
-                    <EvaluationList evaluations={store!.evaluations} />
-                    {
-                        store!.isLoading ? <Loader text='Loading competencies...' /> : <CompetencyList competencyStore={store!} />
-                    }
-                </div>
+        return <div className='row background-light height-100'>
+            <NavMenu />
+            <div className='contentContainer w-100 mx-5'>
+                <EvaluationList evaluations={store!.evaluations} />
+                {
+                    store!.isLoading ? <Loader text='Loading competencies...' /> : <CompetencyList competencyStore={store!} />
+                }
                 <div className='btn-floating-container'>
                     <button onClick={(e) => this.submitEvaluation()} disabled={!store.evaluationReady} className='btn rounded-circle' title='Submit'>
                         <FontAwesomeIcon icon='check' />
@@ -61,6 +57,6 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
                     </button>
                 </div>
             </div>
-        </section>;
+        </div>;
     }
 }

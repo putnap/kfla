@@ -38,7 +38,10 @@
     <None Remove="ClientApp\components\CompetencyList.tsx" />
     <None Remove="ClientApp\components\FactorList.tsx" />
     <None Remove="ClientApp\components\library\CompetencyItem.tsx" />
+    <None Remove="ClientApp\components\library\CompetencyList.tsx" />
     <None Remove="ClientApp\components\library\LibraryContainer.tsx" />
+    <None Remove="ClientApp\components\library\StopperItem.tsx" />
+    <None Remove="ClientApp\components\library\StoppersList.tsx" />
     <None Remove="ClientApp\components\Loader.tsx" />
     <None Remove="ClientApp\components\orientations.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
@@ -50,6 +53,14 @@
     <None Remove="ClientApp\models\Evaluation.tsx" />
     <None Remove="ClientApp\models\Factor.tsx" />
     <None Remove="ClientApp\models\Question.tsx" />
+    <None Remove="ClientApp\models\Stopper.tsx" />
+    <None Remove="ClientApp\models\StopperType.tsx" />
+    <None Remove="ClientApp\stores\StoppersStore.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\logos\logo-korn-ferry.png" />
+    <Content Include="ClientApp\logos\Logo-Web-Green.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,11 +74,17 @@
     <TypeScriptCompile Include="ClientApp\@types\react-dnd\index.d.ts" />
     <TypeScriptCompile Include="ClientApp\@types\types.tsx" />
     <TypeScriptCompile Include="ClientApp\components\FactorList.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\library\StopperItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\CompetencyItem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\library\StoppersList.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\library\CompetencyList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\LibraryContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\orientations.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsResult.tsx" />
     <TypeScriptCompile Include="ClientApp\components\withDragDropContext.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\StopperType.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\Stopper.tsx" />
+    <TypeScriptCompile Include="ClientApp\stores\StoppersStore.tsx" />
     <TypeScriptCompile Include="ClientApp\stores\CompetencyStore.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetenciesContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetencyItem.tsx" />
@@ -102,6 +119,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\dist\" />
+    <Folder Include="ClientApp\logos\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
