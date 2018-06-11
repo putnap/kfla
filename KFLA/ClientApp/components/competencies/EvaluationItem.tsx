@@ -54,11 +54,12 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
         return (
             <div style={{
                 position: 'absolute',
+                display: 'inline-block',
                 top: 0,
                 left: 0,
                 height: '100%',
                 width: '100%',
-                zIndex: 1,
+                zIndex: 2,
                 opacity: 0.3,
                 backgroundColor: color,
                 borderTopLeftRadius: '25px',
@@ -74,10 +75,7 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
         const store = this.props.competencyStore;
         return this.props.connectDropTarget(
             <div className='col-4 text-dark'>
-                {this.props.isOver && !this.props.canDrop && this.renderOverlay('red')}
-                {!this.props.isOver && this.props.canDrop && this.renderOverlay('yellow')}
-                {this.props.isOver && this.props.canDrop && this.renderOverlay('green')}
-                <div className='row bg-white m-0' style={{ borderTopLeftRadius: '25px', border: '1px solid rgba(0,0,0,.125)' }} >
+                <div className='row m-0 bg-white' style={{ borderTopLeftRadius: '25px', border: '1px solid rgba(0,0,0,.125)', position: 'relative', minHeight: '100%', zIndex: 1 }} >
                     <div className='col align-self-center' style={{ color: this.props.evaluation.Color }} data-toggle='tooltip' title={this.props.evaluation.Tooltip}>
                         <FontAwesomeIcon icon={this.props.evaluation.Icon} className='mx-2' />
                         <span className='font-weight-bold text-uppercase'>{this.props.evaluation.Name}</span>
@@ -105,6 +103,9 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
                             })
                         }
                     </div>
+                    {this.props.isOver && !this.props.canDrop && this.renderOverlay('red')}
+                    {!this.props.isOver && this.props.canDrop && this.renderOverlay('yellow')}
+                    {this.props.isOver && this.props.canDrop && this.renderOverlay('green')}
                 </div>
             </div>
         );

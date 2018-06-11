@@ -1,6 +1,10 @@
 import './css/site.css';
 import 'bootstrap';
 import '@fortawesome/fontawesome-free-solid';
+import 'core-js/es6/array';
+import 'core-js/fn/object/assign';
+import 'core-js/fn/promise';
+import 'whatwg-fetch'
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';

@@ -9,27 +9,27 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
     }
 
     public render() {
-        return <div className='row vertical-center' role='navigation'>
+        return <div className='row' role='navigation'>
             <div className='fixed-top m-3'>
                 <img className='w-25' src={require('../logos/logo-korn-ferry.png')} alt='Korn Ferry' />
             </div>
             <div className='col background-lib'>
-                <div className='row vertical-center'>
-                    <div className='col text-center'>
+                <div className='height-100 d-table mx-auto'>
+                    <div className='d-table-cell align-middle text-center'>
                         <NavLink to={'/library'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={{ fontSize: '300%' }}>{PageTitles.LIBRARY}</NavLink>
                     </div>
                 </div>
             </div>
             <div className='col background-light'>
-                <div className='row vertical-center'>
-                    <div className='col text-center'>
-                        <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={{ fontSize: '300%' }}>{PageTitles.COMPETENCIES}</NavLink>
+                <div className='height-100 d-table'>
+                    <div className='d-table-cell align-middle text-center'>
+                        <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold mx-auto' style={{ fontSize: '300%' }}>{PageTitles.COMPETENCIES}</NavLink>
                     </div>
                 </div>
             </div>
             <div className='col background-dark'>
-                <div className='row vertical-center'>
-                    <div className='col text-center'>
+                <div className='height-100 d-table mx-auto'>
+                    <div className='d-table-cell align-middle text-center'>
                         <NavLink to={'/questions'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={{ fontSize: '300%' }}>Behavior-Based Questions<br />for Interviewer</NavLink>
                     </div>
                 </div>
