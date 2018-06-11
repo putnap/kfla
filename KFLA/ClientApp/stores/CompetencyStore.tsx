@@ -1,5 +1,4 @@
 ﻿import { observable, computed, action, runInAction } from 'mobx';
-import { encode, decode } from 'base-64';
 import { Competency, CompetencyJSON } from '../models/Competency';
 import { Evaluation } from '../models/Evaluation';
 import { Factor } from '../models/Factor';
@@ -8,9 +7,9 @@ import { Cluster } from '../models/Cluster';
 
 let id = 0;
 const DEFAULT_EVALUATIONS: Evaluation[] = [
-    new Evaluation(++id, 'Would describe', 12, '#499E6E', 'plus-circle'),
-    new Evaluation(++id, 'Might describe', 14, '#000000', 'circle'),
-    new Evaluation(++id, 'Would Not describe', 12, '#D34836', 'minus-circle')
+    new Evaluation(++id, 'Would describe', 12, '#007e3a', 'plus-circle', 'This would be true all or the majority of the time'),
+    new Evaluation(++id, 'Might describe', 14, '#000000', 'circle', 'This would be true some of the time or may be a mixture of would and would not describe'),
+    new Evaluation(++id, 'Would Not describe', 12, '#D34836', 'minus-circle', 'This would be seldom or never true')
 ]
 
 class EvaluationDto {

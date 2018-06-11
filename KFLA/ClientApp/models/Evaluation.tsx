@@ -4,18 +4,20 @@ import { IconName } from "@fortawesome/fontawesome-svg-core";
 
 export class Evaluation {
 
-    constructor(id: number, name: string, limit: number, color: string, icon: IconName) {
+    constructor(id: number, name: string, limit: number, color: string, icon: IconName, tooltip: string) {
         this.ID = id;
         this.Name = name;
         this.Limit = limit;
         this.Color = color;
         this.Icon = icon;
+        this.Tooltip = tooltip;
     }
     ID: number;
     Name: string;
     Limit: number;
     Color: string;
     Icon: IconName;
+    Tooltip: string;
     @observable Competencies: Competency[] = [];
     @computed get evaluatedCompetences(): number {
         return this.Competencies.length;

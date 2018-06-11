@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "devDependencies": {
-    "@types/base-64": "^0.1.2",
     "@types/history": "4.6.0",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
@@ -14,7 +13,6 @@
     "aspnet-webpack": "^2.0.3",
     "aspnet-webpack-react": "^3.0.0",
     "awesome-typescript-loader": "3.2.1",
-    "base-64": "^0.1.0",
     "bootstrap": "^4.1.1",
     "css-loader": "0.28.4",
     "event-source-polyfill": "0.0.9",
@@ -42,6 +40,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/fontawesome-svg-core": "^1.2.0-11",
-    "@fortawesome/react-fontawesome": "0.1.0-11"
+    "@fortawesome/react-fontawesome": "0.1.0-11",
+    "@types/bootstrap": "^4.1.0"
   }
 }

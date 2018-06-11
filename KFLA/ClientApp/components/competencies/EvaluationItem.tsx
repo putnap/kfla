@@ -1,4 +1,7 @@
 ﻿import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as Bootstsrap from 'bootstrap';
+import * as jQuery from 'jquery';
 import { observer, inject } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Competency } from '../../models/Competency';
@@ -6,7 +9,6 @@ import { Evaluation } from '../../models/Evaluation';
 import {
     DropTarget, DropTargetSpec, DropTargetCollector, ConnectDropTarget, DropTargetConnector, DropTargetMonitor,
 } from "react-dnd";
-import { render } from 'react-dom';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 
 const squareTarget: DropTargetSpec<EvaluationItemProps> = {
@@ -40,6 +42,14 @@ interface EvaluationItemProps {
 @observer
 export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
 
+    componentDidMount() {
+        jQuery('[data-toggle="tooltip"]').tooltip({ trigger: 'hover', placement: 'auto' });
+    }
+
+    componentDidUpdate() {
+        jQuery('[data-toggle="tooltip"]').tooltip({ trigger: 'hover', placement: 'auto' });
+    }
+
     renderOverlay(color: string) {
         return (
             <div style={{
@@ -64,18 +74,19 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
         const store = this.props.competencyStore;
         return this.props.connectDropTarget(
             <div className='col-4 text-dark'>
-                <div className='row bg-white m-0' style={{ borderTopLeftRadius: '25px', border: '1px solid rgba(0,0,0,.125)' }}>
-                    <div className='col align-self-center' style={{ color: this.props.evaluation.Color }}>
+                {this.props.isOver && !this.props.canDrop && this.renderOverlay('red')}
+                {!this.props.isOver && this.props.canDrop && this.renderOverlay('yellow')}
+                {this.props.isOver && this.props.canDrop && this.renderOverlay('green')}
+                <div className='row bg-white m-0' style={{ borderTopLeftRadius: '25px', border: '1px solid rgba(0,0,0,.125)' }} >
+                    <div className='col align-self-center' style={{ color: this.props.evaluation.Color }} data-toggle='tooltip' title={this.props.evaluation.Tooltip}>
                         <FontAwesomeIcon icon={this.props.evaluation.Icon} className='mx-2' />
                         <span className='font-weight-bold text-uppercase'>{this.props.evaluation.Name}</span>
-                    </div>
-                    <div className='mr-5 align-self-center'>
-                        <span className='font-weight-bold color-dark'>{this.props.evaluation.evaluatedCompetences}/{this.props.evaluation.Limit}</span>
+                        <span className='font-weight-bold color-dark float-right'>{this.props.evaluation.evaluatedCompetences}/{this.props.evaluation.Limit}</span>
                     </div>
                     <button type="button" className='btn dropdown-toggle-split rounded-0 background-dark' style={{ width: '75px', height: '60px' }} data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' disabled={this.props.evaluation.evaluatedCompetences == 0}>
                         <FontAwesomeIcon icon='sort-down' style={{ fontSize: '150%' }} className='align-self-center text-white' />
                     </button>
-                    <div className='col dropdown-menu dropdown-menu-right container m-0 p-0 pb-1 rounded-0 border-0 background-dark'>
+                    <div className='dropdown-menu dropdown-menu-right container m-0 p-0 pb-1 rounded-0 border-0 background-dark'>
                         {
                             this.props.evaluation.Competencies.map(competency => {
                                 return <div className='mt-1' >
@@ -95,9 +106,6 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
                         }
                     </div>
                 </div>
-                {this.props.isOver && !this.props.canDrop && this.renderOverlay('red')}
-                {!this.props.isOver && this.props.canDrop && this.renderOverlay('yellow')}
-                {this.props.isOver && this.props.canDrop && this.renderOverlay('green')}
             </div>
         );
     }
