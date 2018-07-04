@@ -10,6 +10,7 @@ import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';
 import { Factor } from '../../models/Factor';
 import { PageTitles } from '../../@types/types';
+import { VideoModal } from '../VideoModal';
 
 interface QuestionsContainerState {
     loginFailed: boolean
@@ -60,6 +61,10 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
 
     onChange(password: string) {
         this.setState({ loginFailed: false, password: password });
+    }
+
+    showInfo() {
+        jQuery('#questionsVideo').modal();
     }
 
     renderCompetency(competency: Competency): JSX.Element {
@@ -118,6 +123,9 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
                             store!.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
                         }
                         <div className='btn-floating-container'>
+                            <button onClick={(e) => this.showInfo()} className='btn rounded-circle' title='Info'>
+                                <FontAwesomeIcon icon='info' />
+                            </button>
                             <button onClick={(e) => this.submitQuestionaire()} disabled={!store.questionaireReady} className='btn rounded-circle background-dark' title='Submit'>
                                 <FontAwesomeIcon icon='check' />
                             </button>
@@ -125,6 +133,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
                                 <FontAwesomeIcon icon='redo' />
                             </button>
                         </div>
+                        <VideoModal id='questionsVideo' url='Videos/questions.mp4' />
                     </div>
             }
             

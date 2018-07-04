@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as jQuery from 'jquery';
 import { RouteComponentProps } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,6 +40,10 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
         window.print();
     }
 
+    showInfo() {
+        jQuery('#competenciesVideo').modal();
+    }
+
     resetEvaluation() {
         if (window.confirm('Are you sure you wish to reset evaluation?')) {
             this.props.competencyStore.resetEvaluation();
@@ -77,6 +81,9 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
                     }
                 </div>
                 <div className='btn-floating-container'>
+                    <button onClick={(e) => this.showInfo()} className='btn rounded-circle' title='Info'>
+                        <FontAwesomeIcon icon='info' />
+                    </button>
                     <button onClick={(e) => this.printPage()} className='btn rounded-circle' title='Print'>
                         <FontAwesomeIcon icon='print' />
                     </button>

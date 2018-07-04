@@ -24,6 +24,10 @@ export class VideoModal extends React.Component<VideoModalProps, VideoModalState
         })
     }
 
+    componentWillUnmount() {
+        jQuery('#' + this.props.id).modal('hide');
+    }
+
     videoEnded() {
         jQuery('#' + this.props.id).modal('hide');
     }

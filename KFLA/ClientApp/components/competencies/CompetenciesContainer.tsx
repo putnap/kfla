@@ -13,6 +13,7 @@ import { Loader } from '../Loader';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { PageTitles } from '../../@types/types';
 import withDragDropContext from '../withDragDropContext';
+import { VideoModal } from '../VideoModal';
 
 interface CompetenciesContainerProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
@@ -41,6 +42,10 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
         this.props.history.push("/evaluation");
     }
 
+    showInfo() {
+        jQuery('#competenciesVideo').modal();
+    }
+
     public render() {
         const store = this.props.competencyStore;
         return <div className='row background-light height-100'>
@@ -51,6 +56,9 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
                     store!.isLoading ? <Loader text='Loading competencies...' /> : <CompetencyList competencyStore={store!} />
                 }
                 <div className='btn-floating-container'>
+                    <button onClick={(e) => this.showInfo()} className='btn rounded-circle' title='Info'>
+                        <FontAwesomeIcon icon='info' />
+                    </button>
                     <button onClick={(e) => this.submitEvaluation()} disabled={!store.evaluationReady} className='btn rounded-circle' title='Submit'>
                         <FontAwesomeIcon icon='check' />
                     </button>
@@ -58,6 +66,7 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
                         <FontAwesomeIcon icon='redo' />
                     </button>
                 </div>
+                <VideoModal id='competenciesVideo' url='Videos/competencies.mp4' />
             </div>
         </div>;
     }
