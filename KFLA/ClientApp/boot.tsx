@@ -4,6 +4,7 @@ import '@fortawesome/fontawesome-free-solid';
 import 'core-js/es6/array';
 import 'core-js/fn/object/assign';
 import 'core-js/fn/promise';
+import 'core-js/fn/symbol';
 import 'whatwg-fetch'
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';

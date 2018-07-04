@@ -27,7 +27,8 @@ export class CompetencyStore {
     @observable factors: Factor[] = [];
     @observable isLoaded: boolean;
     @observable isLoading: boolean;
-    @observable isSubmitting: boolean;
+    @observable isAuthenticated: boolean;
+    @observable isAuthenticating: boolean;
 
     @computed get uneavluatedCompetencies(): Competency[] {
         return this.competencies.filter(o => !o.IsEvaluated);
@@ -71,7 +72,7 @@ export class CompetencyStore {
         });
     }
 
-    @action fetchCompetencies() { 
+    @action fetchCompetencies() {
         this.competencies = [];
         this.isLoaded = false;
         this.isLoading = true;
@@ -87,8 +88,29 @@ export class CompetencyStore {
                         this.factors = this.groupCompetencies(this.competencies);
                         this.isLoading = false;
                         this.isLoaded = true;
-                }), 1500);
+                    }), 1500);
             });
+    }
+
+    @action login(password: string, failCallback: () => void) {
+        this.isAuthenticated = false;
+        this.isAuthenticating = true;
+        fetch('api/Competencies/login', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(password)
+            })
+            .then((response) => {
+                return response.text();
+            })
+            .then((data) => 
+                setTimeout(() => {
+                    this.isAuthenticating = false;
+                    this.isAuthenticated = JSON.parse(data);
+                    if (!this.isAuthenticated)
+                        failCallback();
+                }, 750)
+            );
     }
 
     @action groupCompetencies(competencies: Competency[]): Factor[] {
@@ -109,7 +131,7 @@ export class CompetencyStore {
             if (!cluster.Competencies.some(c => c.ID == competency.ID))
                 cluster.Competencies.push(competency);
         });
-        
+
         factors.forEach(o => o.Clusters = o.Clusters.sort((f1, f2) => {
             if (f1.Name > f2.Name) {
                 return 1;

@@ -21,7 +21,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
                 </div>
             </div>
             <div className='col background-light'>
-                <div className='height-100 d-table'>
+                <div className='height-100 d-table mx-auto'>
                     <div className='d-table-cell align-middle text-center'>
                         <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold mx-auto' style={{ fontSize: '300%' }}>{PageTitles.COMPETENCIES}</NavLink>
                     </div>
@@ -30,7 +30,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
             <div className='col background-dark'>
                 <div className='height-100 d-table mx-auto'>
                     <div className='d-table-cell align-middle text-center'>
-                        <NavLink to={'/questions'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={{ fontSize: '300%' }}>Behavior-Based Questions<br />for Interviewer</NavLink>
+                        <NavLink to={'/questions'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={{ fontSize: '300%' }}>{PageTitles.QUESTIONS}<br />for Littelfuse Recruiters Only</NavLink>
                     </div>
                 </div>
             </div>

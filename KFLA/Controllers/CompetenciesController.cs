@@ -8,6 +8,7 @@ using KFLA.Contract.Contracts;
 using KFLA.Contract.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace KFLA.API
@@ -17,10 +18,12 @@ namespace KFLA.API
     public class CompetenciesController : Controller
     {
         private readonly ICompetenciesService competenciesService;
+        private readonly IConfiguration configuration;
 
-        public CompetenciesController(ICompetenciesService competenciesService)
+        public CompetenciesController(ICompetenciesService competenciesService, IConfiguration configuration)
         {
             this.competenciesService = competenciesService;
+            this.configuration = configuration;
         }
 
         [HttpGet("getCompetencies")]
@@ -33,6 +36,12 @@ namespace KFLA.API
         public IActionResult GetStoppers()
         {
             return Json(competenciesService.GetStoppers());
+        }
+
+        [HttpPost("login")]
+        public bool Login([FromBody]string password)
+        {
+            return configuration["QuestionairePassword"] == password;
         }
 
         [HttpGet("refresh")]

@@ -41,8 +41,10 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
     }
 
     resetEvaluation() {
-        this.props.competencyStore.resetEvaluation();
-        this.props.history.push("/competencies");
+        if (window.confirm('Are you sure you wish to reset evaluation?')) {
+            this.props.competencyStore.resetEvaluation();
+            this.props.history.push("/competencies");
+        }
     }
 
     renderCompetency(competency: Competency): JSX.Element {

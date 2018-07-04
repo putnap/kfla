@@ -64,7 +64,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                             </div>
                         </div>
                         <div className='modal-footer'>
-                            <span className='w-100' style={{ fontSize: '10px' }}>Korn Ferry Leadership Architect™ Global Competency Framework Sort Cards</span>
+                            <span className='w-100' style={{ fontSize: '10px' }}>© Korn Ferry 2014-2015. All rights reserved.</span>
                             <button type='button' className='btn btn-secondary' data-dismiss='modal'>Close</button>
                         </div>
                     </div>

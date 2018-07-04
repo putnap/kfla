@@ -421,3 +421,17 @@
         opacity: 1
     }
 }
+
+.form-inline .form-loader {
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+.form-loader .lds-roller {
+    transform: scale(0.7);
+    margin-top: -16px;
+}
+
+.form-loader .lds-roller div:after {
+    background: #000000;
+}

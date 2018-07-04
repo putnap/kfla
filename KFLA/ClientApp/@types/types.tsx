@@ -7,7 +7,7 @@ export interface Stores {
 }
 
 export const PageTitles = {
-    QUESTIONS: 'Behavior-Based Questions for Interviewer',
+    QUESTIONS: 'Behavior-Based Questions',
     COMPETENCIES: 'Competency Assessment',
     LIBRARY: 'Competency Library'
 }

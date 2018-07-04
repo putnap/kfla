@@ -1,4 +1,5 @@
 ﻿import * as React from 'react';
+import * as jQuery from 'jquery';
 import { RouteComponentProps } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer, inject } from 'mobx-react';
@@ -32,7 +33,8 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
     }
 
     resetEvaluation() {
-        this.props.competencyStore.resetEvaluation();
+        if (window.confirm('Are you sure you wish to reset evaluation?'))
+            this.props.competencyStore.resetEvaluation();
     }
 
     submitEvaluation() {

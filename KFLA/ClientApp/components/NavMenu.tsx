@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { PageTitles } from '../@types/types';
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
@@ -9,13 +10,13 @@ export class NavMenu extends React.Component<{}, {}> {
             </NavLink>
             <div className='navbar-nav'>
                 <NavLink to={'/library'} activeClassName='active' className='nav-item nav-link'>
-                    Library
+                    {PageTitles.LIBRARY}
                 </NavLink>
                 <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link'>
-                    Competencies
+                    {PageTitles.COMPETENCIES}
                 </NavLink>
                 <NavLink to={'/questions'} activeClassName='active' className='nav-item nav-link'>
-                    Questions
+                    {PageTitles.QUESTIONS}
                 </NavLink>
             </div>
         </div>;
