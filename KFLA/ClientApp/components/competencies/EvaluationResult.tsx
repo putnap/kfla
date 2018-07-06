@@ -11,6 +11,7 @@ import { Factor } from '../../models/Factor';
 import { FactorList } from '../FactorList';
 import { Loader } from '../Loader';
 import { LandscapeOrientation } from '../orientations';
+import { VideoModal } from '../VideoModal';
 
 interface EvaluationResultProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
@@ -91,6 +92,7 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
                         <FontAwesomeIcon icon='redo' />
                     </button>
                 </div>
+                <VideoModal id='competenciesVideo' url='Videos/competencies.mp4' />
             </div>
         </section>;
     }

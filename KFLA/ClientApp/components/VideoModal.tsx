@@ -6,34 +6,23 @@ export interface VideoModalProps {
     url: string;
 }
 
-export interface VideoModalState {
-    playing: boolean;
-}
-
-export class VideoModal extends React.Component<VideoModalProps, VideoModalState> {
-
-
-    constructor(props: VideoModalProps) {
-        super(props);
-        this.state = { playing: false };
-    }
+export class VideoModal extends React.Component<VideoModalProps, {}> {
+    private player: HTMLVideoElement;
 
     componentDidMount() {
         jQuery('#' + this.props.id).on('hidden.bs.modal', () => {
-            this.setState({ playing: false });
-        })
+            this.player.pause();
+        });
+        //jQuery('#' + this.props.id).on('shown.bs.modal', () => {
+        //    if (this.player.currentTime > 0)
+        //        setTimeout(() => {
+        //            this.player.play();
+        //        }, 300);
+        //})
     }
 
     componentWillUnmount() {
         jQuery('#' + this.props.id).modal('hide');
-    }
-
-    videoEnded() {
-        jQuery('#' + this.props.id).modal('hide');
-    }
-
-    videoStarted() {
-        this.setState({ playing: true });
     }
 
     public render() {
@@ -41,6 +30,9 @@ export class VideoModal extends React.Component<VideoModalProps, VideoModalState
             <div className='modal-dialog modal-dialog-centered' role='document'>
                 <div className='modal-content' style={{ width: 'auto' }}>
                     <div className='modal-body'>
+                        <video ref={(ref) => this.player = ref} id='videoPlayer' width='640' height='360' controls>
+                            <source src={this.props.url} type='video/mp4' />
+                        </video>
                     </div>
                     <div className='modal-footer'>
                         <span className='w-100' style={{ fontSize: '10px' }}>© Korn Ferry 2014-2015. All rights reserved.</span>
