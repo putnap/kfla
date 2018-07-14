@@ -73,23 +73,25 @@ export class CompetencyStore {
     }
 
     @action fetchCompetencies() {
-        this.competencies = [];
-        this.isLoaded = false;
-        this.isLoading = true;
-        fetch('api/Competencies/getCompetencies')
-            .then((response) => {
-                return response.text();
-            })
-            .then((data) => {
-                setTimeout(() =>
-                    runInAction(() => {
-                        const competenciesJSON: CompetencyJSON[] = JSON.parse(data);
-                        this.competencies = competenciesJSON.map(competencyJSON => Competency.fromJSON(competencyJSON));
-                        this.factors = this.groupCompetencies(this.competencies);
-                        this.isLoading = false;
-                        this.isLoaded = true;
-                    }), 1500);
-            });
+        if (!this.isLoading) {
+            this.competencies = [];
+            this.isLoaded = false;
+            this.isLoading = true;
+            fetch('api/Competencies/getCompetencies')
+                .then((response) => {
+                    return response.text();
+                })
+                .then((data) => {
+                    setTimeout(() =>
+                        runInAction(() => {
+                            const competenciesJSON: CompetencyJSON[] = JSON.parse(data);
+                            this.competencies = competenciesJSON.map(competencyJSON => Competency.fromJSON(competencyJSON));
+                            this.factors = this.groupCompetencies(this.competencies);
+                            this.isLoading = false;
+                            this.isLoaded = true;
+                        }), 1500);
+                });
+        }
     }
 
     @action login(password: string, failCallback: () => void) {

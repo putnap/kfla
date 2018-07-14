@@ -8,26 +8,24 @@ import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';
 
 interface CompetencyListProps {
-    competencyStore?: CompetencyStore
+    competencies: Competency[];
+    renderCompetency: (competency: Competency) => JSX.Element;
 }
 
-@inject("competencyStore")
 @observer
 export class CompetencyList extends React.Component<CompetencyListProps, {}> {
 
-    componentDidMount() {
-        const store = this.props.competencyStore;
-        if (!store!.isLoaded)
-            store!.fetchCompetencies();
-    }
-
-    renderCompetency(competency: Competency): JSX.Element {
-        return <CompetencyItem competency={competency} />
-    }
-
     render() {
-        const store = this.props.competencyStore!;
-        return store.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
+        return <div className='row card mb-2'>
+            <div className='col card-body row'>
+                {
+                    this.props.competencies.map(competency => {
+                        return <div className='col-3'>
+                            {this.props.renderCompetency(competency)}
+                        </div>;
+                    })
+                }
+            </div>
+        </div>
     }
-
 }

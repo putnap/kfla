@@ -8,24 +8,26 @@ export class StoppersStore {
     @observable isLoaded: boolean;
     @observable isLoading: boolean;
 
-    @action fetchStoppers() { 
-        this.stoppers = [];
-        this.stopperTypes = [];
-        this.isLoaded = false;
-        this.isLoading = true;
-        fetch('api/Competencies/getStoppers')
-            .then((response) => {
-                return response.text();
-            })
-            .then((data) => {
+    @action fetchStoppers() {
+        if (!this.isLoading) {
+            this.stoppers = [];
+            this.stopperTypes = [];
+            this.isLoaded = false;
+            this.isLoading = true;
+            fetch('api/Competencies/getStoppers')
+                .then((response) => {
+                    return response.text();
+                })
+                .then((data) => {
                     runInAction(() => {
                         const stoppersJSON: StopperJSON[] = JSON.parse(data);
                         this.stoppers = stoppersJSON.map(stopperJSON => Stopper.fromJSON(stopperJSON));
                         this.stopperTypes = this.groupStoppers(this.stoppers);
                         this.isLoading = false;
                         this.isLoaded = true;
+                    });
                 });
-            });
+        }
     }
 
     @action groupStoppers(stoppers: Stopper[]): StopperType[] {
