@@ -12,16 +12,16 @@ interface FactorListProps {
 @observer
 export class FactorList extends React.Component<FactorListProps> {
     getClassNames() {
-        var classes = 'row m-1';
+        var classes = 'row';
         if (this.props.animate)
-            classes += 'animate-bottom';
+            classes += ' animate-bottom';
 
         return classes;
     }
 
     public render() {
         const renderCall = this.props.renderCompetency;
-        return <div className='row'>
+        return <div className={this.getClassNames()} >
             {
                 this.props.factors.map(factor => {
                     return <div className='col-3 card mb-2'>

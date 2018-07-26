@@ -27,6 +27,7 @@ namespace KFLA.Data.Repositories
                 cfg.CreateMap<Cluster, ClusterDto>();
                 cfg.CreateMap<Stopper, StopperDto>();
                 cfg.CreateMap<StopperType, StopperTypeDto>();
+                cfg.CreateMap<StopperQuestion, StopperQuestionDto>();
             });
         }
 
@@ -49,17 +50,16 @@ namespace KFLA.Data.Repositories
         {
             return dbContext.Stoppers
                 .Include(o => o.StopperType)
+                .Include(o => o.Questions)
                 .Select(o => AutoMapper.Mapper.Map<StopperDto>(o))
                 .ToList();
         }
 
         public void RefreshExcel()
         {
-            dbContext.Questions.RemoveRange(dbContext.Questions);
             dbContext.Competencies.RemoveRange(dbContext.Competencies);
             dbContext.Clusters.RemoveRange(dbContext.Clusters);
             dbContext.Factors.RemoveRange(dbContext.Factors);
-            dbContext.StopperTypes.RemoveRange(dbContext.StopperTypes);
             dbContext.Stoppers.RemoveRange(dbContext.Stoppers);
 
             dbContext.SaveChanges();
@@ -123,7 +123,16 @@ namespace KFLA.Data.Repositories
                     Problem = (string)row[3],
                     NotProblem = (string)row[4],
                     StopperType = stopperType,
+                    Questions = new List<StopperQuestion>(),
                 };
+
+                for (var i = 5; i < row.ItemArray.Count(); i++)
+                {
+                    if (row[i] is string value && !string.IsNullOrEmpty(value))
+                        stopper.Questions.Add(new StopperQuestion() { QuestionContent = value });
+                    else
+                        break;
+                }
 
                 yield return stopper;
             }
@@ -137,7 +146,7 @@ namespace KFLA.Data.Repositories
                 tbl.Columns.Add(hasHeader ? firstRowCell.Text : string.Format("Column {0}", firstRowCell.Start.Column));
             }
             var startRow = hasHeader ? 2 : 1;
-            for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
+            for (var rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
             {
                 var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
                 var row = tbl.Rows.Add();
@@ -178,7 +187,7 @@ namespace KFLA.Data.Repositories
                     Questions = new List<Question>()
                 };
 
-                for (int i = 9; i < row.ItemArray.Count(); i++)
+                for (var i = 9; i < row.ItemArray.Count(); i++)
                 {
                     if (row[i] is string value && !string.IsNullOrEmpty(value))
                         competency.Questions.Add(new Question() { QuestionContent = value });
@@ -187,75 +196,6 @@ namespace KFLA.Data.Repositories
                 }
 
                 yield return competency;
-            }
-        }
-
-
-        private static IEnumerable<Competency> GetCompetencies(string path, bool hasHeader = true)
-        {
-            using (var pck = new ExcelPackage())
-            {
-                using (var stream = File.OpenRead(path))
-                    pck.Load(stream);
-
-                var ws = pck.Workbook.Worksheets.First();
-                var tbl = new DataTable();
-                foreach (var firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
-                {
-                    tbl.Columns.Add(hasHeader ? firstRowCell.Text : string.Format("Column {0}", firstRowCell.Start.Column));
-                }
-                var startRow = hasHeader ? 2 : 1;
-                for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
-                {
-                    var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
-                    var row = tbl.Rows.Add();
-                    foreach (var cell in wsRow)
-                    {
-                        row[cell.Start.Column - 1] = cell.Text;
-                    }
-                }
-
-                var clusters = new List<Cluster>();
-                var factors = new List<Factor>();
-                foreach (DataRow row in tbl.Rows)
-                {
-                    var cluster = clusters.FirstOrDefault(o => o.Name == (string)row[4]);
-                    if (cluster == null)
-                    {
-                        cluster = new Cluster() { Name = (string)row[4] };
-                        clusters.Add(cluster);
-                    }
-                    var factor = factors.FirstOrDefault(o => o.Name == (string)row[3]);
-                    if (factor == null)
-                    {
-                        factor = new Factor() { Name = (string)row[3] };
-                        factors.Add(factor);
-                    }
-
-                    var competency = new Competency()
-                    {
-                        ID = int.Parse((string)row[0]),
-                        Name = (string)row[1],
-                        Description = (string)row[2],
-                        LessSkilled = (string)row[5],
-                        Skilled = (string)row[6],
-                        Talented = (string)row[7],
-                        OverusedSkill = (string)row[8],
-                        Factor = factor,
-                        Cluster = cluster,
-                        Questions = new List<Question>()
-                    };
-
-                    for (int i = 9; i < row.ItemArray.Count(); i++)
-                    {
-                        if (row[i] is string value && !string.IsNullOrEmpty(value))
-                            competency.Questions.Add(new Question() { QuestionContent = value });
-                        else
-                            break;
-                    }
-
-                    yield return competency;
-                }
             }
         }
     }

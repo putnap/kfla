@@ -10,18 +10,21 @@ import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';
 import { Question } from '../../models/Question';
 import { PortraitOrientation } from '../orientations';
+import { StoppersStore } from '../../stores/StoppersStore';
 
 interface QuestionsResultProps extends RouteComponentProps<{}> {
+    stoppersStore?: StoppersStore
     competencyStore?: CompetencyStore
 }
 
-@inject("competencyStore")
+@inject("stoppersStore", "competencyStore")
 @observer
 export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
 
     componentDidUpdate() {
-        if (!this.props.competencyStore.questionaireReady) {
+        if (!this.props.competencyStore.questionaireReady && !this.props.stoppersStore.questionaireReady) {
             this.props.competencyStore.resetQuestionaire();
+            this.props.stoppersStore.resetQuestionaire();
             setTimeout(() => {
                 this.props.history.push("/questions");
             }, 1500)
@@ -30,6 +33,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
 
     resetQuestionaire() {
         this.props.competencyStore.resetQuestionaire();
+        this.props.stoppersStore.resetQuestionaire();
         this.props.history.push("/questions");
     }
 
@@ -45,7 +49,9 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
     }
 
     public render() {
-        const store = this.props.competencyStore;
+        const stoppersStore = this.props.stoppersStore!;
+        const competencyStore = this.props.competencyStore!;
+        const questionaireReady = stoppersStore.questionaireReady || competencyStore.questionaireReady;
 
         return <section>
             <div className='row background-dark react-no-print'>
@@ -55,46 +61,81 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                 <PortraitOrientation />
                 <div className='col animate-bottom'>
                     {
-                        store.questionaireReady ?
-                            store.selectedCompetencies.map(competency => {
-                                return <div className='card radius-0 mb-2'>
-                                    <div className='card-body'>
-                                        <h4 className='card-title pb-1 border-bottom border-dark'>
-                                            <span>{competency.ID}.</span>
-                                            <span className='pl-3 color-dark'>{competency.Name}</span>
-                                        </h4>
-                                        <div className='mr-3'>
-                                            <p className='card-text font-weight-bold'>{competency.Description}</p>
-                                            <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>QUESTIONS</span></p>
-                                            {
-                                                competency.Questions.map((question, i) => {
-                                                    return <div className={this.getQuestionsClass(question)} >
-                                                        <div className='col-1 align-self-center react-no-print'>
-                                                            <label className='check-container'>
-                                                                <input type='checkbox' checked={question.IsSelected} onClick={(e) => question.toggleSelection()} />
-                                                                <span className='checkmark'></span>
-                                                            </label>
+                        questionaireReady ?
+                            [
+                                competencyStore.selectedCompetencies.map(competency => {
+                                    return <div className='card radius-0 mb-2'>
+                                        <div className='card-body'>
+                                            <h4 className='card-title pb-1 border-bottom border-dark'>
+                                                <span>{competency.ID}.</span>
+                                                <span className='pl-3 color-dark'>{competency.Name}</span>
+                                            </h4>
+                                            <div className='mr-3'>
+                                                <p className='card-text font-weight-bold'>{competency.Description}</p>
+                                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>QUESTIONS</span></p>
+                                                {
+                                                    competency.Questions.map((question, i) => {
+                                                        return <div className={this.getQuestionsClass(question)} >
+                                                            <div className='col-1 align-self-center react-no-print'>
+                                                                <label className='check-container'>
+                                                                    <input type='checkbox' checked={question.IsSelected} onClick={(e) => question.toggleSelection()} />
+                                                                    <span className='checkmark'></span>
+                                                                </label>
+                                                            </div>
+                                                            <div className='col'>
+                                                                <span className='card-text' style={{ fontSize: '80%' }}>{i + 1}. {question.QuestionContent}</span>
+                                                            </div>
                                                         </div>
-                                                        <div className='col'>
-                                                            <span className='card-text' style={{ fontSize: '80%' }}>{i + 1}. {question.QuestionContent}</span>
-                                                        </div>
-                                                    </div>
-                                                })
-                                            }
-                                        </div>
-                                        <div className='react-print'>
-                                            <p className='card-text font-weight-bold'>Notes:</p>
-                                            <hr className='dotted' />
-                                            <hr className='dotted' />
+                                                    })
+                                                }
+                                            </div>
+                                            <div className='react-print'>
+                                                <p className='card-text font-weight-bold'>Notes:</p>
+                                                <hr className='dotted' />
+                                                <hr className='dotted' />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            }) :
-                            <Loader text='No competencies selected. Redirrecting...' />
+                                }),
+                                stoppersStore.selectedStoppers.map(stopper => {
+                                    return <div className='card radius-0 mb-2'>
+                                        <div className='card-body'>
+                                            <h4 className='card-title pb-1 border-bottom border-dark'>
+                                                <span>{stopper.ID}.</span>
+                                                <span className='pl-3 color-dark'>{stopper.Name}</span>
+                                            </h4>
+                                            <div className='mr-3'>
+                                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>QUESTIONS</span></p>
+                                                {
+                                                    stopper.Questions.map((question, i) => {
+                                                        return <div className={this.getQuestionsClass(question)} >
+                                                            <div className='col-1 align-self-center react-no-print'>
+                                                                <label className='check-container'>
+                                                                    <input type='checkbox' checked={question.IsSelected} onClick={(e) => question.toggleSelection()} />
+                                                                    <span className='checkmark'></span>
+                                                                </label>
+                                                            </div>
+                                                            <div className='col'>
+                                                                <span className='card-text' style={{ fontSize: '80%' }}>{i + 1}. {question.QuestionContent}</span>
+                                                            </div>
+                                                        </div>
+                                                    })
+                                                }
+                                            </div>
+                                            <div className='react-print'>
+                                                <p className='card-text font-weight-bold'>Notes:</p>
+                                                <hr className='dotted' />
+                                                <hr className='dotted' />
+                                            </div>
+                                        </div>
+                                    </div>
+                                })
+                            ] :
+                            <Loader text='No competencies or stoppers selected. Redirrecting...' />
                     }
                 </div>
                 <div className='btn-floating-container'>
-                    <button onClick={(e) => this.printPage()} disabled={!store.questionaireReady} className='btn rounded-circle' title='Print'>
+                    <button onClick={(e) => this.printPage()} disabled={!questionaireReady} className='btn rounded-circle' title='Print'>
                         <FontAwesomeIcon icon='print' />
                     </button>
                     <button onClick={(e) => this.resetQuestionaire()} className='btn rounded-circle' title='Reset'>

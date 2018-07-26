@@ -1,12 +1,14 @@
 ﻿import * as React from 'react';
 import { render } from 'react-dom';
 import { observer, inject } from 'mobx-react';
-import { Loader } from '../Loader';
-import { StoppersStore } from '../../stores/StoppersStore';
-import { StopperItem } from './StopperItem';
+import { Loader } from './Loader';
+import { StoppersStore } from '../stores/StoppersStore';
+import { Stopper } from '../models/Stopper';
 
 interface StoppersListProps {
     stoppersStore?: StoppersStore
+    renderStopper: (stopper: Stopper) => JSX.Element;
+    animate: boolean;
 }
 
 @inject("stoppersStore")
@@ -19,11 +21,19 @@ export class StoppersList extends React.Component<StoppersListProps, {}> {
             store!.fetchStoppers();
     }
 
+    getClassNames() {
+        var classes = 'row';
+        if (this.props.animate)
+            classes += ' animate-bottom';
+
+        return classes;
+    }
+
     render() {
         const store = this.props.stoppersStore!;
         return store.isLoading ? <Loader text='Loading stoppers...' />
             :
-            (<div className='row'>
+            (<div className={this.getClassNames()} >
                 <div className='card bg-light w-100'>
                     <div className='card-body'>
                         <h4 className='font-weight-bold'>CAREER STALLERS AND STOPPERS</h4>
@@ -34,7 +44,7 @@ export class StoppersList extends React.Component<StoppersListProps, {}> {
                                         <h5 className='font-weight-bold'>{stopperType.Name}</h5>
                                         {
                                             stopperType.Stoppers.map(stopper => {
-                                                return <StopperItem stopper={stopper} />;
+                                                return this.props.renderStopper(stopper);
                                             })
                                         }
                                     </div>;

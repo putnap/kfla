@@ -44,8 +44,10 @@
     <None Remove="ClientApp\components\library\StoppersList.tsx" />
     <None Remove="ClientApp\components\Loader.tsx" />
     <None Remove="ClientApp\components\orientations.tsx" />
+    <None Remove="ClientApp\components\questions\CompetencyItem.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsResult.tsx" />
+    <None Remove="ClientApp\components\questions\StopperItem.tsx" />
     <None Remove="ClientApp\components\withDragDropContext.tsx" />
     <None Remove="ClientApp\models\Cluster.tsx" />
     <None Remove="ClientApp\models\Competency.tsx" />
@@ -76,7 +78,9 @@
     <TypeScriptCompile Include="ClientApp\components\FactorList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\StopperItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\CompetencyItem.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\library\StoppersList.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\questions\CompetencyItem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\questions\StopperItem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\StoppersList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\CompetencyList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\LibraryContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\orientations.tsx" />

@@ -13,5 +13,6 @@ namespace KFLA.Data.Models
         public int StopperTypeID { get; set; }
 
         public StopperType StopperType { get; set; }
+        public List<StopperQuestion> Questions { get; set; }
     }
 }

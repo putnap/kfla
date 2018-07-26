@@ -35,7 +35,8 @@ namespace KFLA.API
         [HttpGet("getStoppers")]
         public IActionResult GetStoppers()
         {
-            return Json(competenciesService.GetStoppers());
+            var result = competenciesService.GetStoppers();
+            return Json(result);
         }
 
         [HttpPost("login")]

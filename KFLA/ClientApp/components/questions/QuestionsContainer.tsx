@@ -11,6 +11,11 @@ import { FactorList } from '../FactorList';
 import { Factor } from '../../models/Factor';
 import { PageTitles } from '../../@types/types';
 import { VideoModal } from '../VideoModal';
+import { StoppersList } from '../StoppersList';
+import { Stopper } from '../../models/Stopper';
+import { StopperItem } from './StopperItem';
+import { CompetencyItem } from './CompetencyItem';
+import { StoppersStore } from '../../stores/StoppersStore';
 
 interface QuestionsContainerState {
     loginFailed: boolean
@@ -18,10 +23,11 @@ interface QuestionsContainerState {
 }
 
 interface QuestionsContainerProps extends RouteComponentProps<{}> {
+    stoppersStore?: StoppersStore
     competencyStore?: CompetencyStore
 }
 
-@inject("competencyStore")
+@inject("stoppersStore", "competencyStore")
 @observer
 export class QuestionsContainer extends React.Component<QuestionsContainerProps, QuestionsContainerState> {
 
@@ -68,21 +74,11 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
     }
 
     renderCompetency(competency: Competency): JSX.Element {
-        return <div className='row'>
-            <div className='col-1 p-0 align-self-center'>
-                <label className='check-container'>
-                    <input type='checkbox' checked={competency.IsSelected} onClick={(e) => competency.toggleSelection()} />
-                    <span className='checkmark'></span>
-                </label>
-            </div>
-            <div className='col-1 p-0 text-right'>
-                <span>{competency.ID}.</span>
-            </div>
-            <div className='col'>
-                <div className='font-weight-bold'>{competency.Name}</div>
-                <div>{competency.Description}</div>
-            </div>
-        </div>;
+        return <CompetencyItem competency={competency} />;
+    }
+
+    renderStopper(stopper: Stopper): JSX.Element {
+        return <StopperItem stopper={stopper} />;
     }
 
     public render() {
@@ -122,11 +118,12 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
                         {
                             store!.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
                         }
+                        <StoppersList animate={true} renderStopper={this.renderStopper} />
                         <div className='btn-floating-container'>
                             <button onClick={(e) => this.showInfo()} className='btn rounded-circle' title='Info'>
                                 <FontAwesomeIcon icon='info' />
                             </button>
-                            <button onClick={(e) => this.submitQuestionaire()} disabled={!store.questionaireReady} className='btn rounded-circle background-dark' title='Submit'>
+                            <button onClick={(e) => this.submitQuestionaire()} disabled={!store.questionaireReady && !this.props.stoppersStore.questionaireReady} className='btn rounded-circle background-dark' title='Submit'>
                                 <FontAwesomeIcon icon='check' />
                             </button>
                             <button onClick={(e) => this.resetQuestionaire()} className='btn rounded-circle background-dark' title='Reset'>

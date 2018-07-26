@@ -13,5 +13,6 @@ namespace KFLA.Contract
         public int StopperTypeID { get; set; }
 
         public StopperTypeDto StopperType { get; set; }
+        public List<StopperQuestionDto> Questions { get; set; }
     }
 }

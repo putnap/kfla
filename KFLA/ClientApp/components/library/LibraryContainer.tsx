@@ -10,9 +10,11 @@ import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';
 import { PageTitles } from '../../@types/types';
 import { CompetencyItem } from './CompetencyItem';
-import { StoppersList } from './StoppersList';
+import { StoppersList } from '../StoppersList';
 import { CompetencyList } from './CompetencyList';
 import { VideoModal } from '../VideoModal';
+import { StopperItem } from './StopperItem';
+import { Stopper } from '../../models/Stopper';
 
 interface LibraryContainerProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
@@ -53,6 +55,10 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
         this.setState({ numericSort: !this.state.numericSort });
     }
 
+    renderStopper(stopper: Stopper): JSX.Element {
+        return <StopperItem stopper={stopper} />
+    }
+
     public render() {
         const store = this.props.competencyStore!;
         return <div className='row background-lib height-100'>
@@ -65,7 +71,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
                             <CompetencyList competencies={store.competencies} renderCompetency={this.renderCompetency} /> :
                             <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
                 }
-                <StoppersList />
+                <StoppersList animate={true} renderStopper={this.renderStopper} />
                 <div className='btn-floating-container'>
                     <button onClick={(e) => this.changeSort()} className='btn rounded-circle' title='Sort by Competency number' hidden={this.state.numericSort}>
                         <FontAwesomeIcon icon='sort-numeric-down' />

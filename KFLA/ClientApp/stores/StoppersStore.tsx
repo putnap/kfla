@@ -8,6 +8,21 @@ export class StoppersStore {
     @observable isLoaded: boolean;
     @observable isLoading: boolean;
 
+    @computed get selectedStoppers(): Stopper[] {
+        return this.stoppers.filter(o => o.IsSelected && o.selectedQuestions.length);
+    }
+
+    @computed get questionaireReady(): boolean {
+        return this.selectedStoppers.length > 0;
+    }
+
+    @action resetQuestionaire() {
+        this.stoppers.forEach(o => {
+            o.Questions.map(q => q.IsSelected = true);
+            o.IsSelected = false;
+        });
+    }
+
     @action fetchStoppers() {
         if (!this.isLoading) {
             this.stoppers = [];

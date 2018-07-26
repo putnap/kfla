@@ -19,6 +19,7 @@ namespace KFLA.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<Stopper> Stoppers { get; set; }
         public DbSet<StopperType> StopperTypes { get; set; }
+        public DbSet<StopperQuestion> StopperQuestions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,6 +31,7 @@ namespace KFLA.Data
             builder.Entity<Question>().HasKey(o => o.ID);
             builder.Entity<Stopper>().HasKey(o => o.ID);
             builder.Entity<StopperType>().HasKey(o => o.ID);
+            builder.Entity<StopperQuestion>().HasKey(o => o.ID);
         }
     }
 }

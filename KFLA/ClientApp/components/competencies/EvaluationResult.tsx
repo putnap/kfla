@@ -77,7 +77,21 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
                 <div className='col evaluations'>
                     {
                         store.evaluationReady ?
-                            <FactorList factors={factors} renderCompetency={this.renderCompetency} animate={true} /> :
+                            <div style={{ position: 'relative' }}>
+                                <FactorList factors={factors} renderCompetency={this.renderCompetency} animate={true} />
+                                <div style={{ position: 'absolute', bottom: '25px' }}>
+                                    <span className='font-weight-bold'>Legend:</span>
+                                    {
+                                        store.evaluations.map(evaluation => {
+                                            return <div className='align-self-center my-2' style={{ color: evaluation.Color }} data-toggle='tooltip' title={evaluation.Tooltip}>
+                                                <FontAwesomeIcon icon={evaluation.Icon} className='mx-2' />
+                                                <span className='font-weight-bold text-uppercase'>{evaluation.Name}</span>
+                                            </div>
+                                        })
+                                    }
+                                </div>
+                            </div>
+                            :
                             <Loader text='No competencies evaluated. Redirrecting...' />
                     }
                 </div>
