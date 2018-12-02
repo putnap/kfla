@@ -24,7 +24,7 @@ export class FactorList extends React.Component<FactorListProps> {
         return <div className={this.getClassNames()} >
             {
                 this.props.factors.map(factor => {
-                    return <div className='col-3 card mb-2'>
+                    return <div className='col-sm-12 col-md-6 col-xl-3 card mb-2'>
                         <div className='card-body'>
                             <h3 className='card-title font-weight-bold'>{factor.Name}</h3>
                             {

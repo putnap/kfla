@@ -40,7 +40,7 @@ export class StoppersList extends React.Component<StoppersListProps, {}> {
                         <div className='row'>
                             {
                                 store.stopperTypes.map(stopperType => {
-                                    return <div className='col-4 mb-2'>
+                                    return <div className='col-lg-12 col-xl-4 mb-2'>
                                         <h5 className='font-weight-bold'>{stopperType.Name}</h5>
                                         {
                                             stopperType.Stoppers.map(stopper => {

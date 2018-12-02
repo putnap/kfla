@@ -87,7 +87,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
             <NavMenu />
             {
                 !store!.isAuthenticated ?
-                    <div className='mx-5 w-100' style={{ padding: '65px 15px 0px 15px' }}>
+                    <div className='mx-5 w-100 main-content'>
                         <div className='card mx-auto mt-5' style={{ width: '450px' }}>
                             <div className='card-body'>
                                 <h5 className='card-title'>Password is required to continue</h5>
@@ -114,7 +114,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
                         </div>
                     </div>
                     :
-                    <div className='mx-5 w-100' style={{ padding: '65px 15px 0px 15px' }}>
+                    <div className='mx-5 w-100 main-content'>
                         {
                             store!.isLoading ? <Loader text='Loading competencies...' /> : <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
                         }

@@ -63,7 +63,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
         const store = this.props.competencyStore!;
         return <div className='row background-lib height-100'>
             <NavMenu />
-            <div className='mx-5 w-100' style={{ padding: '65px 15px 0px 15px' }}>
+            <div className='mx-5 w-100 main-content'>
                 {
                     store.isLoading ?
                         <Loader text='Loading competencies...' /> :
