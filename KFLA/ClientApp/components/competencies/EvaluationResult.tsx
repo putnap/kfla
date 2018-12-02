@@ -106,7 +106,7 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
                         <FontAwesomeIcon icon='redo' />
                     </button>
                 </div>
-                <VideoModal id='competenciesVideo' url='Videos/competencies.mp4' />
+                <VideoModal id='competenciesVideo' videoId='Videos/competencies.mp4' />
             </div>
         </section>;
     }

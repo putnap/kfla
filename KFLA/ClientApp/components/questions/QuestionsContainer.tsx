@@ -130,7 +130,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
                                 <FontAwesomeIcon icon='redo' />
                             </button>
                         </div>
-                        <VideoModal id='questionsVideo' url='Videos/questions.mp4' />
+                        <VideoModal id='questionsVideo' videoId='F7Dv7Oxo4rc' />
                     </div>
             }
             

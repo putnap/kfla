@@ -83,7 +83,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
                         <FontAwesomeIcon icon='info' />
                     </button>
                 </div>
-                <VideoModal id='libraryVideo' url='Videos/library.mp4' />
+                <VideoModal id='libraryVideo' videoId='XINbgbwJ0PQ' />
             </div>
         </div>;
         

@@ -126,12 +126,6 @@
     <Folder Include="ClientApp\logos\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\Videos\competencies.mp4" />
-    <None Include="wwwroot\Videos\library.mp4" />
-    <None Include="wwwroot\Videos\questions.mp4" />
-  </ItemGroup>
-
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

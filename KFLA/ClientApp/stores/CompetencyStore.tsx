@@ -27,7 +27,7 @@ export class CompetencyStore {
     @observable factors: Factor[] = [];
     @observable isLoaded: boolean;
     @observable isLoading: boolean;
-    @observable isAuthenticated: boolean;
+    @observable isAuthenticated: boolean = true;
     @observable isAuthenticating: boolean;
 
     @computed get uneavluatedCompetencies(): Competency[] {

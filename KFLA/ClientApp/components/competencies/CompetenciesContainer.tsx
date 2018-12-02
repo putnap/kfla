@@ -66,7 +66,7 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
                         <FontAwesomeIcon icon='redo' />
                     </button>
                 </div>
-                <VideoModal id='competenciesVideo' url='Videos/competencies.mp4' />
+                <VideoModal id='competenciesVideo' videoId='2yT0gqnKb-A' />
             </div>
         </div>;
     }
