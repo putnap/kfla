@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KFLA.Contract;
-using KFLA.Contract.Contracts;
-using KFLA.Contract.Services;
-using Microsoft.AspNetCore.Http;
+﻿using KFLA.Contract.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
 namespace KFLA.API
 {
     [Produces("application/json")]
-    [Route("api/competencies")]
+    [Route("api")]
     public class CompetenciesController : Controller
     {
         private readonly ICompetenciesService competenciesService;
@@ -26,29 +17,37 @@ namespace KFLA.API
             this.configuration = configuration;
         }
 
-        [HttpGet("getCompetencies")]
-        public IActionResult GetCompetencies()
+        [HttpGet("competencies")]
+        public IActionResult GetCompetencies([FromHeader(Name = "Accept-Language")] string language)
         {
-            return Json(competenciesService.GetCompetencies());
+            return Ok(competenciesService.GetCompetencies(language));
         }
 
-        [HttpGet("getStoppers")]
-        public IActionResult GetStoppers()
+        [HttpGet("stoppers")]
+        public IActionResult GetStoppers([FromHeader(Name = "Accept-Language")] string language)
         {
-            var result = competenciesService.GetStoppers();
-            return Json(result);
+            return Ok(competenciesService.GetStoppers(language));
+        }
+
+        [HttpGet("strings")]
+        public IActionResult GetStrings([FromHeader(Name = "Accept-Language")] string language)
+        {
+            return Ok(competenciesService.GetStrings(language));
+        }
+
+        [HttpGet("evaluations")]
+        public IActionResult GetEvaluations([FromHeader(Name = "Accept-Language")] string language)
+        {
+            return Ok(competenciesService.GetEvaluations(language));
         }
 
         [HttpPost("login")]
-        public bool Login([FromBody]string password)
+        public IActionResult Login([FromBody]string password)
         {
-            return configuration["QuestionairePassword"] == password;
-        }
+            if (configuration["QuestionairePassword"] == password)
+                return Ok();
 
-        [HttpGet("refresh")]
-        public void Refresh()
-        {
-            competenciesService.RefreshExcel();
+            return Unauthorized();
         }
     }
 }

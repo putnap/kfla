@@ -2,13 +2,9 @@
 import { Competency } from '../../models/Competency';
 import { observer, inject } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Evaluation } from '../../models/Evaluation';
-import {
-    DragSource, DragSourceConnector, DragSourceMonitor, ConnectDragSource, DragSourceSpec, DragSourceCollector
-} from "react-dnd";
-import { render } from 'react-dom';
+import { DragSource, ConnectDragSource, DragSourceSpec, DragSourceCollector } from "react-dnd";
 import { CompetencyStore } from '../../stores/CompetencyStore';
-import { Skills } from '../../@types/types';
+import { LocalizationStore } from '../../stores/LocalizationStore';
 
 const dragSource: DragSourceSpec<CompetencyItemProps> = {
     beginDrag(props) {
@@ -27,9 +23,10 @@ const dragCollect: DragSourceCollector = (connect, monitor) => {
 
 interface CompetencyItemProps {
     competency: Competency;
-    competencyStore?: CompetencyStore;
     connectDragSource?: ConnectDragSource;
     isDragging?: boolean;
+    competencyStore?: CompetencyStore;
+    localizationStore?: LocalizationStore;
 }
 
 interface CompetencyItemState {
@@ -37,7 +34,7 @@ interface CompetencyItemState {
     cardHeight?: number;
 }
 
-@inject("competencyStore")
+@inject("competencyStore", "localizationStore")
 @DragSource("Competency", dragSource, dragCollect)
 @observer
 export class CompetencyItem extends React.Component<CompetencyItemProps, CompetencyItemState> {
@@ -96,12 +93,12 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             </h4>
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'>{this.props.competency.Description}</p>
-                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='plus-circle' className='color-dark' /><span className='pl-2'>{Skills.SKILLED}</span></p>
+                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='plus-circle' className='color-dark' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.SKILLED')}</span></p>
                                 <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.Skilled)}</p>
                             </div>
                         </div>
                         <div className='card-footer' style={{ fontSize: '9px' }}>
-                            Korn Ferry Leadership Architect™ Global Competency Framework Sort Cards
+                            {this.props.localizationStore.getString('CompetencyItem.Cards')}
                         </div>
                         <button type='button' className='btn position-absolute' style={{ background: 'none', top: '50%', right: '5px' }} onClick={(e) => this.flip()}><FontAwesomeIcon icon='angle-right' className='color-dark' style={{ fontSize: '200%' }} /></button>
                     </div>
@@ -113,17 +110,17 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             </h4>
                             <div className='row mr-3'>
                                 <div className='col'>
-                                    <p className='card-text font-weight-bold'><FontAwesomeIcon icon='exclamation-circle' /><span className='pl-2'>{Skills.OVERUSED}</span></p>
+                                    <p className='card-text font-weight-bold'><FontAwesomeIcon icon='exclamation-circle' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.OVERUSED')}</span></p>
                                     <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.OverusedSkill)}</p>
                                 </div>
                                 <div className='col'>
-                                    <p className='card-text font-weight-bold'><FontAwesomeIcon icon='minus-circle' /><span className='pl-2'>{Skills.LESS}</span></p>
+                                    <p className='card-text font-weight-bold'><FontAwesomeIcon icon='minus-circle' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.LESS')}</span></p>
                                     <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.LessSkilled)}</p>
                                 </div>
                             </div>
                         </div>
                         <div className='card-footer' style={{ fontSize: '9px' }}>
-                            Korn Ferry Leadership Architect™ Global Competency Framework Sort Cards
+                            {this.props.localizationStore.getString('CompetencyItem.Cards')}
                         </div>
                         <button type='button' className='btn position-absolute' style={{ background: 'none', top: '50%', right: '5px' }} onClick={(e) => this.flip()}><FontAwesomeIcon icon='angle-left' className='color-dark' style={{ fontSize: '200%', color: '#FFFFFF' }} /></button>
                     </div>

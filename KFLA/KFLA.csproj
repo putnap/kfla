@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,9 +54,11 @@
     <None Remove="ClientApp\models\DragData.tsx" />
     <None Remove="ClientApp\models\Evaluation.tsx" />
     <None Remove="ClientApp\models\Factor.tsx" />
+    <None Remove="ClientApp\models\LocalizedString.tsx" />
     <None Remove="ClientApp\models\Question.tsx" />
     <None Remove="ClientApp\models\Stopper.tsx" />
     <None Remove="ClientApp\models\StopperType.tsx" />
+    <None Remove="ClientApp\stores\LocalizationStore.tsx" />
     <None Remove="ClientApp\stores\StoppersStore.tsx" />
   </ItemGroup>
 
@@ -67,7 +69,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KFLA.Contract\KFLA.Contract.csproj" />
-    <ProjectReference Include="..\KFLA.Data\KFLA.Data.csproj" />
     <ProjectReference Include="..\KFLA.Services\KFLA.Services.csproj" />
   </ItemGroup>
 
@@ -86,8 +87,10 @@
     <TypeScriptCompile Include="ClientApp\components\orientations.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsResult.tsx" />
     <TypeScriptCompile Include="ClientApp\components\withDragDropContext.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\LocalizedString.tsx" />
     <TypeScriptCompile Include="ClientApp\models\StopperType.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Stopper.tsx" />
+    <TypeScriptCompile Include="ClientApp\stores\LocalizationStore.tsx" />
     <TypeScriptCompile Include="ClientApp\stores\StoppersStore.tsx" />
     <TypeScriptCompile Include="ClientApp\stores\CompetencyStore.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competencies\CompetenciesContainer.tsx" />
@@ -116,14 +119,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="data.xlsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Folder Include="wwwroot\dist\" />
+    <Folder Include="ClientApp\logos\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\dist\" />
-    <Folder Include="ClientApp\logos\" />
+    <None Update="data.lt.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data.en.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

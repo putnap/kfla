@@ -1,12 +1,15 @@
 ﻿import * as React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { render } from 'react-dom';
 import { Stopper } from '../../models/Stopper';
+import { observer, inject } from 'mobx-react';
+import { LocalizationStore } from '../../stores/LocalizationStore';
 
 interface StopperItemProps {
     stopper: Stopper;
+    localizationStore?: LocalizationStore;
 }
 
+@inject("localizationStore")
+@observer
 export class StopperItem extends React.Component<StopperItemProps, {}> {
 
     splitStringToList(text: string) {
@@ -42,15 +45,15 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
                         </div>
                         <div className='modal-body'>
                             <div className='mr-3'>
-                                <p className='card-text font-weight-bold'><span className='pl-2'>PROBLEM</span></p>
+                                <p className='card-text font-weight-bold'><span className='pl-2'>{this.props.localizationStore.getString('StopperItem.Problem')}</span></p>
                                 <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.stopper.Problem)}</p>
-                                <p className='card-text font-weight-bold'><span className='pl-2'>NOT A PROBLEM</span></p>
+                                <p className='card-text font-weight-bold'><span className='pl-2'>{this.props.localizationStore.getString('StopperItem.NotAProblem')}</span></p>
                                 <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.stopper.NotProblem)}</p>
                             </div>
                         </div>
                         <div className='modal-footer'>
-                            <span className='w-100' style={{ fontSize: '10px' }}>© Korn Ferry 2014-2015. All rights reserved.</span>
-                            <button type='button' className='btn btn-secondary' data-dismiss='modal'>Close</button>
+                            <span className='w-100' style={{ fontSize: '10px' }}>{this.props.localizationStore.getString('RightsReserved')}</span>
+                            <button type='button' className='btn btn-secondary' data-dismiss='modal'>{this.props.localizationStore.getString('Buttons.Close')}</button>
                         </div>
                     </div>
                 </div>

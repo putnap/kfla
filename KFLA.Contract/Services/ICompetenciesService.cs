@@ -6,8 +6,9 @@ namespace KFLA.Contract.Services
 {
     public interface ICompetenciesService
     {
-        List<CompetencyDto> GetCompetencies();
-        List<StopperDto> GetStoppers();
-        void RefreshExcel();
+        List<LocalizedStringDto> GetStrings(string language);
+        List<CompetencyDto> GetCompetencies(string language);
+        List<StopperDto> GetStoppers(string language);
+        List<EvaluationDto> GetEvaluations(string language);
     }
 }

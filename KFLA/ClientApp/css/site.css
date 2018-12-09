@@ -180,6 +180,24 @@
     color: #fff;
 }
 
+.lang, .lang .btn {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.lang .btn {
+    padding: 0px;
+    margin: 10px;
+    background: none;
+}
+
+.lang .btn.active {
+    color: #fff;
+}
+
+.lang .btn:hover, .background-dark .btn:focus {
+    color: #fff;
+}
+
 /* background lib */
 .background-lib, .background-lib .navbar {
     background: #C8C8E2;

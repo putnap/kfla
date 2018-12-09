@@ -11,13 +11,15 @@ import { FactorList } from '../FactorList';
 import { Question } from '../../models/Question';
 import { PortraitOrientation } from '../orientations';
 import { StoppersStore } from '../../stores/StoppersStore';
+import { LocalizationStore } from '../../stores/LocalizationStore';
 
 interface QuestionsResultProps extends RouteComponentProps<{}> {
     stoppersStore?: StoppersStore
     competencyStore?: CompetencyStore
+    localizationStore?: LocalizationStore
 }
 
-@inject("stoppersStore", "competencyStore")
+@inject("stoppersStore", "competencyStore", "localizationStore")
 @observer
 export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
 
@@ -72,7 +74,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                             </h4>
                                             <div className='mr-3'>
                                                 <p className='card-text font-weight-bold'>{competency.Description}</p>
-                                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>QUESTIONS</span></p>
+                                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>{this.props.localizationStore.getString('QuestionsResult.Questions')}</span></p>
                                                 {
                                                     competency.Questions.map((question, i) => {
                                                         return <div className={this.getQuestionsClass(question)} >
@@ -90,7 +92,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                                 }
                                             </div>
                                             <div className='react-print'>
-                                                <p className='card-text font-weight-bold'>Notes:</p>
+                                                <p className='card-text font-weight-bold'>{this.props.localizationStore.getString('QuestionsResult.Notes')}:</p>
                                                 <hr className='dotted' />
                                                 <hr className='dotted' />
                                             </div>
@@ -105,7 +107,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                                 <span className='pl-3 color-dark'>{stopper.Name}</span>
                                             </h4>
                                             <div className='mr-3'>
-                                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>QUESTIONS</span></p>
+                                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>{this.props.localizationStore.getString('QuestionsResult.Questions')}</span></p>
                                                 {
                                                     stopper.Questions.map((question, i) => {
                                                         return <div className={this.getQuestionsClass(question)} >
@@ -123,7 +125,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                                 }
                                             </div>
                                             <div className='react-print'>
-                                                <p className='card-text font-weight-bold'>Notes:</p>
+                                                <p className='card-text font-weight-bold'>{this.props.localizationStore.getString('QuestionsResult.Notes')}:</p>
                                                 <hr className='dotted' />
                                                 <hr className='dotted' />
                                             </div>
@@ -131,14 +133,14 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                     </div>
                                 })
                             ] :
-                            <Loader text='No competencies or stoppers selected. Redirrecting...' />
+                            <Loader text={this.props.localizationStore.getString('QuestionsResult.Empty')} />
                     }
                 </div>
                 <div className='btn-floating-container'>
-                    <button onClick={(e) => this.printPage()} disabled={!questionaireReady} className='btn rounded-circle' title='Print'>
+                    <button onClick={(e) => this.printPage()} disabled={!questionaireReady} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Print')}>
                         <FontAwesomeIcon icon='print' />
                     </button>
-                    <button onClick={(e) => this.resetQuestionaire()} className='btn rounded-circle' title='Reset'>
+                    <button onClick={(e) => this.resetQuestionaire()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Reset')}>
                         <FontAwesomeIcon icon='redo' />
                     </button>
                 </div>

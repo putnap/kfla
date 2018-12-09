@@ -8,23 +8,24 @@ import { NavMenu } from '../NavMenu';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';
-import { PageTitles } from '../../@types/types';
 import { CompetencyItem } from './CompetencyItem';
 import { StoppersList } from '../StoppersList';
 import { CompetencyList } from './CompetencyList';
 import { VideoModal } from '../VideoModal';
 import { StopperItem } from './StopperItem';
 import { Stopper } from '../../models/Stopper';
+import { LocalizationStore } from '../../stores/LocalizationStore';
 
 interface LibraryContainerProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
+    localizationStore?: LocalizationStore;
 }
 
 interface LibraryContainerState {
     numericSort: boolean
 }
 
-@inject("competencyStore")
+@inject("competencyStore", "localizationStore")
 @observer
 export class LibraryContainer extends React.Component<LibraryContainerProps, LibraryContainerState> {
 
@@ -37,7 +38,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
     }      
 
     componentDidMount() {
-        document.title = PageTitles.LIBRARY;
+        document.title = this.props.localizationStore.getString('PageTitles.LIBRARY');
         const store = this.props.competencyStore;
         if (!store!.isLoaded)
             store!.fetchCompetencies();
@@ -66,20 +67,20 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
             <div className='mx-5 w-100 main-content'>
                 {
                     store.isLoading ?
-                        <Loader text='Loading competencies...' /> :
+                        <Loader text={this.props.localizationStore.getString('Library.Loading')} /> :
                         this.state.numericSort ?
                             <CompetencyList competencies={store.competencies} renderCompetency={this.renderCompetency} /> :
                             <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
                 }
                 <StoppersList animate={true} renderStopper={this.renderStopper} />
                 <div className='btn-floating-container'>
-                    <button onClick={(e) => this.changeSort()} className='btn rounded-circle' title='Sort by Competency number' hidden={this.state.numericSort}>
+                    <button onClick={(e) => this.changeSort()} className='btn rounded-circle' title={this.props.localizationStore.getString('Library.SortByNumber')} hidden={this.state.numericSort}>
                         <FontAwesomeIcon icon='sort-numeric-down' />
                     </button>
-                    <button onClick={(e) => this.changeSort()} className='btn rounded-circle' title='Sort by Factors and Clusters' hidden={!this.state.numericSort}>
+                    <button onClick={(e) => this.changeSort()} className='btn rounded-circle' title={this.props.localizationStore.getString('Library.SortByFactors')} hidden={!this.state.numericSort}>
                         <FontAwesomeIcon icon='sort-amount-down' />
                     </button>
-                    <button onClick={(e) => this.showInfo()} className='btn rounded-circle' title='Info'>
+                    <button onClick={(e) => this.showInfo()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Info')}>
                         <FontAwesomeIcon icon='info' />
                     </button>
                 </div>

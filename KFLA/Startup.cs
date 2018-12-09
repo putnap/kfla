@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using KFLA.Contract.Repositories;
 using KFLA.Contract.Services;
-using KFLA.Data;
-using KFLA.Data.Repositories;
 using KFLA.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,9 +26,6 @@ namespace KFLA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<KFLADBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddScoped<ICompetenciesRepository, CompetenciesRepository>();
             services.AddScoped<ICompetenciesService, CompetenciesService>();
 
             services.AddMvc().AddJsonOptions(options =>
@@ -41,9 +35,8 @@ namespace KFLA
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, KFLADBContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            context.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

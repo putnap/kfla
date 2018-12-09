@@ -1,14 +1,15 @@
 ﻿import * as React from 'react';
 import { Competency } from '../../models/Competency';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { render } from 'react-dom';
-import { Skills } from '../../@types/types';
+import { LocalizationStore } from '../../stores/LocalizationStore';
 
 interface CompetencyItemProps {
     competency: Competency;
+    localizationStore?: LocalizationStore;
 }
 
+@inject("localizationStore")
 @observer
 export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
 
@@ -47,25 +48,25 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                         <div className='modal-body'>
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'>{this.props.competency.Description}</p>
-                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='plus-circle' /><span className='pl-2'>{Skills.SKILLED}</span></p>
+                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='plus-circle' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.SKILLED')}</span></p>
                                 <p className='card-text font-weight-bold' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.Skilled)}</p>
                                 <div className='row'>
                                     <div className='col'>
-                                        <p className='card-text font-weight-bold'><FontAwesomeIcon icon='minus-circle' /><span className='pl-2'>{Skills.LESS}</span></p>
+                                        <p className='card-text font-weight-bold'><FontAwesomeIcon icon='minus-circle' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.LESS')}</span></p>
                                         <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.LessSkilled)}</p>
                                     </div>
                                     <div className='col'>
-                                        <p className='card-text font-weight-bold'><FontAwesomeIcon icon='gem' /><span className='pl-2'>{Skills.TALENTED}</span></p>
+                                        <p className='card-text font-weight-bold'><FontAwesomeIcon icon='gem' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.TALENTED')}</span></p>
                                         <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.Talented)}</p>
                                     </div>
                                 </div>
-                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='exclamation-circle' /><span className='pl-2'>{Skills.OVERUSED}</span></p>
+                                <p className='card-text font-weight-bold'><FontAwesomeIcon icon='exclamation-circle' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.OVERUSED')}</span></p>
                                 <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.OverusedSkill)}</p>
                             </div>
                         </div>
                         <div className='modal-footer'>
-                            <span className='w-100' style={{ fontSize: '10px' }}>© Korn Ferry 2014-2015. All rights reserved.</span>
-                            <button type='button' className='btn btn-secondary' data-dismiss='modal'>Close</button>
+                            <span className='w-100' style={{ fontSize: '10px' }}>{this.props.localizationStore.getString('RightsReserved')}</span>
+                            <button type='button' className='btn btn-secondary' data-dismiss='modal'>{this.props.localizationStore.getString('Buttons.Close')}</button>
                         </div>
                     </div>
                 </div>

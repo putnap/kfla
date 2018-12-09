@@ -15,9 +15,11 @@ import * as RoutesModule from './routes';
 import { CompetencyStore } from './stores/CompetencyStore';
 import { Stores } from './@types/types';
 import { StoppersStore } from './stores/StoppersStore';
+import { LocalizationStore } from './stores/LocalizationStore';
 
 let routes = RoutesModule.routes;
-let stores: Stores = { competencyStore: new CompetencyStore(), stoppersStore: new StoppersStore() };
+const localizationStore = new LocalizationStore('en');
+const stores: Stores = { competencyStore: new CompetencyStore(localizationStore), stoppersStore: new StoppersStore(localizationStore), localizationStore: localizationStore };
 
 function renderApp() {
     // This code starts up the React app when it runs in a browser. It sets up the routing

@@ -1,28 +1,23 @@
-﻿import { observable, computed, action, runInAction } from 'mobx';
+﻿import { observable, computed, action, runInAction, autorun } from 'mobx';
 import { Competency, CompetencyJSON } from '../models/Competency';
-import { Evaluation } from '../models/Evaluation';
+import { Evaluation, EvaluationJSON } from '../models/Evaluation';
 import { Factor } from '../models/Factor';
-import { Question } from '../models/Question';
 import { Cluster } from '../models/Cluster';
-
-let id = 0;
-const DEFAULT_EVALUATIONS: Evaluation[] = [
-    new Evaluation(++id, 'Would describe', 12, '#007e3a', 'plus-circle', 'This would be true all or the majority of the time'),
-    new Evaluation(++id, 'Might describe', 14, '#000000', 'circle', 'This would be true some of the time or may be a mixture of would and would not describe'),
-    new Evaluation(++id, 'Would Not describe', 12, '#D34836', 'minus-circle', 'This would be seldom or never true')
-]
-
-class EvaluationDto {
-    constructor(evalID: number, competencies: number[]) {
-        this.ID = evalID;
-        this.Competencies = competencies;
-    }
-    ID: number;
-    Competencies: number[];
-}
+import { LocalizationStore } from './LocalizationStore';
 
 export class CompetencyStore {
-    @observable evaluations: Evaluation[] = DEFAULT_EVALUATIONS;
+    localizationStore: LocalizationStore;
+
+    constructor(localizationStore: LocalizationStore) {
+        this.localizationStore = localizationStore;
+
+        autorun(() => {
+            this.fetchLocalizedEvalutions(this.localizationStore.language);
+            this.fetchLocalizedCompetencies(this.localizationStore.language);
+        });
+    }
+
+    @observable evaluations: Evaluation[] = [];
     @observable competencies: Competency[] = [];
     @observable factors: Factor[] = [];
     @observable isLoaded: boolean;
@@ -72,12 +67,39 @@ export class CompetencyStore {
         });
     }
 
+    @action fetchEvaluations() {
+        this.fetchLocalizedEvalutions(this.localizationStore.language);
+    }
+
+    @action fetchLocalizedEvalutions(lang: string) {
+        if (!this.isLoading) {
+            fetch('api/evaluations', {
+                    headers: { 'Accept-Language': lang },
+                })
+                .then((response) => {
+                    return response.text();
+                })
+                .then((data) => {
+                    runInAction(() => {
+                        const evaluationsJSON: EvaluationJSON[] = JSON.parse(data);
+                        this.evaluations = evaluationsJSON.map(evaluationJSON => Evaluation.fromJSON(evaluationJSON));
+                    })
+                });
+        }
+    }
+
     @action fetchCompetencies() {
+        this.fetchLocalizedCompetencies(this.localizationStore.language);
+    }
+
+    @action fetchLocalizedCompetencies(lang: string) {
         if (!this.isLoading) {
             this.competencies = [];
             this.isLoaded = false;
             this.isLoading = true;
-            fetch('api/Competencies/getCompetencies')
+            fetch('api/competencies', {
+                    headers: { 'Accept-Language': lang },
+                })
                 .then((response) => {
                     return response.text();
                 })
@@ -97,18 +119,15 @@ export class CompetencyStore {
     @action login(password: string, failCallback: () => void) {
         this.isAuthenticated = false;
         this.isAuthenticating = true;
-        fetch('api/Competencies/login', {
+        fetch('api/login', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(password)
             })
-            .then((response) => {
-                return response.text();
-            })
-            .then((data) => 
+            .then((response) => 
                 setTimeout(() => {
                     this.isAuthenticating = false;
-                    this.isAuthenticated = JSON.parse(data);
+                    this.isAuthenticated = response.status == 200;
                     if (!this.isAuthenticated)
                         failCallback();
                 }, 750)

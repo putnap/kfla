@@ -4,14 +4,16 @@ import { observer, inject } from 'mobx-react';
 import { Loader } from './Loader';
 import { StoppersStore } from '../stores/StoppersStore';
 import { Stopper } from '../models/Stopper';
+import { LocalizationStore } from 'ClientApp/stores/LocalizationStore';
 
 interface StoppersListProps {
-    stoppersStore?: StoppersStore
+    stoppersStore?: StoppersStore;
+    localizationStore?: LocalizationStore;
     renderStopper: (stopper: Stopper) => JSX.Element;
     animate: boolean;
 }
 
-@inject("stoppersStore")
+@inject("stoppersStore", "localizationStore")
 @observer
 export class StoppersList extends React.Component<StoppersListProps, {}> {
 
@@ -31,12 +33,12 @@ export class StoppersList extends React.Component<StoppersListProps, {}> {
 
     render() {
         const store = this.props.stoppersStore!;
-        return store.isLoading ? <Loader text='Loading stoppers...' />
+        return store.isLoading ? <Loader text={this.props.localizationStore.getString("Stoppers.Loading")} />
             :
             (<div className={this.getClassNames()} >
                 <div className='card bg-light w-100'>
                     <div className='card-body'>
-                        <h4 className='font-weight-bold'>CAREER STALLERS AND STOPPERS</h4>
+                        <h4 className='font-weight-bold'>{this.props.localizationStore.getString("Stoppers.Title")}</h4>
                         <div className='row'>
                             {
                                 store.stopperTypes.map(stopperType => {

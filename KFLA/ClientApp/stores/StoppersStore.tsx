@@ -1,8 +1,18 @@
-﻿import { observable, computed, action, runInAction } from 'mobx';
+﻿import { observable, computed, action, runInAction, autorun } from 'mobx';
 import { Stopper, StopperJSON } from '../models/Stopper';
 import { StopperType } from '../models/StopperType';
+import { LocalizationStore } from './LocalizationStore';
 
 export class StoppersStore {
+
+    localizationStore: LocalizationStore;
+
+    constructor(localizationStore: LocalizationStore) {
+        this.localizationStore = localizationStore;
+
+        autorun(() => this.fetchLocalizedStoppers(this.localizationStore.language));
+    }
+
     @observable stoppers: Stopper[] = [];
     @observable stopperTypes: StopperType[] = [];
     @observable isLoaded: boolean;
@@ -24,12 +34,18 @@ export class StoppersStore {
     }
 
     @action fetchStoppers() {
+        this.fetchLocalizedStoppers(this.localizationStore.language);
+    }
+
+    @action fetchLocalizedStoppers(lang: string) {
         if (!this.isLoading) {
             this.stoppers = [];
             this.stopperTypes = [];
             this.isLoaded = false;
             this.isLoading = true;
-            fetch('api/Competencies/getStoppers')
+            fetch('api/stoppers', {
+                    headers: { 'Accept-Language': lang },
+                })
                 .then((response) => {
                     return response.text();
                 })

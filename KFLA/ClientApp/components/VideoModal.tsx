@@ -1,16 +1,21 @@
 ﻿import * as React from 'react';
 import * as jQuery from 'jquery';
 import YouTube from 'react-youtube';
+import { inject, observer } from 'mobx-react';
+import { LocalizationStore } from '../stores/LocalizationStore';
 
 export interface VideoModalProps {
     id: string;
     videoId: string;
+    localizationStore?: LocalizationStore;
 }
 
 export interface VideoModalState {
     player: any;
 }
 
+@inject("localizationStore")
+@observer
 export class VideoModal extends React.Component<VideoModalProps, VideoModalState> {
 
     constructor(props: VideoModalProps) {
@@ -59,7 +64,7 @@ export class VideoModal extends React.Component<VideoModalProps, VideoModalState
                         />
                     </div>
                     <div className='modal-footer'>
-                        <span className='w-100' style={{ fontSize: '10px' }}>© Korn Ferry 2014-2015. All rights reserved.</span>
+                        <span className='w-100' style={{ fontSize: '10px' }}>{this.props.localizationStore.getString('RightsReserved')}</span>
                         <button type='button' className='btn btn-secondary' data-dismiss='modal'>Close</button>
                     </div>
                 </div>

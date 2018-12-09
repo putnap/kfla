@@ -6,18 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavMenu } from '../NavMenu';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Competency } from '../../models/Competency';
-import { Evaluation } from '../../models/Evaluation';
-import { Factor } from '../../models/Factor';
 import { FactorList } from '../FactorList';
 import { Loader } from '../Loader';
 import { LandscapeOrientation } from '../orientations';
 import { VideoModal } from '../VideoModal';
+import { LocalizationStore } from '../../stores/LocalizationStore';
 
 interface EvaluationResultProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
+    localizationStore?: LocalizationStore
 }
 
-@inject("competencyStore")
+@inject("competencyStore", "localizationStore")
 @observer
 export class EvaluationResult extends React.Component<EvaluationResultProps, {}> {
     
@@ -46,7 +46,7 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
     }
 
     resetEvaluation() {
-        if (window.confirm('Are you sure you wish to reset evaluation?')) {
+        if (window.confirm(this.props.localizationStore.getString('Evaluation.Reset'))) {
             this.props.competencyStore.resetEvaluation();
             this.props.history.push("/competencies");
         }
@@ -80,7 +80,7 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
                             <div style={{ position: 'relative' }}>
                                 <FactorList factors={factors} renderCompetency={this.renderCompetency} animate={true} />
                                 <div style={{ position: 'absolute', bottom: '25px' }}>
-                                    <span className='font-weight-bold'>Legend:</span>
+                                    <span className='font-weight-bold'>{this.props.localizationStore.getString('EvaluationResult.Legend')}:</span>
                                     {
                                         store.evaluations.map(evaluation => {
                                             return <div className='align-self-center my-2' style={{ color: evaluation.Color }} data-toggle='tooltip' title={evaluation.Tooltip}>
@@ -92,21 +92,21 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
                                 </div>
                             </div>
                             :
-                            <Loader text='No competencies evaluated. Redirrecting...' />
+                            <Loader text={this.props.localizationStore.getString('EvaluationResult.Empty')} />
                     }
                 </div>
                 <div className='btn-floating-container'>
-                    <button onClick={(e) => this.showInfo()} className='btn rounded-circle' title='Info'>
+                    <button onClick={(e) => this.showInfo()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Info')}>
                         <FontAwesomeIcon icon='info' />
                     </button>
-                    <button onClick={(e) => this.printPage()} className='btn rounded-circle' title='Print'>
+                    <button onClick={(e) => this.printPage()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Print')}>
                         <FontAwesomeIcon icon='print' />
                     </button>
-                    <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle' title='Reset'>
+                    <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Reset')}>
                         <FontAwesomeIcon icon='redo' />
                     </button>
                 </div>
-                <VideoModal id='competenciesVideo' videoId='Videos/competencies.mp4' />
+                <VideoModal id='competenciesVideo' videoId='2yT0gqnKb-A' />
             </div>
         </section>;
     }
