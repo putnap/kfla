@@ -3,10 +3,7 @@ import { LocalizedString } from "../models/LocalizedString";
 
 export class LocalizationStore {
 
-    constructor(lang: string) {
-        this.loadStrings(lang);
-    }
-
+    @observable languages: string[] = [];
     @observable language: string;
     @observable strings: LocalizedString[] = [];
     @observable isLoaded: boolean;
@@ -20,6 +17,29 @@ export class LocalizationStore {
         }
         else {
             return localizedString.Value;
+        }
+    }
+
+    @action loadLanguages() {
+        if (!this.isLoading) {
+            this.isLoaded = false;
+            this.isLoading = true;
+            fetch('api/languages')
+                .then((response) => {
+                    return response.text();
+                })
+                .then((data) =>
+                    runInAction(() => {
+                        this.languages = JSON.parse(data);
+                        this.isLoading = false;
+                        this.isLoaded = true;
+
+                        if (this.languages.find(s => s == 'en'))
+                            this.loadStrings('en');
+                        else
+                            this.loadStrings(this.languages[0]);
+                    })
+                );
         }
     }
 

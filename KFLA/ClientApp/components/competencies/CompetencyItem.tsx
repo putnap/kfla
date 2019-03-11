@@ -68,7 +68,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
         return <ul>
             {text.split("\n").map(i => {
                 if (i)
-                    return <li>{i}</li>;
+                    return <li><p>{i}</p></li>;
             })}
         </ul>
     }

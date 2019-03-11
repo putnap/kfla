@@ -25,7 +25,7 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
                     <span>{stopper.ID}.</span>
                 </div>
                 <div className='col'>
-                    <div className='font-weight-bold'>{stopper.Name}</div>
+                    <p className='font-weight-bold'>{stopper.Name}</p>
                 </div>
             </div>
         </div>

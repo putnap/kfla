@@ -17,7 +17,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
         return <ul>
             {text.split('\n').map(i => {
                 if (i)
-                    return <li>{i}</li>;
+                    return <li><p>{i}</p></li>;
             })}
         </ul>
     }
@@ -29,8 +29,8 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                     <span>{this.props.competency.ID}.</span>
                 </div>
                 <div className='col'>
-                    <div className='font-weight-bold'>{this.props.competency.Name}</div>
-                    <div>{this.props.competency.Description}</div>
+                    <p className='font-weight-bold'>{this.props.competency.Name}</p>
+                    <p>{this.props.competency.Description}</p>
                 </div>
             </div>
             <div className='modal fade' id={'competency' + this.props.competency.ID} tabIndex={-1} role='dialog' aria-labelledby={'competency' + this.props.competency.ID + 'label'} aria-hidden='true'>

@@ -38,13 +38,13 @@ export class NavMenu extends React.Component<NavMenuProps, {}> {
                 </NavLink>
             </div>
             <div className='lang'>
-                <button onClick={(e) => this.changeLanguage("en")} className={this.props.localizationStore.language == 'en' ? 'btn active' : 'btn'}>
-                    EN
-                </button>
-                |
-                <button onClick={(e) => this.changeLanguage("lt")} className={this.props.localizationStore.language == 'lt' ? 'btn active' : 'btn'}>
-                    LT
-                </button>
+                {
+                    this.props.localizationStore.languages.map(language => {
+                        return <button onClick={(e) => this.changeLanguage(language)} className={this.props.localizationStore.language == language ? 'btn active' : 'btn'}>
+                            {language.toUpperCase()}
+                        </button>
+                    })
+                }
             </div>
         </div>;
     }

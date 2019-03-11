@@ -18,7 +18,8 @@ import { StoppersStore } from './stores/StoppersStore';
 import { LocalizationStore } from './stores/LocalizationStore';
 
 let routes = RoutesModule.routes;
-const localizationStore = new LocalizationStore('en');
+const localizationStore = new LocalizationStore();
+localizationStore.loadLanguages();
 const stores: Stores = { competencyStore: new CompetencyStore(localizationStore), stoppersStore: new StoppersStore(localizationStore), localizationStore: localizationStore };
 
 function renderApp() {

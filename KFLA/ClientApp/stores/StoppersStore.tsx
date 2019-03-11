@@ -38,7 +38,7 @@ export class StoppersStore {
     }
 
     @action fetchLocalizedStoppers(lang: string) {
-        if (!this.isLoading) {
+        if (!this.isLoading && lang) {
             this.stoppers = [];
             this.stopperTypes = [];
             this.isLoaded = false;

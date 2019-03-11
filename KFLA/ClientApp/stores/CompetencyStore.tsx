@@ -72,7 +72,7 @@ export class CompetencyStore {
     }
 
     @action fetchLocalizedEvalutions(lang: string) {
-        if (!this.isLoading) {
+        if (!this.isLoading && lang) {
             fetch('api/evaluations', {
                     headers: { 'Accept-Language': lang },
                 })
@@ -93,7 +93,7 @@ export class CompetencyStore {
     }
 
     @action fetchLocalizedCompetencies(lang: string) {
-        if (!this.isLoading) {
+        if (!this.isLoading && lang) {
             this.competencies = [];
             this.isLoaded = false;
             this.isLoading = true;

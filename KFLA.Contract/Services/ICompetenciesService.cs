@@ -10,5 +10,6 @@ namespace KFLA.Contract.Services
         List<CompetencyDto> GetCompetencies(string language);
         List<StopperDto> GetStoppers(string language);
         List<EvaluationDto> GetEvaluations(string language);
+        List<string> GetLanguages();
     }
 }

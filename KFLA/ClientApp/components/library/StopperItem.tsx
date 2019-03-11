@@ -16,7 +16,7 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
         return <ul>
             {text.split("\n").map(i => {
                 if (i)
-                    return <li>{i}</li>;
+                    return <li><p>{i}</p></li>;
             })}
         </ul>
     }

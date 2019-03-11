@@ -7,11 +7,14 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace KFLA.Services.Services
 {
     public class CompetenciesService : ICompetenciesService
     {
+        private readonly Regex dataFileRegex = new Regex(@".+data\.(?'lang'[a-z]{2,3})\.xlsx");
+
         public List<CompetencyDto> GetCompetencies(string language)
         {
             using (var pck = new ExcelPackage())
@@ -64,9 +67,22 @@ namespace KFLA.Services.Services
             }
         }
 
+        public List<string> GetLanguages()
+        {
+            var result = new List<string>();
+            var files = Directory.GetFiles(@".\data", "data.*.xlsx");
+            foreach (var file in files)
+            {
+                var language = dataFileRegex.Match(file).Groups["lang"].Value;
+                result.Add(language);
+            }
+
+            return result;
+        }
+
         private static Stream GetDataStream(string language)
         {
-            var fileName = $@".\data.{language}.xlsx";
+            var fileName = $@".\data\data.{language}.xlsx";
             if (!File.Exists(fileName))
             {
                 throw new Exception($"Data for {language} doesn't exist.");

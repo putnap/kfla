@@ -13,7 +13,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
     render() {
         const competency = this.props.competency;
         return <div className='row'>
-            <div className='col-1 p-0 align-self-center'>
+            <div className='col-1 p-0'>
                 <label className='check-container'>
                     <input type='checkbox' checked={competency.IsSelected} onClick={(e) => competency.toggleSelection()} />
                     <span className='checkmark'></span>
@@ -23,8 +23,8 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                 <span>{competency.ID}.</span>
             </div>
             <div className='col'>
-                <div className='font-weight-bold'>{competency.Name}</div>
-                <div>{competency.Description}</div>
+                <p className='font-weight-bold'>{competency.Name}</p>
+                <p>{competency.Description}</p>
             </div>
         </div>
     }

@@ -41,6 +41,12 @@ namespace KFLA.API
             return Ok(competenciesService.GetEvaluations(language));
         }
 
+        [HttpGet("languages")]
+        public IActionResult GetLanguages()
+        {
+            return Ok(competenciesService.GetLanguages());
+        }
+
         [HttpPost("login")]
         public IActionResult Login([FromBody]string password)
         {

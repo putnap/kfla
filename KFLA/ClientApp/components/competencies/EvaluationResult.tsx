@@ -60,7 +60,7 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
             <div className='col'>
                 <FontAwesomeIcon icon={competency.Evaluation.Icon} style={{ color: competency.Evaluation.Color }} />
                 <span className='ml-2 font-weight-bold' style={{ color: competency.Evaluation.Color }}>{competency.Name}</span>
-                <div>{competency.Description}</div>
+                <p>{competency.Description}</p>
             </div>
         </div>;
     }
