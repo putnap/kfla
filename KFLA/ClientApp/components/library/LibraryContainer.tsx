@@ -38,7 +38,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
     }      
 
     componentDidMount() {
-        document.title = this.props.localizationStore.getString('PageTitles.LIBRARY');
+        this.props.localizationStore.setTitle('PageTitles.LIBRARY');
         const store = this.props.competencyStore;
         if (!store!.isLoaded)
             store!.fetchCompetencies();

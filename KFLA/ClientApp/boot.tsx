@@ -19,7 +19,6 @@ import { LocalizationStore } from './stores/LocalizationStore';
 
 let routes = RoutesModule.routes;
 const localizationStore = new LocalizationStore();
-localizationStore.loadLanguages();
 const stores: Stores = { competencyStore: new CompetencyStore(localizationStore), stoppersStore: new StoppersStore(localizationStore), localizationStore: localizationStore };
 
 function renderApp() {
@@ -36,7 +35,7 @@ function renderApp() {
     );
 }
 
-renderApp();
+localizationStore.loadLanguages(renderApp);
 
 // Allow Hot Module Replacement
 if (module.hot) {

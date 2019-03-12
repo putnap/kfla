@@ -23,7 +23,7 @@ interface CompetenciesContainerProps extends RouteComponentProps<{}> {
 export class CompetenciesContainer extends React.Component<CompetenciesContainerProps, {}> {
 
     componentDidMount() {
-        document.title = this.props.localizationStore.getString('PageTitles.COMPETENCIES');
+        this.props.localizationStore.setTitle('PageTitles.COMPETENCIES');
         const store = this.props.competencyStore;
         if (!store!.isLoaded) {
             store!.fetchCompetencies();

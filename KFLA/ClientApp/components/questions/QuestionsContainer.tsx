@@ -41,7 +41,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
     }
 
     componentDidMount() {
-        document.title = this.props.localizationStore.getString('PageTitles.QUESTIONS');
+        this.props.localizationStore.setTitle('PageTitles.QUESTIONS');
         const store = this.props.competencyStore;
         if (!store!.isLoaded)
             store!.fetchCompetencies();

@@ -1,4 +1,4 @@
-﻿import { observable, action, runInAction } from "mobx";
+﻿import { observable, action, runInAction, autorun } from "mobx";
 import { LocalizedString } from "../models/LocalizedString";
 
 export class LocalizationStore {
@@ -20,7 +20,13 @@ export class LocalizationStore {
         }
     }
 
-    @action loadLanguages() {
+    @action setTitle(key: string) {
+        autorun(() => {
+            document.title = this.getString(key);
+        });
+    }
+
+    @action loadLanguages(callback: () => void) {
         if (!this.isLoading) {
             this.isLoaded = false;
             this.isLoading = true;
@@ -38,6 +44,8 @@ export class LocalizationStore {
                             this.loadStrings('en');
                         else
                             this.loadStrings(this.languages[0]);
+                        if (callback)
+                            callback();
                     })
                 );
         }
