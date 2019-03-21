@@ -64,7 +64,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
         const store = this.props.competencyStore!;
         return <div className='row background-lib height-100'>
             <NavMenu />
-            <div className='mx-5 w-100 main-content'>
+            <div className='mx-2 mx-md-5 w-100 main-content'>
                 {
                     store.isLoading ?
                         <Loader text={this.props.localizationStore.getString('Library.Loading')} /> :

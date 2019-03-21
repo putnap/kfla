@@ -24,7 +24,7 @@ export class StoppersList extends React.Component<StoppersListProps, {}> {
     }
 
     getClassNames() {
-        var classes = 'row';
+        var classes = 'row mb-2';
         if (this.props.animate)
             classes += ' animate-bottom';
 
@@ -36,13 +36,13 @@ export class StoppersList extends React.Component<StoppersListProps, {}> {
         return store.isLoading ? <Loader text={this.props.localizationStore.getString("Stoppers.Loading")} />
             :
             (<div className={this.getClassNames()} >
-                <div className='card bg-light w-100'>
-                    <div className='card-body'>
+                <div className='col card bg-light w-100'>
+                    <div className='card-body p-2 p-md-3'>
                         <h4 className='font-weight-bold'>{this.props.localizationStore.getString("Stoppers.Title")}</h4>
                         <div className='row'>
                             {
                                 store.stopperTypes.map(stopperType => {
-                                    return <div className='col-lg-12 col-xl-4 mb-2'>
+                                    return <div className='col-lg-12 col-xl-4 mb-2' key={stopperType.ID}>
                                         <h5 className='font-weight-bold'>{stopperType.Name}</h5>
                                         {
                                             stopperType.Stoppers.map(stopper => {

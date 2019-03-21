@@ -66,9 +66,9 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
 
     splitStringToList(text: string) {
         return <ul>
-            {text.split("\n").map(i => {
+            {text.split('\n').map(i => {
                 if (i)
-                    return <li><p>{i}</p></li>;
+                    return <li key={i}><p className='class-text' style={{ fontSize: '80%' }}>{i}</p></li>;
             })}
         </ul>
     }
@@ -94,7 +94,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'>{this.props.competency.Description}</p>
                                 <p className='card-text font-weight-bold'><FontAwesomeIcon icon='plus-circle' className='color-dark' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.SKILLED')}</span></p>
-                                <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.Skilled)}</p>
+                                {this.splitStringToList(this.props.competency.Skilled)}
                             </div>
                         </div>
                         <div className='card-footer' style={{ fontSize: '9px' }}>
@@ -111,11 +111,11 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             <div className='row mr-3'>
                                 <div className='col'>
                                     <p className='card-text font-weight-bold'><FontAwesomeIcon icon='exclamation-circle' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.OVERUSED')}</span></p>
-                                    <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.OverusedSkill)}</p>
+                                    {this.splitStringToList(this.props.competency.OverusedSkill)}
                                 </div>
                                 <div className='col'>
                                     <p className='card-text font-weight-bold'><FontAwesomeIcon icon='minus-circle' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.LESS')}</span></p>
-                                    <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.competency.LessSkilled)}</p>
+                                    {this.splitStringToList(this.props.competency.LessSkilled)}
                                 </div>
                             </div>
                         </div>

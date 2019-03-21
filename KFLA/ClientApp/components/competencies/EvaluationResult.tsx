@@ -53,7 +53,7 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
     }
 
     renderCompetency(competency: Competency): JSX.Element {
-        return <div className='row competencyItem' >
+        return <div className='row competencyItem' key={competency.ID} >
             <div className='col-1 text-right p-0'>
                 <span>{competency.ID}.</span>
             </div>
@@ -83,7 +83,7 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
                                     <span className='font-weight-bold'>{this.props.localizationStore.getString('EvaluationResult.Legend')}:</span>
                                     {
                                         store.evaluations.map(evaluation => {
-                                            return <div className='align-self-center my-2' style={{ color: evaluation.Color }} data-toggle='tooltip' title={evaluation.Tooltip}>
+                                            return <div className='align-self-center my-2' style={{ color: evaluation.Color }} data-toggle='tooltip' title={evaluation.Tooltip} key={evaluation.ID} >
                                                 <FontAwesomeIcon icon={evaluation.Icon} className='mx-2' />
                                                 <span className='font-weight-bold text-uppercase'>{evaluation.Name}</span>
                                             </div>

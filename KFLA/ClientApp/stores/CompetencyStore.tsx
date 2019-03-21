@@ -42,7 +42,7 @@ export class CompetencyStore {
     }
 
     @computed get evaluationReady(): boolean {
-        return this.evaluations.every(o => o.evaluatedCompetences == o.Limit);
+        return this.evaluations.length > 0 && this.evaluations.every(o => o.evaluatedCompetences == o.Limit);
     }
 
     @action evaluateCompetency(competencyID: number, evaluation: Evaluation) {
@@ -72,7 +72,7 @@ export class CompetencyStore {
     }
 
     @action fetchLocalizedEvalutions(lang: string) {
-        if (!this.isLoading && lang) {
+        if (lang) {
             fetch('api/evaluations', {
                     headers: { 'Accept-Language': lang },
                 })

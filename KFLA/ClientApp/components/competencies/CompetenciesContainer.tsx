@@ -50,7 +50,7 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
         const store = this.props.competencyStore;
         return <div className='row background-light height-100'>
             <NavMenu />
-            <div className='contentContainer w-100 mx-5'>
+            <div className='contentContainer w-100 mx-2 mx-md-5'>
                 <EvaluationList evaluations={store!.evaluations} />
                 {
                     store!.isLoading ? <Loader text={this.props.localizationStore.getString('Evaluation.Loading')} /> : <CompetencyList competencyStore={store!} />

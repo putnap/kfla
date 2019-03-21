@@ -15,7 +15,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
         return <div className='row'>
             <div className='col-1 p-0'>
                 <label className='check-container'>
-                    <input type='checkbox' checked={competency.IsSelected} onClick={(e) => competency.toggleSelection()} />
+                    <input type='checkbox' checked={competency.IsSelected} onChange={(e) => competency.toggleSelection()} />
                     <span className='checkmark'></span>
                 </label>
             </div>

@@ -120,18 +120,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\dist\" />
     <Folder Include="ClientApp\logos\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="data.en.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Data\data.en.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Data\data.lt.xlsx">
+    <None Update="Data\data.*.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

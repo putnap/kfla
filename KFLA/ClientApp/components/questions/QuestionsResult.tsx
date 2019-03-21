@@ -59,14 +59,14 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
             <div className='row background-dark react-no-print'>
                 <NavMenu />
             </div>
-            <div className='row background-dark contentContainer height-100 px-5'>
+            <div className='row background-dark contentContainer height-100 px-1 px-md-5'>
                 <PortraitOrientation />
                 <div className='col animate-bottom'>
                     {
                         questionaireReady ?
                             [
                                 competencyStore.selectedCompetencies.map(competency => {
-                                    return <div className='card radius-0 mb-2'>
+                                    return <div className='card radius-0 mb-2' key={competency.ID}>
                                         <div className='card-body'>
                                             <h4 className='card-title pb-1 border-bottom border-dark'>
                                                 <span>{competency.ID}.</span>
@@ -77,10 +77,10 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                                 <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>{this.props.localizationStore.getString('QuestionsResult.Questions')}</span></p>
                                                 {
                                                     competency.Questions.map((question, i) => {
-                                                        return <div className={this.getQuestionsClass(question)} >
+                                                        return <div className={this.getQuestionsClass(question)} key={i}>
                                                             <div className='col-1 align-self-center react-no-print'>
                                                                 <label className='check-container'>
-                                                                    <input type='checkbox' checked={question.IsSelected} onClick={(e) => question.toggleSelection()} />
+                                                                    <input type='checkbox' checked={question.IsSelected} onChange={(e) => question.toggleSelection()} />
                                                                     <span className='checkmark'></span>
                                                                 </label>
                                                             </div>
@@ -100,7 +100,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                     </div>
                                 }),
                                 stoppersStore.selectedStoppers.map(stopper => {
-                                    return <div className='card radius-0 mb-2'>
+                                    return <div className='card radius-0 mb-2' key={stopper.ID}>
                                         <div className='card-body'>
                                             <h4 className='card-title pb-1 border-bottom border-dark'>
                                                 <span>{stopper.ID}.</span>
@@ -110,10 +110,10 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
                                                 <p className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' className='color-dark' /><span className='pl-2'>{this.props.localizationStore.getString('QuestionsResult.Questions')}</span></p>
                                                 {
                                                     stopper.Questions.map((question, i) => {
-                                                        return <div className={this.getQuestionsClass(question)} >
+                                                        return <div className={this.getQuestionsClass(question)} key={i}>
                                                             <div className='col-1 align-self-center react-no-print'>
                                                                 <label className='check-container'>
-                                                                    <input type='checkbox' checked={question.IsSelected} onClick={(e) => question.toggleSelection()} />
+                                                                    <input type='checkbox' checked={question.IsSelected} onChange={(e) => question.toggleSelection()} />
                                                                     <span className='checkmark'></span>
                                                                 </label>
                                                             </div>

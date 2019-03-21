@@ -74,11 +74,11 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
     }
 
     renderCompetency(competency: Competency): JSX.Element {
-        return <CompetencyItem competency={competency} />;
+        return <CompetencyItem competency={competency} key={competency.ID}/>;
     }
 
     renderStopper(stopper: Stopper): JSX.Element {
-        return <StopperItem stopper={stopper} />;
+        return <StopperItem stopper={stopper} key={stopper.ID} />;
     }
 
     public render() {
@@ -114,7 +114,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
                         </div>
                     </div>
                     :
-                    <div className='mx-5 w-100 main-content'>
+                    <div className='mx-2 mx-md-5 w-100 main-content'>
                         {
                             store!.isLoading ? <Loader text={this.props.localizationStore.getString('Questionaire.Loading')} /> : <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
                         }

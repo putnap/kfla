@@ -13,7 +13,7 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
 
     render() {
         const stopper = this.props.stopper;
-        return <div>
+        return <div key={stopper.Name}>
             <div className='row p-1'>
                 <div className='col-1 p-0 align-self-center'>
                     <label className='check-container'>

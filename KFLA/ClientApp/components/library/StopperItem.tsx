@@ -16,20 +16,16 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
         return <ul>
             {text.split("\n").map(i => {
                 if (i)
-                    return <li><p>{i}</p></li>;
+                    return <li key={i}><p className='card-text' style={{ fontSize: '80%' }}>{i}</p></li>;
             })}
         </ul>
     }
 
     render() {
-        return <div>
-            <div className='row competency-as-button p-1' data-toggle='modal' data-target={'#stopper' + this.props.stopper.ID} style={{ cursor: 'pointer' }}>
-                <div className='col-1 p-0 text-right'>
-                    <span>{this.props.stopper.ID}.</span>
-                </div>
-                <div className='col'>
-                    <div className='font-weight-bold'>{this.props.stopper.Name}</div>
-                </div>
+        return <div className='row'>
+            <div className='col competency-as-button p-1' data-toggle='modal' data-target={'#stopper' + this.props.stopper.ID} style={{ cursor: 'pointer' }}>
+                <span>{this.props.stopper.ID}.</span>
+                <span className='font-weight-bold ml-3'>{this.props.stopper.Name}</span>
             </div>
             <div className='modal fade' id={'stopper' + this.props.stopper.ID} tabIndex={-1} role='dialog' aria-labelledby={'stopper' + this.props.stopper.ID + 'label'} aria-hidden='true'>
                 <div className='modal-dialog modal-dialog-centered' role='document'>
@@ -46,9 +42,9 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
                         <div className='modal-body'>
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'><span className='pl-2'>{this.props.localizationStore.getString('StopperItem.Problem')}</span></p>
-                                <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.stopper.Problem)}</p>
+                                {this.splitStringToList(this.props.stopper.Problem)}
                                 <p className='card-text font-weight-bold'><span className='pl-2'>{this.props.localizationStore.getString('StopperItem.NotAProblem')}</span></p>
-                                <p className='card-text' style={{ fontSize: '80%' }}>{this.splitStringToList(this.props.stopper.NotProblem)}</p>
+                                {this.splitStringToList(this.props.stopper.NotProblem)}
                             </div>
                         </div>
                         <div className='modal-footer'>

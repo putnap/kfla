@@ -87,7 +87,7 @@ export class EvaluationItem extends React.Component<EvaluationItemProps, {}> {
                     <div className='dropdown-menu dropdown-menu-right container m-0 p-0 pb-1 rounded-0 border-0 background-dark'>
                         {
                             this.props.evaluation.Competencies.map(competency => {
-                                return <div className='mt-1' >
+                                return <div className='mt-1' key={competency.ID} >
                                     <div className='row'>
                                         <div className='col my-1'>
                                             <span className='dropdown-item-text text-white'>{competency.ID}. {competency.Name}</span>
