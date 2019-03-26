@@ -30,7 +30,7 @@ export class NavMenu extends React.Component<NavMenuProps, {}> {
             <div className='collapse navbar-collapse' id='navbarTogglerDemo01'>
                 <div className='navbar-nav' style={{ marginRight: 'auto' }}>
                     <NavLink to={'/'} activeClassName='active' className='nav-item nav-link'>
-                        <span>Home</span>
+                        <span>{this.props.localizationStore.getString('PageTitles.HOME')}</span>
                     </NavLink>
                     <NavLink to={'/library'} activeClassName='active' className='nav-item nav-link'>
                         {this.props.localizationStore.getString('PageTitles.LIBRARY')}
