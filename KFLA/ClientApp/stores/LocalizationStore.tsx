@@ -32,6 +32,10 @@ export class LocalizationStore {
             this.isLoading = true;
             fetch('api/languages')
                 .then((response) => {
+                    if (!response.ok) {
+                        this.isLoading = false;
+                        throw Error(response.statusText);
+                    }
                     return response.text();
                 })
                 .then((data) =>
@@ -60,6 +64,10 @@ export class LocalizationStore {
                     headers: { 'Accept-Language': lang },
                 })
                 .then((response) => {
+                    if (!response.ok) {
+                        this.isLoading = false;
+                        throw Error(response.statusText);
+                    }
                     return response.text();
                 })
                 .then((data) => 

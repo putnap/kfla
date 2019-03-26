@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { LocalizationStore } from '../stores/LocalizationStore';
 import { inject, observer } from 'mobx-react';
+import { LanguageBar } from './LanguageBar';
 
 interface NavMenuProps {
     localizationStore?: LocalizationStore;
@@ -41,15 +42,7 @@ export class NavMenu extends React.Component<NavMenuProps, {}> {
                         {this.props.localizationStore.getString('PageTitles.QUESTIONS')}
                     </NavLink>
                 </div>
-                <div className='lang'>
-                    {
-                        this.props.localizationStore.languages.map(language => {
-                            return <button onClick={(e) => this.changeLanguage(language)} className={this.props.localizationStore.language == language ? 'btn active' : 'btn'} key={language}>
-                                {language.toUpperCase()}
-                            </button>
-                        })
-                    }
-                </div>
+                <LanguageBar />
             </div>
         </div>;
     }

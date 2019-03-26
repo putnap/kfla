@@ -49,7 +49,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
     }
 
     renderCompetency(competency: Competency): JSX.Element {
-        return <CompetencyItem competency={competency} />
+        return <CompetencyItem competency={competency} key={competency.ID} />
     }
 
     changeSort() {
@@ -57,7 +57,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
     }
 
     renderStopper(stopper: Stopper): JSX.Element {
-        return <StopperItem stopper={stopper} />
+        return <StopperItem stopper={stopper} key={stopper.ID} />
     }
 
     public render() {

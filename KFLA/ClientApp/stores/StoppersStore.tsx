@@ -47,6 +47,10 @@ export class StoppersStore {
                     headers: { 'Accept-Language': lang },
                 })
                 .then((response) => {
+                    if (!response.ok) {
+                        this.isLoading = false;
+                        throw Error(response.statusText);
+                    }
                     return response.text();
                 })
                 .then((data) => {
