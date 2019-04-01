@@ -11,6 +11,7 @@ import { Loader } from '../Loader';
 import { LandscapeOrientation } from '../orientations';
 import { VideoModal } from '../VideoModal';
 import { LocalizationStore } from '../../stores/LocalizationStore';
+import { autorun } from 'mobx';
 
 interface EvaluationResultProps extends RouteComponentProps<{}> {
     competencyStore?: CompetencyStore
@@ -28,13 +29,15 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
     }
 
     componentDidMount() {
-        const store = this.props.competencyStore;
-        if (!store.evaluationReady) {
-            store.resetEvaluation();
-            setTimeout(() => {
-                this.props.history.push("/competencies");
-            }, 2000)
-        }
+        autorun(() => {
+            const store = this.props.competencyStore;
+            if (!store.evaluationReady) {
+                store.resetEvaluation();
+                setTimeout(() => {
+                    this.props.history.push("/competencies");
+                }, 2000)
+            }
+        });
     }
 
     printPage() {
@@ -77,13 +80,15 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
                 <div className='col evaluations'>
                     {
                         store.evaluationReady ?
-                            <div style={{ position: 'relative' }}>
+                            <div>
                                 <FactorList factors={factors} renderCompetency={this.renderCompetency} animate={true} />
-                                <div style={{ position: 'absolute', bottom: '25px' }}>
-                                    <span className='font-weight-bold'>{this.props.localizationStore.getString('EvaluationResult.Legend')}:</span>
+                                <div className='row bg-white mb-2 py-2'>
+                                    <div className='col-12'>
+                                        <span className='font-weight-bold'>{this.props.localizationStore.getString('EvaluationResult.Legend')}:</span>
+                                    </div>
                                     {
                                         store.evaluations.map(evaluation => {
-                                            return <div className='align-self-center my-2' style={{ color: evaluation.Color }} data-toggle='tooltip' title={evaluation.Tooltip} key={evaluation.ID} >
+                                            return <div className='col-12 align-self-center my-2' style={{ color: evaluation.Color }} data-toggle='tooltip' title={evaluation.Tooltip} key={evaluation.ID} >
                                                 <FontAwesomeIcon icon={evaluation.Icon} className='mx-2' />
                                                 <span className='font-weight-bold text-uppercase'>{evaluation.Name}</span>
                                             </div>

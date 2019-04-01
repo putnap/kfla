@@ -42,6 +42,16 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
         this.props.history.push("/evaluation");
     }
 
+    randomEvaluation() {
+        this.props.competencyStore.evaluations.forEach(evaluation => {
+            while (evaluation.Limit > evaluation.evaluatedCompetences) {
+                const competency = this.props.competencyStore.uneavluatedCompetencies[0];
+                this.props.competencyStore.evaluateCompetency(competency.ID, evaluation);
+            }
+        });
+        this.submitEvaluation();
+    }
+
     showInfo() {
         jQuery('#competenciesVideo').modal();
     }
@@ -60,6 +70,9 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
                         <FontAwesomeIcon icon='info' />
                     </button>
                     <button onClick={(e) => this.submitEvaluation()} disabled={!store.evaluationReady} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Submit')}>
+                        <FontAwesomeIcon icon='check' />
+                    </button>
+                    <button onClick={(e) => this.randomEvaluation()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Submit')}>
                         <FontAwesomeIcon icon='check' />
                     </button>
                     <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Reset')}>
