@@ -604,7 +604,7 @@
         "core-js": {
           "version": "2.5.6",
           "resolved": "https://registry.npmjs.org/core-js/-/core-js-2.5.6.tgz",
-          "integrity": "sha1-D+bUW/PKw6w2Sp1y3nV29OsiG50=",
+          "integrity": "sha512-lQUVfQi0aLix2xpyjrrJEvfuYCqPc/HwmTKsC/VNf8q0zsjX7SQZtp4+oRONN5Tsur9GDETPjj+Ub2iDiGZfSQ==",
           "dev": true
         }
       }
@@ -653,7 +653,7 @@
         "debug": {
           "version": "2.6.9",
           "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
-          "integrity": "sha1-XRKFFd8TT/Mn6QpMk/Tgd6U2NB8=",
+          "integrity": "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==",
           "dev": true,
           "requires": {
             "ms": "2.0.0"
@@ -682,7 +682,7 @@
     "babylon": {
       "version": "6.18.0",
       "resolved": "https://registry.npmjs.org/babylon/-/babylon-6.18.0.tgz",
-      "integrity": "sha1-ry87iPpvXB5MY00aD46sT1WzleM=",
+      "integrity": "sha512-q/UEjfGJ2Cm3oKV71DJz9d25TPnq5rhBVL2Q4fA5wcC3jcrdn7+SssEybFIxwAvvP+YCsCYNKughoF33GxgycQ==",
       "dev": true
     },
     "balanced-match": {
@@ -767,7 +767,7 @@
     "bootstrap": {
       "version": "4.1.1",
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.1.1.tgz",
-      "integrity": "sha512-SpiDSOcbg4J/PjVSt4ny5eY6j74VbVSjROY4Fb/WIUXBV9cnb5luyR4KnPvNoXuGnBK1T+nJIWqRsvU3yP8Mcg=="
+      "integrity": "sha1-OuyFAA+mGQhdqNLkmD39Z88hFMs="
     },
     "brace-expansion": {
       "version": "1.1.11",
@@ -2489,7 +2489,7 @@
     "globals": {
       "version": "9.18.0",
       "resolved": "https://registry.npmjs.org/globals/-/globals-9.18.0.tgz",
-      "integrity": "sha1-qjiWs+abSH8X4x7SFD1pqOMMLYo=",
+      "integrity": "sha512-S0nG3CLEQiY/ILxqtztTWH/3iRRdyBLw6KMDxnKMchrtbj2OFmehVh0WUCfW3DUrIgx/qFrJPICrq4Z4sTR9UQ==",
       "dev": true
     },
     "graceful-fs": {
@@ -3422,7 +3422,7 @@
         "hoist-non-react-statics": {
           "version": "2.5.0",
           "resolved": "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz",
-          "integrity": "sha512-6Bl6XsDT1ntE0lHbIhr4Kp2PGcleGZ66qu5Jqk8lc0Xc/IeG6gVLmwUGs/K0Us+L8VWoKgj0uWdPMataOsm31w=="
+          "integrity": "sha1-0sot/BnFqRxaZhXOjlZO8DR+KkA="
         }
       }
     },
@@ -4525,6 +4525,11 @@
       "integrity": "sha1-jqQmPNZFWgULN0RbPwj9g52G6Qk=",
       "dev": true
     },
+    "react-device-detect": {
+      "version": "1.6.2",
+      "resolved": "https://registry.npmjs.org/react-device-detect/-/react-device-detect-1.6.2.tgz",
+      "integrity": "sha512-XIBgwIfpGAknm7tXe/YNbx4ieIR7IyFI3KNfSQk4UjHVy97UHe/nB7iJj8R/dDsI+I/ZzPR4HJ39Gh5tI4nhxw=="
+    },
     "react-dnd": {
       "version": "2.6.0",
       "resolved": "https://registry.npmjs.org/react-dnd/-/react-dnd-2.6.0.tgz",
@@ -4696,7 +4701,7 @@
     "redbox-react": {
       "version": "1.6.0",
       "resolved": "https://registry.npmjs.org/redbox-react/-/redbox-react-1.6.0.tgz",
-      "integrity": "sha1-51OsAllbwb9pWzk1iJpPWxtaIaE=",
+      "integrity": "sha512-mLjM5eYR41yOp5YKHpd3syFeGq6B4Wj5vZr64nbLvTZW5ZLff4LYk7VE4ITpVxkZpCY6OZuqh0HiP3A3uEaCpg==",
       "dev": true,
       "requires": {
         "error-stack-parser": "1.3.6",
@@ -4745,7 +4750,7 @@
     "regenerator-runtime": {
       "version": "0.11.1",
       "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz",
-      "integrity": "sha1-vgWtf5v30i4Fb5cmzuUBf78Z4uk=",
+      "integrity": "sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==",
       "dev": true
     },
     "regex-not": {
@@ -5086,7 +5091,7 @@
     "sourcemapped-stacktrace": {
       "version": "1.1.8",
       "resolved": "https://registry.npmjs.org/sourcemapped-stacktrace/-/sourcemapped-stacktrace-1.1.8.tgz",
-      "integrity": "sha1-a3o/Gm+xX21A5wHiPOQEVTSA1og=",
+      "integrity": "sha512-OkVoI7GQOLl/laR1qsSo1c87tS8kF2VXhQq2SrQCDdXufBAcm8FgXogWso96ciMYoDtTw1Dn70CVdwYzoYs6Pg==",
       "dev": true,
       "requires": {
         "source-map": "0.5.6"

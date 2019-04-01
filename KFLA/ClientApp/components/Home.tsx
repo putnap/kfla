@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 import { LocalizationStore } from '../stores/LocalizationStore';
 import { LanguageBar } from './LanguageBar';
+import { isIE } from 'react-device-detect';
 
 interface HomeProps extends RouteComponentProps<{}> {
     localizationStore?: LocalizationStore;
@@ -17,70 +18,53 @@ export class Home extends React.Component<HomeProps, {}> {
     }
 
     public render() {
-        const width = window.innerWidth;
+        let containerStyle: React.CSSProperties;
+        let itemStyle: React.CSSProperties;
+
+        if (isIE) {
+            containerStyle = {
+                display: 'table',
+            };
+            itemStyle = {
+                display: 'table-cell',
+                verticalAlign: 'middle'
+            };
+        }
+        else {
+            containerStyle = {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            };
+            itemStyle = {
+                verticalAlign: 'middle'
+            };
+        }
+
         return <div role='navigation'>
-            <div className='fixed-top m-3'>
+            <div className='fixed-top m-1 m-md-3'>
                 <img className='w-25' src={require('../logos/logo-korn-ferry.png')} alt='Korn Ferry' />
                 <div className='float-right'>
-                    <LanguageBar  />
+                    <LanguageBar />
                 </div>
             </div>
-            {
-                width > 992 ?
-                    <div className='row'>
-                        <div className='col-4 background-lib p-0'>
-                            <div className='height-100 d-table mx-auto'>
-                                <div className='d-table-cell align-middle text-center'>
-                                    <NavLink to={'/library'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={{ fontSize: '300%' }}>{this.props.localizationStore.getString('PageTitles.LIBRARY')}</NavLink>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='col-4 background-light'>
-                            <div className='height-100 d-table mx-auto'>
-                                <div className='d-table-cell align-middle text-center'>
-                                    <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold mx-auto' style={{ fontSize: '300%' }}>{this.props.localizationStore.getString('PageTitles.COMPETENCIES')}</NavLink>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='col-4 background-dark'>
-                            <div className='height-100 d-table mx-auto'>
-                                <div className='d-table-cell align-middle text-center'>
-                                    <NavLink to={'/questions'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={{ fontSize: '300%' }}>{this.props.localizationStore.getString('PageTitles.QUESTIONS')}</NavLink>
-                                </div>
-                            </div>
-                        </div>
+            <div className='row height-100'>
+                <div className='col-12 col-md-4 background-lib'>
+                    <div className='height-sm-33 height-100 text-center mx-auto' style={containerStyle}>
+                        <NavLink to={'/library'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={itemStyle}>{this.props.localizationStore.getString('PageTitles.LIBRARY')}</NavLink>
                     </div>
-                    :
-                    <div className='row height-100'>
-                        <div className='col-12 background-lib'>
-                            <div className='h-100 text-center' style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <NavLink to={'/library'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={{ fontSize: '300%' }}>{this.props.localizationStore.getString('PageTitles.LIBRARY')}</NavLink>
-                            </div>
-                        </div>
-                        <div className='col-12 background-light'>
-                            <div className='h-100 text-center' style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold mx-auto' style={{ fontSize: '300%' }}>{this.props.localizationStore.getString('PageTitles.COMPETENCIES')}</NavLink>
-                            </div>
-                        </div>
-                        <div className='col-12 background-dark'>
-                            <div className='h-100 text-center' style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <NavLink to={'/questions'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={{ fontSize: '300%' }}>{this.props.localizationStore.getString('PageTitles.QUESTIONS')}</NavLink>
-                            </div>
-                        </div>
+                </div>
+                <div className='col-12 col-md-4 background-light'>
+                    <div className='height-sm-33 height-100 text-center mx-auto' style={containerStyle} >
+                        <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={itemStyle}> { this.props.localizationStore.getString('PageTitles.COMPETENCIES') }</NavLink>
                     </div>
-            }
+                </div>
+                <div className='col-12 col-md-4 background-dark'>
+                    <div className='height-sm-33 height-100 text-center mx-auto' style={containerStyle}>
+                        <NavLink to={'/questions'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={itemStyle} > { this.props.localizationStore.getString('PageTitles.QUESTIONS') }</NavLink>
+                    </div>
+                </div>
+            </div>
             <div className='fixed-bottom text-right m-3 font-weight-bold text-white'>
                 <img src={require('../logos/Logo-White-Contrast.png')} alt='Littlefuse' style={{ width: '10%' }} />
                 <br />
