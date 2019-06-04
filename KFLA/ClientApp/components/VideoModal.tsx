@@ -45,23 +45,17 @@ export class VideoModal extends React.Component<VideoModalProps, VideoModalState
     }
 
     public render() {
-        const opts = {
-            height: '360',
-            width: '640',
-            //playerVars: { // https://developers.google.com/youtube/player_parameters
-            //    autoplay: 1
-            //}
-        };
 
         return <div className='modal fade' id={this.props.id} tabIndex={-1} role='dialog' aria-labelledby={this.props.id + 'label'} aria-hidden='true'>
             <div className='modal-dialog modal-dialog-centered' role='document'>
-                <div className='modal-content' style={{ width: 'auto' }}>
+                <div className='modal-content'>
                     <div className='modal-body'>
                         <YouTube
+                            containerClassName='video-container'
+                            className='video-player-frame'
                             videoId={this.props.videoId}
-                            opts={opts}
                             onReady={this.onReady}
-                        />
+                            />
                     </div>
                     <div className='modal-footer'>
                         <span className='w-100' style={{ fontSize: '10px' }}>{this.props.localizationStore.getString('RightsReserved')}</span>

@@ -72,9 +72,11 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
                     <button onClick={(e) => this.submitEvaluation()} disabled={!store.evaluationReady} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Submit')}>
                         <FontAwesomeIcon icon='check' />
                     </button>
+                    {/*
                     <button onClick={(e) => this.randomEvaluation()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Submit')}>
                         <FontAwesomeIcon icon='check' />
                     </button>
+                    */}
                     <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Reset')}>
                         <FontAwesomeIcon icon='redo' />
                     </button>
