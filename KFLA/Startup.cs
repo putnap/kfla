@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace KFLA
 {
@@ -31,7 +33,18 @@ namespace KFLA
             {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2); ;
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSwaggerGen(options =>
+            {
+                options.DescribeAllEnumsAsStrings();
+                options.CustomSchemaIds(x => x.FriendlyId(true));
+                options.SwaggerDoc("all", new Info
+                {
+                    Title = "all",
+                    Version = "v1"
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -49,6 +62,13 @@ namespace KFLA
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("../swagger/all/swagger.json", "all");
+                options.EnableDeepLinking();
+            });
 
             app.UseStaticFiles();
             app.UseMvc(routes =>

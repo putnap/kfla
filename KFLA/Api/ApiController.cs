@@ -6,12 +6,12 @@ namespace KFLA.API
 {
     [Produces("application/json")]
     [Route("api")]
-    public class CompetenciesController : Controller
+    public class ApiController : Controller
     {
         private readonly ICompetenciesService competenciesService;
         private readonly IConfiguration configuration;
 
-        public CompetenciesController(ICompetenciesService competenciesService, IConfiguration configuration)
+        public ApiController(ICompetenciesService competenciesService, IConfiguration configuration)
         {
             this.competenciesService = competenciesService;
             this.configuration = configuration;
