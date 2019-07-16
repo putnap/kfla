@@ -22,6 +22,7 @@ export class CompetencyStore {
     @observable factors: Factor[] = [];
     @observable isLoaded: boolean;
     @observable isLoading: boolean;
+    @observable loadingLanguage: string;
     @observable isAuthenticated: boolean = true;
     @observable isAuthenticating: boolean;
 
@@ -74,8 +75,8 @@ export class CompetencyStore {
     @action fetchLocalizedEvalutions(lang: string) {
         if (lang) {
             fetch('api/evaluations', {
-                    headers: { 'Accept-Language': lang },
-                })
+                headers: { 'Accept-Language': lang },
+            })
                 .then((response) => {
                     if (!response.ok) {
                         this.isLoading = false;
@@ -97,13 +98,14 @@ export class CompetencyStore {
     }
 
     @action fetchLocalizedCompetencies(lang: string) {
-        if (!this.isLoading && lang) {
+        if (!this.isLoading && lang || lang != this.loadingLanguage) {
             this.competencies = [];
+            this.loadingLanguage = lang;
             this.isLoaded = false;
             this.isLoading = true;
             fetch('api/competencies', {
-                    headers: { 'Accept-Language': lang },
-                })
+                headers: { 'Accept-Language': lang },
+            })
                 .then((response) => {
                     if (!response.ok) {
                         this.isLoading = false;
@@ -113,14 +115,17 @@ export class CompetencyStore {
                     return response.text();
                 })
                 .then((data) => {
-                    setTimeout(() =>
-                        runInAction(() => {
-                            const competenciesJSON: CompetencyJSON[] = JSON.parse(data);
-                            this.competencies = competenciesJSON.map(competencyJSON => Competency.fromJSON(competencyJSON));
-                            this.factors = this.groupCompetencies(this.competencies);
-                            this.isLoading = false;
-                            this.isLoaded = true;
-                        }), 1500);
+                    setTimeout(() => {
+                        if (lang == this.loadingLanguage) {
+                            runInAction(() => {
+                                const competenciesJSON: CompetencyJSON[] = JSON.parse(data);
+                                this.competencies = competenciesJSON.map(competencyJSON => Competency.fromJSON(competencyJSON));
+                                this.factors = this.groupCompetencies(this.competencies);
+                                this.isLoading = false;
+                                this.isLoaded = true;
+                            });
+                        }
+                    }, 1000);
                 });
         }
     }
@@ -129,11 +134,11 @@ export class CompetencyStore {
         this.isAuthenticated = false;
         this.isAuthenticating = true;
         fetch('api/login', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(password)
-            })
-            .then((response) => 
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(password)
+        })
+            .then((response) =>
                 setTimeout(() => {
                     this.isAuthenticating = false;
                     this.isAuthenticated = response.status == 200;
@@ -163,20 +168,20 @@ export class CompetencyStore {
         });
 
         factors.forEach(o => o.Clusters = o.Clusters.sort((f1, f2) => {
-            if (f1.Name > f2.Name) {
+            if (f1.ID > f2.ID) {
                 return 1;
             }
-            if (f1.Name < f2.Name) {
+            if (f1.ID < f2.ID) {
                 return -1;
             }
             return 0;
         }));
 
         return factors.sort((f1, f2) => {
-            if (f1.Name > f2.Name) {
+            if (f1.ID > f2.ID) {
                 return 1;
             }
-            if (f1.Name < f2.Name) {
+            if (f1.ID < f2.ID) {
                 return -1;
             }
             return 0;

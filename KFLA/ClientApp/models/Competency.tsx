@@ -8,8 +8,8 @@ export interface CompetencyJSON {
     ID: number;
     Name: string;
     Description: string;
-    ClusterID: number;
-    FactorID: number;
+    ClusterID: string;
+    FactorID: string;
     Cluster: ClusterJSON;
     Factor: FactorJSON;
     Questions: QuestionJSON[];
@@ -21,8 +21,8 @@ export class Competency {
     ID: number;
     Name: string;
     Description: string;
-    ClusterID: number;
-    FactorID: number;
+    ClusterID: string;
+    FactorID: string;
     LessSkilled: string;
     Skilled: string;
     Talented: string;

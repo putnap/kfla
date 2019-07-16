@@ -35,7 +35,7 @@ export class NavMenu extends React.Component<NavMenuProps, {}> {
                     <NavLink to={'/library'} activeClassName='active' className='nav-item nav-link'>
                         {this.props.localizationStore.getString('PageTitles.LIBRARY')}
                     </NavLink>
-                    <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link'>
+                    <NavLink to={'/competencies'} activeClassName='active' className='d-none d-md-block nav-item nav-link'>
                         {this.props.localizationStore.getString('PageTitles.COMPETENCIES')}
                     </NavLink>
                     <NavLink to={'/questions'} activeClassName='active' className='nav-item nav-link'>

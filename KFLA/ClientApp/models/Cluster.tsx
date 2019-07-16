@@ -2,17 +2,17 @@
 import { Competency } from "./Competency";
 
 export interface ClusterJSON {
-    ID: number;
+    ID: string;
     Name: string;
 }
 
 export class Cluster {
-    constructor(id: number, name: string) {
+    constructor(id: string, name: string) {
         this.ID = id;
         this.Name = name;
         this.Competencies = [];
     }
-    ID: number;
+    ID: string;
     Name: string;
     @observable Competencies: Competency[];
 

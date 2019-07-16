@@ -131,15 +131,15 @@ namespace KFLA.Services.Services
         {
             var tbl = GetDataTable(ws, hasHeader);
 
-            var stopperTypes = new List<StopperTypeDto>();
+            var clusters = new List<ClusterDto>();
             var typeId = 0;
             foreach (DataRow row in tbl.Rows)
             {
-                var stopperType = stopperTypes.FirstOrDefault(o => o.Name == (string)row[2]);
-                if (stopperType == null)
+                var cluster = clusters.FirstOrDefault(o => o.Name == (string)row[2]);
+                if (cluster == null)
                 {
-                    stopperType = new StopperTypeDto() { Name = (string)row[2], ID = typeId++ };
-                    stopperTypes.Add(stopperType);
+                    cluster = new ClusterDto() { Name = (string)row[2], ID = typeId++.ToString() };
+                    clusters.Add(cluster);
                 }
 
                 var stopper = new StopperDto()
@@ -148,8 +148,7 @@ namespace KFLA.Services.Services
                     Name = (string)row[1],
                     Problem = (string)row[3],
                     NotProblem = (string)row[4],
-                    StopperType = stopperType,
-                    StopperTypeID = stopperType.ID,
+                    Cluster = cluster,
                     Questions = new List<StopperQuestionDto>(),
                 };
 
@@ -177,13 +176,13 @@ namespace KFLA.Services.Services
                 var cluster = clusters.FirstOrDefault(o => o.Name == (string)row[4]);
                 if (cluster == null)
                 {
-                    cluster = new ClusterDto() { Name = (string)row[4], ID = id++ };
+                    cluster = new ClusterDto() { Name = (string)row[4], ID = id++.ToString() };
                     clusters.Add(cluster);
                 }
                 var factor = factors.FirstOrDefault(o => o.Name == (string)row[3]);
                 if (factor == null)
                 {
-                    factor = new FactorDto() { Name = (string)row[3], ID = id++ };
+                    factor = new FactorDto() { Name = (string)row[3], ID = id++.ToString() };
                     factors.Add(factor);
                 }
 
@@ -197,9 +196,7 @@ namespace KFLA.Services.Services
                     Talented = (string)row[7],
                     OverusedSkill = (string)row[8],
                     Factor = factor,
-                    FactorID = factor.ID,
                     Cluster = cluster,
-                    ClusterID = cluster.ID,
                     Questions = new List<QuestionDto>()
                 };
 

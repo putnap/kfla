@@ -58,27 +58,29 @@ export class LocalizationStore {
     }
 
     @action loadStrings(lang: string) {
-        this.language = lang;
-        if (!this.isLoading) {
+        if (!this.isLoading || lang != this.language) {
+            this.language = lang;
             this.isLoaded = false;
             this.isLoading = true;
-                fetch('api/strings', {
-                    headers: { 'Accept-Language': lang },
-                })
-                .then((response) => {
-                    if (!response.ok) {
-                        this.isLoading = false;
-                        throw Error(response.statusText);
-                    }
-                    return response.text();
-                })
-                .then((data) => 
+            fetch('api/strings', {
+                headers: { 'Accept-Language': lang },
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    this.isLoading = false;
+                    throw Error(response.statusText);
+                }
+                return response.text();
+            })
+            .then((data) => {
+                if (lang == this.language) {
                     runInAction(() => {
                         this.strings = JSON.parse(data);
                         this.isLoading = false;
                         this.isLoaded = true;
                     })
-                );
+                }
+            });
         }
 
         //this.strings = [

@@ -59,7 +59,7 @@
     <None Remove="ClientApp\models\LocalizedString.tsx" />
     <None Remove="ClientApp\models\Question.tsx" />
     <None Remove="ClientApp\models\Stopper.tsx" />
-    <None Remove="ClientApp\models\StopperType.tsx" />
+    <None Remove="ClientApp\models\StopperCluster.tsx" />
     <None Remove="ClientApp\stores\LocalizationStore.tsx" />
     <None Remove="ClientApp\stores\StoppersStore.tsx" />
   </ItemGroup>
@@ -90,7 +90,7 @@
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsResult.tsx" />
     <TypeScriptCompile Include="ClientApp\components\withDragDropContext.tsx" />
     <TypeScriptCompile Include="ClientApp\models\LocalizedString.tsx" />
-    <TypeScriptCompile Include="ClientApp\models\StopperType.tsx" />
+    <TypeScriptCompile Include="ClientApp\models\StopperCluster.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Stopper.tsx" />
     <TypeScriptCompile Include="ClientApp\stores\LocalizationStore.tsx" />
     <TypeScriptCompile Include="ClientApp\stores\StoppersStore.tsx" />
@@ -125,7 +125,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\data.*.xlsx">
+    <None Update="Data\data*.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

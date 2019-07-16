@@ -41,11 +41,11 @@ export class StoppersList extends React.Component<StoppersListProps, {}> {
                         <h4 className='font-weight-bold'>{this.props.localizationStore.getString("Stoppers.Title")}</h4>
                         <div className='row'>
                             {
-                                store.stopperTypes.map(stopperType => {
-                                    return <div className='col-lg-12 col-xl-4 mb-2' key={stopperType.ID}>
-                                        <h5 className='font-weight-bold'>{stopperType.Name}</h5>
+                                store.stopperClusters.map(stopperCluster => {
+                                    return <div className='col-lg-12 col-xl-4 mb-2' key={stopperCluster.ID}>
+                                        <h5 className='font-weight-bold'>{stopperCluster.Name}</h5>
                                         {
-                                            stopperType.Stoppers.map(stopper => {
+                                            stopperCluster.Stoppers.map(stopper => {
                                                 return this.props.renderStopper(stopper);
                                             })
                                         }

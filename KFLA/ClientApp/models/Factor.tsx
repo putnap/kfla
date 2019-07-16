@@ -2,17 +2,17 @@
 import { Cluster } from "./Cluster";
 
 export interface FactorJSON {
-    ID: number;
+    ID: string;
     Name: string;
 }
 
 export class Factor {
-    constructor(id: number, name: string) {
+    constructor(id: string, name: string) {
         this.ID = id;
         this.Name = name;
         this.Clusters = [];
     }
-    ID: number;
+    ID: string;
     Name: string;
     @observable Clusters: Cluster[];
 

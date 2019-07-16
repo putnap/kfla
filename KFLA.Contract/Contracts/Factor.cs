@@ -7,7 +7,8 @@ namespace KFLA.Contract
 {
     public class FactorDto
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
+
         public string Name { get; set; }
     }
 }

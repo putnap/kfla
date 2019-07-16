@@ -1,28 +1,28 @@
 ﻿import { observable } from 'mobx';
 import { Stopper } from './Stopper';
 
-export interface StopperTypeJSON {
-    ID: number;
+export interface StopperClusterJSON {
+    ID: string;
     Name: string;
 }
 
-export class StopperType {
-    constructor(id: number, name: string) {
+export class StopperCluster {
+    constructor(id: string, name: string) {
         this.ID = id;
         this.Name = name;
         this.Stoppers = [];
     }
-    ID: number;
+    ID: string;
     Name: string;
     Stoppers: Stopper[];
 
-    static fromJSON(json: StopperTypeJSON | string): StopperType {
+    static fromJSON(json: StopperClusterJSON | string): StopperCluster {
         if (typeof json === 'string') {
             // if it's a string, parse it first
-            return JSON.parse(json, StopperType.reviver);
+            return JSON.parse(json, StopperCluster.reviver);
         } else {
             // create an instance of the class
-            let user = Object.create(StopperType.prototype);
+            let user = Object.create(StopperCluster.prototype);
             // copy all the fields from the json object
             return Object.assign(user, json, {
                 Stoppers: []
@@ -31,6 +31,6 @@ export class StopperType {
     }
 
     static reviver(key: string, value: any): any {
-        return key === "" ? StopperType.fromJSON(value) : value;
+        return key === "" ? StopperCluster.fromJSON(value) : value;
     }
 }

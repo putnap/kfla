@@ -10,9 +10,18 @@ namespace KFLA.Contract
         public string Name { get; set; }
         public string Problem { get; set; }
         public string NotProblem { get; set; }
-        public int StopperTypeID { get; set; }
+        public string ClusterID { get; set; }
 
-        public StopperTypeDto StopperType { get; set; }
-        public List<StopperQuestionDto> Questions { get; set; }
+        private ClusterDto _cluster;
+        public ClusterDto Cluster
+        {
+            get { return _cluster; }
+            set
+            {
+                _cluster = value;
+                ClusterID = value?.ID;
+            }
+        }
+        public List<StopperQuestionDto> Questions { get; set; } = new List<StopperQuestionDto>();
     }
 }

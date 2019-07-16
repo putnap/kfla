@@ -7,7 +7,7 @@ namespace KFLA.Contract
 {
     public class ClusterDto
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string Name { get; set; }
     }
 }
