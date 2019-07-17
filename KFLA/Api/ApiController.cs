@@ -25,9 +25,15 @@ namespace KFLA.API
         }
 
         [HttpGet("competencies/{competencyId}")]
-        public IActionResult GetCompetencies([FromHeader(Name = "Accept-Language")] string language, int competencyId)
+        public IActionResult GetCompetency([FromHeader(Name = "Accept-Language")] string language, int competencyId)
         {
             return Ok(competenciesService.GetCompetency(language, competencyId));
+        }
+
+        [HttpGet("stoppers/{stopperId}")]
+        public IActionResult GetStopper([FromHeader(Name = "Accept-Language")] string language, int stopperId)
+        {
+            return Ok(competenciesService.GetStopper(language, stopperId));
         }
 
         [HttpGet("stoppers")]

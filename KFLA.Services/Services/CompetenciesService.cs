@@ -237,5 +237,10 @@ namespace KFLA.Services.Services
         {
             return GetCompetencies(language).SingleOrDefault(o => o.ID == competencyId);
         }
+
+        public Stopper GetStopper(string language, int stopperId)
+        {
+            return GetStoppers(language).SingleOrDefault(o => o.ID == stopperId);
+        }
     }
 }

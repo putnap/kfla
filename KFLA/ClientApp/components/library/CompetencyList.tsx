@@ -2,10 +2,6 @@
 import { render } from 'react-dom';
 import { observer, inject } from 'mobx-react';
 import { Competency } from '../../models/Competency';
-import { CompetencyItem } from './CompetencyItem';
-import { CompetencyStore } from '../../stores/CompetencyStore';
-import { Loader } from '../Loader';
-import { FactorList } from '../FactorList';
 
 interface CompetencyListState {
     numberOfColumns: number;

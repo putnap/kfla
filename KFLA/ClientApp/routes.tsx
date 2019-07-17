@@ -8,6 +8,7 @@ import { EvaluationResult } from './components/competencies/EvaluationResult';
 import { QuestionsResult } from './components/questions/QuestionsResult';
 import { LibraryContainer } from './components/library/LibraryContainer';
 import { CompetencyContainer } from './components/competency/CompetencyContainer';
+import { StopperContainer } from './components/stopper/StopperContainer';
 
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />
@@ -15,6 +16,7 @@ export const routes = <Layout>
     <Route path='/questionaire' component={QuestionsResult} />
     <Route path='/competencies' component={CompetenciesContainer} />
     <Route path='/evaluation' component={EvaluationResult} />
-    <Route path='/library' component={LibraryContainer} />
-    <Route path='/competency/:competencyId' component={CompetencyContainer} />
+    <Route exact path='/library' component={LibraryContainer} />
+    <Route path='/library/competencies/:competencyId' component={CompetencyContainer} />
+    <Route path='/library/stoppers/:stopperId' component={StopperContainer} />
 </Layout>;

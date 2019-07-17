@@ -39,6 +39,7 @@
     <None Remove="ClientApp\components\competencies\EvaluationResult.tsx" />
     <None Remove="ClientApp\components\CompetencyList.tsx" />
     <None Remove="ClientApp\components\competency\CompetencyContainer.tsx" />
+    <None Remove="ClientApp\components\competency\CompetencyItem.tsx" />
     <None Remove="ClientApp\components\FactorList.tsx" />
     <None Remove="ClientApp\components\library\CompetencyItem.tsx" />
     <None Remove="ClientApp\components\library\CompetencyList.tsx" />
@@ -51,6 +52,8 @@
     <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsResult.tsx" />
     <None Remove="ClientApp\components\questions\StopperItem.tsx" />
+    <None Remove="ClientApp\components\stopper\StopperContainer.tsx" />
+    <None Remove="ClientApp\components\stopper\StopperItem.tsx" />
     <None Remove="ClientApp\components\withDragDropContext.tsx" />
     <None Remove="ClientApp\models\Cluster.tsx" />
     <None Remove="ClientApp\models\Competency.tsx" />
@@ -80,6 +83,7 @@
     <TypeScriptCompile Include="ClientApp\@types\react-dnd\index.d.ts" />
     <TypeScriptCompile Include="ClientApp\@types\types.tsx" />
     <TypeScriptCompile Include="ClientApp\components\competency\CompetencyContainer.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\competency\CompetencyItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\FactorList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\StopperItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\CompetencyItem.tsx" />
@@ -90,6 +94,10 @@
     <TypeScriptCompile Include="ClientApp\components\library\LibraryContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\orientations.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\QuestionsResult.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\stopper\StopperContainer.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\components\stopper\StopperItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\withDragDropContext.tsx" />
     <TypeScriptCompile Include="ClientApp\models\LocalizedString.tsx" />
     <TypeScriptCompile Include="ClientApp\models\StopperCluster.tsx" />

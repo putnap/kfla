@@ -9,6 +9,7 @@ namespace KFLA.Contract.Services
         List<Competency> GetCompetencies(string language);
         Competency GetCompetency(string language, int competencyId);
         List<Stopper> GetStoppers(string language);
+        Stopper GetStopper(string language, int stopperId);
         List<Evaluation> GetEvaluations(string language);
         List<string> GetLanguages();
     }

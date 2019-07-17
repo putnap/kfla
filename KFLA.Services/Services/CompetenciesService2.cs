@@ -54,6 +54,11 @@ namespace KFLA.Services.Services
             }
         }
 
+        public Stopper GetStopper(string language, int stopperId)
+        {
+            return GetStoppers(language).SingleOrDefault(o => o.ID == stopperId);
+        }
+
         public List<LocalizedString> GetStrings(string language)
         {
             using (var pck = new ExcelPackage())

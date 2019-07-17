@@ -2,29 +2,29 @@
 import { observer, inject } from "mobx-react";
 import { RouteComponentProps } from "react-router";
 import { LocalizationStore } from "../../stores/LocalizationStore";
-import { Competency } from "../../models/Competency";
 import { NavMenu } from '../NavMenu';
 import { Loader } from '../Loader';
-import { CompetencyItem } from "./CompetencyItem";
+import { Stopper } from "../../models/Stopper";
+import { StopperItem } from "./StopperItem";
 
-interface CompetencyContainerState {
+interface StopperContainerState {
     isLoading: boolean
-    competency?: Competency
+    stopper?: Stopper
 }
 
-interface CompetencyArgumentProps {
-    competencyId: string
+interface StopperArgumentProps {
+    stopperId: string
 }
 
-interface CompetencyContainerProps extends RouteComponentProps<CompetencyArgumentProps> {
+interface StopperContainerProps extends RouteComponentProps<StopperArgumentProps> {
     localizationStore?: LocalizationStore
 }
 
 @inject("localizationStore")
 @observer
-export class CompetencyContainer extends React.Component<CompetencyContainerProps, CompetencyContainerState> {
+export class StopperContainer extends React.Component<StopperContainerProps, StopperContainerState> {
 
-    constructor(props: CompetencyContainerProps) {
+    constructor(props: StopperContainerProps) {
         super(props);
 
         this.state = {
@@ -34,11 +34,11 @@ export class CompetencyContainer extends React.Component<CompetencyContainerProp
 
     componentDidMount() {
         const lang = this.props.localizationStore.language;
-        const { competencyId } = this.props.match.params;
+        const { stopperId } = this.props.match.params;
 
-        fetch(`api/competencies/${competencyId}`, {
-            headers: { 'Accept-Language': lang },
-        })
+        fetch(`api/stoppers/${stopperId}`, {
+                headers: { 'Accept-Language': lang },
+            })
             .then(response => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -46,13 +46,13 @@ export class CompetencyContainer extends React.Component<CompetencyContainerProp
                 return response.json();
             })
             .then(json => {
-                this.setState({ competency: Competency.fromJSON(json), isLoading: false })
+                this.setState({ stopper: Stopper.fromJSON(json), isLoading: false })
             })
             .catch(_ => this.setState({ isLoading: false }));
     }
 
     public render() {
-        const { isLoading, competency } = this.state;
+        const { isLoading, stopper } = this.state;
         const localizationStore = this.props.localizationStore;
         return <div className='row background-lib height-100 '>
             <NavMenu />
@@ -62,7 +62,7 @@ export class CompetencyContainer extends React.Component<CompetencyContainerProp
                         {
                             isLoading ?
                                 <Loader text={localizationStore.getString('Questionaire.Loading')} /> :
-                                <CompetencyItem competency={competency} />
+                                <StopperItem stopper={stopper} />
                         }
                     </div>
                 </div>

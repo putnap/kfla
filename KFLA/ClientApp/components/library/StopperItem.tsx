@@ -1,16 +1,22 @@
 ﻿import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { Stopper } from '../../models/Stopper';
 import { observer, inject } from 'mobx-react';
 import { LocalizationStore } from '../../stores/LocalizationStore';
 
-interface StopperItemProps {
+interface StopperItemProps extends Partial<RouteComponentProps<{}>>{
     stopper: Stopper;
     localizationStore?: LocalizationStore;
 }
 
 @inject("localizationStore")
 @observer
+@withRouter
 export class StopperItem extends React.Component<StopperItemProps, {}> {
+
+    openStopper(stopperId: number) {
+        this.props.history.push(`/library/stoppers/${stopperId}`);
+    }
 
     splitStringToList(text: string) {
         return <ul>
@@ -23,7 +29,7 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
 
     render() {
         return <div className='row'>
-            <div className='col competency-as-button p-1' data-toggle='modal' data-target={'#stopper' + this.props.stopper.ID} style={{ cursor: 'pointer' }}>
+            <div className='col competency-as-button p-1' onClick={this.openStopper.bind(this, this.props.stopper.ID)} style={{ cursor: 'pointer' }}>
                 <span>{this.props.stopper.ID}.</span>
                 <span className='font-weight-bold ml-3'>{this.props.stopper.Name}</span>
             </div>

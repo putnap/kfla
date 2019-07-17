@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LocalizationStore } from '../../stores/LocalizationStore';
 
-interface CompetencyItemProps extends RouteComponentProps<{}> {
+interface CompetencyItemProps extends Partial<RouteComponentProps<{}>> {
     competency: Competency;
     localizationStore?: LocalizationStore;
 }
@@ -16,7 +16,7 @@ interface CompetencyItemProps extends RouteComponentProps<{}> {
 export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
 
     openCompetency(competencyId: number) {
-        this.props.history.push(`/competency/${competencyId}`);
+        this.props.history.push(`/library/competencies/${competencyId}`);
     }
 
     splitStringToList(text: string, classes?: string) {
