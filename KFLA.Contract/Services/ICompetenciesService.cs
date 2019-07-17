@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace KFLA.Contract.Services
 {
     public interface ICompetenciesService
     {
-        List<LocalizedStringDto> GetStrings(string language);
-        List<CompetencyDto> GetCompetencies(string language);
-        List<StopperDto> GetStoppers(string language);
-        List<EvaluationDto> GetEvaluations(string language);
+        List<LocalizedString> GetStrings(string language);
+        List<Competency> GetCompetencies(string language);
+        Competency GetCompetency(string language, int competencyId);
+        List<Stopper> GetStoppers(string language);
+        List<Evaluation> GetEvaluations(string language);
         List<string> GetLanguages();
     }
 }

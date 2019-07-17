@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KFLA.Contract
 {
-    public class ClusterDto
+    public class Cluster
     {
         public string ID { get; set; }
         public string Name { get; set; }

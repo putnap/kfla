@@ -1,6 +1,6 @@
 ﻿namespace KFLA.Contract
 {
-    public class EvaluationDto
+    public class Evaluation
     {
         public int ID { get; set; }
         public string Name { get; set; }

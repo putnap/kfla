@@ -4,9 +4,7 @@ using System.Text;
 
 namespace KFLA.Contract
 {
-    public class StopperType
+    public class ExtendedCompetencyData : Competency
     {
-        public string ID { get; set; }
-        public string Name { get; set; }
     }
 }

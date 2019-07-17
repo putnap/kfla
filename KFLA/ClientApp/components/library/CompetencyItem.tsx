@@ -1,17 +1,23 @@
 ﻿import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { Competency } from '../../models/Competency';
 import { observer, inject } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LocalizationStore } from '../../stores/LocalizationStore';
 
-interface CompetencyItemProps {
+interface CompetencyItemProps extends RouteComponentProps<{}> {
     competency: Competency;
     localizationStore?: LocalizationStore;
 }
 
 @inject("localizationStore")
 @observer
+@withRouter
 export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
+
+    openCompetency(competencyId: number) {
+        this.props.history.push(`/competency/${competencyId}`);
+    }
 
     splitStringToList(text: string, classes?: string) {
         return <ul>
@@ -24,7 +30,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
 
     render() {
         return <div>
-            <div className='row competency-as-button' data-toggle='modal' data-target={'#competency' + this.props.competency.ID} style={{ cursor: 'pointer' }}>
+            <div className='row competency-as-button' onClick={this.openCompetency.bind(this, this.props.competency.ID)} style={{ cursor: 'pointer' }} >
                 <div className='col-1 p-0 text-right'>
                     <span>{this.props.competency.ID}.</span>
                 </div>

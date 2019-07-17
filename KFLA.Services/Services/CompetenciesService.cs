@@ -15,7 +15,7 @@ namespace KFLA.Services.Services
     {
         private readonly Regex dataFileRegex = new Regex(@".+data\.(?'lang'[a-z]{2,3})\.xlsx");
 
-        public List<CompetencyDto> GetCompetencies(string language)
+        public List<Competency> GetCompetencies(string language)
         {
             using (var pck = new ExcelPackage())
             {
@@ -28,7 +28,7 @@ namespace KFLA.Services.Services
             }
         }
 
-        public List<StopperDto> GetStoppers(string language)
+        public List<Stopper> GetStoppers(string language)
         {
             using (var pck = new ExcelPackage())
             {
@@ -41,7 +41,7 @@ namespace KFLA.Services.Services
             }
         }
 
-        public List<LocalizedStringDto> GetStrings(string language)
+        public List<LocalizedString> GetStrings(string language)
         {
             using (var pck = new ExcelPackage())
             {
@@ -54,7 +54,7 @@ namespace KFLA.Services.Services
             }
         }
 
-        public List<EvaluationDto> GetEvaluations(string language)
+        public List<Evaluation> GetEvaluations(string language)
         {
             using (var pck = new ExcelPackage())
             {
@@ -91,13 +91,13 @@ namespace KFLA.Services.Services
             return File.OpenRead(fileName);
         }
 
-        private static IEnumerable<LocalizedStringDto> GetLocalizedStrings(ExcelWorksheet ws, bool hasHeader = true)
+        private static IEnumerable<LocalizedString> GetLocalizedStrings(ExcelWorksheet ws, bool hasHeader = true)
         {
             var tbl = GetDataTable(ws, hasHeader);
 
             foreach (DataRow row in tbl.Rows)
             {
-                var localizedString = new LocalizedStringDto()
+                var localizedString = new LocalizedString()
                 {
                     Key = (string)row[0],
                     Value = (string)row[1],
@@ -107,13 +107,13 @@ namespace KFLA.Services.Services
             }
         }
 
-        private static IEnumerable<EvaluationDto> GetEvaluations(ExcelWorksheet ws, bool hasHeader = true)
+        private static IEnumerable<Evaluation> GetEvaluations(ExcelWorksheet ws, bool hasHeader = true)
         {
             var tbl = GetDataTable(ws, hasHeader);
 
             foreach (DataRow row in tbl.Rows)
             {
-                var evaluation = new EvaluationDto()
+                var evaluation = new Evaluation()
                 {
                     ID = int.Parse((string)row[0]),
                     Name = (string)row[1],
@@ -127,35 +127,35 @@ namespace KFLA.Services.Services
             }
         }
 
-        private static IEnumerable<StopperDto> GetStoppers(ExcelWorksheet ws, bool hasHeader = true)
+        private static IEnumerable<Stopper> GetStoppers(ExcelWorksheet ws, bool hasHeader = true)
         {
             var tbl = GetDataTable(ws, hasHeader);
 
-            var clusters = new List<ClusterDto>();
+            var clusters = new List<Cluster>();
             var typeId = 0;
             foreach (DataRow row in tbl.Rows)
             {
                 var cluster = clusters.FirstOrDefault(o => o.Name == (string)row[2]);
                 if (cluster == null)
                 {
-                    cluster = new ClusterDto() { Name = (string)row[2], ID = typeId++.ToString() };
+                    cluster = new Cluster() { Name = (string)row[2], ID = typeId++.ToString() };
                     clusters.Add(cluster);
                 }
 
-                var stopper = new StopperDto()
+                var stopper = new Stopper()
                 {
                     ID = int.Parse((string)row[0]),
                     Name = (string)row[1],
                     Problem = (string)row[3],
                     NotProblem = (string)row[4],
                     Cluster = cluster,
-                    Questions = new List<StopperQuestionDto>(),
+                    Questions = new List<StopperQuestion>(),
                 };
 
                 for (var i = 5; i < row.ItemArray.Count(); i++)
                 {
                     if (row[i] is string value && !string.IsNullOrEmpty(value))
-                        stopper.Questions.Add(new StopperQuestionDto() { QuestionContent = value, ID = i, StopperID = stopper.ID });
+                        stopper.Questions.Add(new StopperQuestion() { QuestionContent = value, ID = i, StopperID = stopper.ID });
                     else
                         break;
                 }
@@ -164,29 +164,29 @@ namespace KFLA.Services.Services
             }
         }
 
-        private static IEnumerable<CompetencyDto> GetCompetencies(ExcelWorksheet ws, bool hasHeader = true)
+        private static IEnumerable<Competency> GetCompetencies(ExcelWorksheet ws, bool hasHeader = true)
         {
             var tbl = GetDataTable(ws, hasHeader);
 
-            var clusters = new List<ClusterDto>();
-            var factors = new List<FactorDto>();
+            var clusters = new List<Cluster>();
+            var factors = new List<Factor>();
             var id = 0;
             foreach (DataRow row in tbl.Rows)
             {
                 var cluster = clusters.FirstOrDefault(o => o.Name == (string)row[4]);
                 if (cluster == null)
                 {
-                    cluster = new ClusterDto() { Name = (string)row[4], ID = id++.ToString() };
+                    cluster = new Cluster() { Name = (string)row[4], ID = id++.ToString() };
                     clusters.Add(cluster);
                 }
                 var factor = factors.FirstOrDefault(o => o.Name == (string)row[3]);
                 if (factor == null)
                 {
-                    factor = new FactorDto() { Name = (string)row[3], ID = id++.ToString() };
+                    factor = new Factor() { Name = (string)row[3], ID = id++.ToString() };
                     factors.Add(factor);
                 }
 
-                var competency = new CompetencyDto()
+                var competency = new Competency()
                 {
                     ID = int.Parse((string)row[0]),
                     Name = (string)row[1],
@@ -197,13 +197,13 @@ namespace KFLA.Services.Services
                     OverusedSkill = (string)row[8],
                     Factor = factor,
                     Cluster = cluster,
-                    Questions = new List<QuestionDto>()
+                    Questions = new List<Question>()
                 };
 
                 for (var i = 9; i < row.ItemArray.Count(); i++)
                 {
                     if (row[i] is string value && !string.IsNullOrEmpty(value))
-                        competency.Questions.Add(new QuestionDto() { QuestionContent = value, ID = i, CompetencyID = competency.ID });
+                        competency.Questions.Add(new Question() { QuestionContent = value, ID = i, CompetencyID = competency.ID });
                     else
                         break;
                 }
@@ -231,6 +231,11 @@ namespace KFLA.Services.Services
             }
 
             return tbl;
+        }
+
+        public Competency GetCompetency(string language, int competencyId)
+        {
+            return GetCompetencies(language).SingleOrDefault(o => o.ID == competencyId);
         }
     }
 }

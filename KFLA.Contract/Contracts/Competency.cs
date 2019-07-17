@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KFLA.Contract
 {
-    public class CompetencyDto
+    public class Competency
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -17,8 +17,8 @@ namespace KFLA.Contract
         public string Talented { get; set; }
         public string OverusedSkill { get; set; }
 
-        private ClusterDto _cluster;
-        public ClusterDto Cluster
+        private Cluster _cluster;
+        public Cluster Cluster
         {
             get { return _cluster; }
             set
@@ -28,8 +28,8 @@ namespace KFLA.Contract
             }
         }
 
-        private FactorDto _factor;
-        public FactorDto Factor
+        private Factor _factor;
+        public Factor Factor
         {
             get { return _factor; }
             set
@@ -39,6 +39,6 @@ namespace KFLA.Contract
             }
         }
 
-        public List<QuestionDto> Questions { get; set; } = new List<QuestionDto>();
+        public List<Question> Questions { get; set; } = new List<Question>();
     }
 }

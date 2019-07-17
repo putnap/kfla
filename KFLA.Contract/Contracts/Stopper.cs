@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KFLA.Contract
 {
-    public class StopperDto
+    public class Stopper
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -12,8 +12,8 @@ namespace KFLA.Contract
         public string NotProblem { get; set; }
         public string ClusterID { get; set; }
 
-        private ClusterDto _cluster;
-        public ClusterDto Cluster
+        private Cluster _cluster;
+        public Cluster Cluster
         {
             get { return _cluster; }
             set
@@ -22,6 +22,6 @@ namespace KFLA.Contract
                 ClusterID = value?.ID;
             }
         }
-        public List<StopperQuestionDto> Questions { get; set; } = new List<StopperQuestionDto>();
+        public List<StopperQuestion> Questions { get; set; } = new List<StopperQuestion>();
     }
 }

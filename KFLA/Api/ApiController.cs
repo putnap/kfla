@@ -1,6 +1,7 @@
 ﻿using KFLA.Contract.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 
 namespace KFLA.API
 {
@@ -21,6 +22,12 @@ namespace KFLA.API
         public IActionResult GetCompetencies([FromHeader(Name = "Accept-Language")] string language)
         {
             return Ok(competenciesService.GetCompetencies(language));
+        }
+
+        [HttpGet("competencies/{competencyId}")]
+        public IActionResult GetCompetencies([FromHeader(Name = "Accept-Language")] string language, int competencyId)
+        {
+            return Ok(competenciesService.GetCompetency(language, competencyId));
         }
 
         [HttpGet("stoppers")]

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KFLA.Contract
 {
-    public class StopperQuestionDto
+    public class StopperQuestion
     {
         public int ID { get; set; }
         public string QuestionContent { get; set; }

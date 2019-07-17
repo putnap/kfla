@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KFLA.Contract
 {
-    public class QuestionDto
+    public class Question
     {
         public int ID { get; set; }
         public string QuestionContent { get; set; }

@@ -9,7 +9,6 @@ interface CompetencyItemProps {
 
 @observer
 export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
-
     render() {
         const competency = this.props.competency;
         return <div className='row'>
