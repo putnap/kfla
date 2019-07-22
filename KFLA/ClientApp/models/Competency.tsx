@@ -15,6 +15,22 @@ export interface CompetencyJSON {
     Questions: QuestionJSON[];
     IsSelected: boolean;
     IsEvaluated: boolean;
+
+    LessSkilled: string[];
+    Skilled: string[];
+    Talented: string[];
+    OverusedSkill: string[];
+
+    Context: string;
+    Quotes: string[];
+    Positioning: string;
+    Causes: string[];
+    CaseStudies: [string, string];
+    JobAssignments: string[];
+    TimeToReflect: [string, string];
+    LearnMore: string[];
+    DeepDiveResources: string[];
+    Tips: [string, string, string[]];
 }
 
 export class Competency {
@@ -23,12 +39,24 @@ export class Competency {
     Description: string;
     ClusterID: string;
     FactorID: string;
-    LessSkilled: string;
-    Skilled: string;
-    Talented: string;
-    OverusedSkill: string;
+    LessSkilled: string[];
+    Skilled: string[];
+    Talented: string[];
+    OverusedSkill: string[];
     Cluster: Cluster;
     Factor: Factor;
+
+    Context: string;
+    Quotes: string[];
+    Positioning: string;
+    Causes: string[];
+    CaseStudies: [string, string];
+    JobAssignments: string[];
+    TimeToReflect: [string, string];
+    LearnMore: string[];
+    DeepDiveResources: string[];
+    Tips: [string, string, string[]];
+
     @observable Questions: Question[];
     @observable Evaluation: Evaluation;
     @observable IsSelected: boolean;

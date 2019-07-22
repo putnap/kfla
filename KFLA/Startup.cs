@@ -28,7 +28,7 @@ namespace KFLA
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ICompetenciesService, CompetenciesService2>();
+            services.AddSingleton<ICompetenciesService, CompetenciesService2>();
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
