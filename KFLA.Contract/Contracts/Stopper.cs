@@ -8,8 +8,8 @@ namespace KFLA.Contract
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string Problem { get; set; }
-        public string NotProblem { get; set; }
+        public List<string> Problem { get; set; }
+        public List<string> NotProblem { get; set; }
         public string ClusterID { get; set; }
 
         private Cluster _cluster;

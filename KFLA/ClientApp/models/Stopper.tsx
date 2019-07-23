@@ -5,8 +5,8 @@ import { QuestionJSON, Question } from './Question';
 export interface StopperJSON {
     ID: number;
     Name: string;
-    Problem: string;
-    NotProblem: string;
+    Problem: string[];
+    NotProblem: string[];
     Questions: QuestionJSON[];
     Cluster: StopperClusterJSON;
 }
@@ -14,8 +14,8 @@ export interface StopperJSON {
 export class Stopper {
     ID: number;
     Name: string;
-    Problem: string;
-    NotProblem: string;
+    Problem: string[];
+    NotProblem: string[];
     Cluster: StopperCluster;
     @observable Questions: Question[];
     @observable IsSelected: boolean;

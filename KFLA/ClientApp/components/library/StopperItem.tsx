@@ -1,8 +1,9 @@
 ﻿import * as React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 import { Stopper } from '../../models/Stopper';
 import { observer, inject } from 'mobx-react';
 import { LocalizationStore } from '../../stores/LocalizationStore';
+import { printSkills } from '../skillPrinter';
 
 interface StopperItemProps extends Partial<RouteComponentProps<{}>>{
     stopper: Stopper;
@@ -11,20 +12,10 @@ interface StopperItemProps extends Partial<RouteComponentProps<{}>>{
 
 @inject("localizationStore")
 @observer
-@withRouter
 export class StopperItem extends React.Component<StopperItemProps, {}> {
 
     openStopper(stopperId: number) {
         this.props.history.push(`/library/stoppers/${stopperId}`);
-    }
-
-    splitStringToList(text: string) {
-        return <ul>
-            {text.split("\n").map(i => {
-                if (i)
-                    return <li key={i}><p className='card-text' style={{ fontSize: '80%' }}>{i}</p></li>;
-            })}
-        </ul>
     }
 
     render() {
@@ -48,9 +39,9 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
                         <div className='modal-body'>
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'><span className='pl-2'>{this.props.localizationStore.getString('StopperItem.Problem')}</span></p>
-                                {this.splitStringToList(this.props.stopper.Problem)}
+                                {printSkills(this.props.stopper.Problem)}
                                 <p className='card-text font-weight-bold'><span className='pl-2'>{this.props.localizationStore.getString('StopperItem.NotAProblem')}</span></p>
-                                {this.splitStringToList(this.props.stopper.NotProblem)}
+                                {printSkills(this.props.stopper.NotProblem)}
                             </div>
                         </div>
                         <div className='modal-footer'>

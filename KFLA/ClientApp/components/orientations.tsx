@@ -11,3 +11,4 @@ export const PortraitOrientation = () => (
         {"@media print{@page {size: auto}}"}
     </style>
 );
+

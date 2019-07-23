@@ -146,8 +146,8 @@ namespace KFLA.Services.Services
                 {
                     ID = int.Parse((string)row[0]),
                     Name = (string)row[1],
-                    Problem = (string)row[3],
-                    NotProblem = (string)row[4],
+                    Problem = ((string)row[3]).Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList(),
+                    NotProblem = ((string)row[4]).Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList(),
                     Cluster = cluster,
                     Questions = new List<StopperQuestion>(),
                 };

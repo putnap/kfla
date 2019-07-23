@@ -35,6 +35,11 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
         this.state = {
             numericSort: false
         };
+
+        this.renderCompetency = this.renderCompetency.bind(this);
+        this.renderStopper = this.renderStopper.bind(this);
+        this.changeSort = this.changeSort.bind(this);
+        this.showInfo = this.showInfo.bind(this);
     }      
 
     componentDidMount() {
@@ -49,7 +54,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
     }
 
     renderCompetency(competency: Competency): JSX.Element {
-        return <CompetencyItem competency={competency} key={competency.ID} />
+        return <CompetencyItem competency={competency} key={competency.ID} {...this.props} />
     }
 
     changeSort() {
@@ -57,7 +62,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
     }
 
     renderStopper(stopper: Stopper): JSX.Element {
-        return <StopperItem stopper={stopper} key={stopper.ID} />
+        return <StopperItem stopper={stopper} key={stopper.ID} {...this.props} />
     }
 
     public render() {
@@ -74,13 +79,13 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
                 }
                 <StoppersList animate={true} renderStopper={this.renderStopper} />
                 <div className='btn-floating-container'>
-                    <button onClick={(e) => this.changeSort()} className='btn rounded-circle' title={this.props.localizationStore.getString('Library.SortByNumber')} hidden={this.state.numericSort}>
+                    <button onClick={this.changeSort} className='btn rounded-circle' title={this.props.localizationStore.getString('Library.SortByNumber')} hidden={this.state.numericSort}>
                         <FontAwesomeIcon icon='sort-numeric-down' />
                     </button>
-                    <button onClick={(e) => this.changeSort()} className='btn rounded-circle' title={this.props.localizationStore.getString('Library.SortByFactors')} hidden={!this.state.numericSort}>
+                    <button onClick={this.changeSort} className='btn rounded-circle' title={this.props.localizationStore.getString('Library.SortByFactors')} hidden={!this.state.numericSort}>
                         <FontAwesomeIcon icon='sort-amount-down' />
                     </button>
-                    <button onClick={(e) => this.showInfo()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Info')}>
+                    <button onClick={this.showInfo} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Info')}>
                         <FontAwesomeIcon icon='info' />
                     </button>
                 </div>

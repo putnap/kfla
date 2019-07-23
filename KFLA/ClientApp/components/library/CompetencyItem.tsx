@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 import { Competency } from '../../models/Competency';
 import { observer, inject } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,7 +12,6 @@ interface CompetencyItemProps extends Partial<RouteComponentProps<{}>> {
 
 @inject("localizationStore")
 @observer
-@withRouter
 export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
 
     openCompetency(competencyId: number) {

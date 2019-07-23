@@ -189,9 +189,8 @@ namespace KFLA.Services.Services
 
             foreach (var stopper in stoppers)
             {
-                var problems = problemMaps.Where(o => o.ID == stopper.ID).Select(o => o.SkillDescription);
-                stopper.Problem = string.Join("\n", problems);
-                stopper.NotProblem = string.Join("\n", notAProblemMaps.Where(o => o.ID == stopper.ID).Select(o => o.SkillDescription));
+                stopper.Problem = problemMaps.Where(o => o.ID == stopper.ID).Select(o => o.SkillDescription).ToList();
+                stopper.NotProblem = notAProblemMaps.Where(o => o.ID == stopper.ID).Select(o => o.SkillDescription).ToList();
                 stopper.Questions = stopperQuestions.Where(o => o.StopperID == stopper.ID).ToList();
             }
 
@@ -503,7 +502,6 @@ namespace KFLA.Services.Services
             var ws = pck.Workbook.Worksheets[2];
             var tbl = GetDataTable(ws);
 
-            var id = 0;
             foreach (DataRow row in tbl.Rows)
             {
                 var stopperId = int.Parse((string)row[0]);

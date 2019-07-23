@@ -6,6 +6,7 @@ import { Competency } from "../../models/Competency";
 import { NavMenu } from '../NavMenu';
 import { Loader } from '../Loader';
 import { CompetencyItem } from "./CompetencyItem";
+import { autorun } from "mobx";
 
 interface CompetencyContainerState {
     isLoading: boolean
@@ -33,12 +34,15 @@ export class CompetencyContainer extends React.Component<CompetencyContainerProp
     }
 
     componentDidMount() {
-        const lang = this.props.localizationStore.language;
         const { competencyId } = this.props.match.params;
+        autorun(() => {
+            this.fetchLocalizedCompetency(this.props.localizationStore.language, competencyId);
+        });
+    }
 
-        fetch(`api/competencies/${competencyId}`, {
-            headers: { 'Accept-Language': lang },
-        })
+    fetchLocalizedCompetency(lang: string, competencyId: string) {
+        this.setState({ isLoading: true });
+        fetch(`api/competencies/${competencyId}`, { headers: { 'Accept-Language': lang } })
             .then(response => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -62,7 +66,7 @@ export class CompetencyContainer extends React.Component<CompetencyContainerProp
                         {
                             isLoading ?
                                 <Loader text={localizationStore.getString('Questionaire.Loading')} /> :
-                                <CompetencyItem competency={competency} />
+                                <CompetencyItem competency={competency} {...this.props} />
                         }
                     </div>
                 </div>

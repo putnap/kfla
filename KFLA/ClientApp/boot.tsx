@@ -1,6 +1,5 @@
 import './css/site.css';
 import 'bootstrap';
-import '@fortawesome/fontawesome-free-solid';
 import 'whatwg-fetch';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -17,6 +16,12 @@ import { CompetencyStore } from './stores/CompetencyStore';
 import { Stores } from './@types/types';
 import { StoppersStore } from './stores/StoppersStore';
 import { LocalizationStore } from './stores/LocalizationStore';
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { faLeanpub } from '@fortawesome/free-brands-svg-icons'
+
+library.add(fas, faLeanpub);
 
 let routes = RoutesModule.routes;
 const localizationStore = new LocalizationStore();
