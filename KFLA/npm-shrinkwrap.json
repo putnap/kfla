@@ -97,6 +97,15 @@
         "@types/react": "*"
       }
     },
+    "@types/react-linkify": {
+      "version": "0.2.0",
+      "resolved": "https://registry.npmjs.org/@types/react-linkify/-/react-linkify-0.2.0.tgz",
+      "integrity": "sha512-dLpsBFPEswCfPPkP6J9RjFKncF15BWusjdgTiEQpWvWOSGWZ6tjr7K3Mt6e+EiWUxtSLzteWxGEq0gwaMFmtsg==",
+      "dev": true,
+      "requires": {
+        "@types/react": "*"
+      }
+    },
     "@types/react-router": {
       "version": "4.0.12",
       "resolved": "https://registry.npmjs.org/@types/react-router/-/react-router-4.0.12.tgz",
@@ -3048,6 +3057,14 @@
         "invert-kv": "^1.0.0"
       }
     },
+    "linkify-it": {
+      "version": "2.2.0",
+      "resolved": "https://registry.npmjs.org/linkify-it/-/linkify-it-2.2.0.tgz",
+      "integrity": "sha512-GnAl/knGn+i1U/wjBz3akz2stz+HrHLsxMwHQGofCDfPvlf+gDKN58UtfmUquTY4/MXeE2x7k19KQmeoZi94Iw==",
+      "requires": {
+        "uc.micro": "^1.0.1"
+      }
+    },
     "load-json-file": {
       "version": "1.1.0",
       "resolved": "https://registry.npmjs.org/load-json-file/-/load-json-file-1.1.0.tgz",
@@ -4614,6 +4631,15 @@
         }
       }
     },
+    "react-linkify": {
+      "version": "1.0.0-alpha",
+      "resolved": "https://registry.npmjs.org/react-linkify/-/react-linkify-1.0.0-alpha.tgz",
+      "integrity": "sha512-7gcIUvJkAXXttt1fmBK9cwn+1jTa4hbKLGCZ9J1U6EOkyb2/+LKL1Z28d9rtDLMnpvImlNlLPdTPooorl5cpmg==",
+      "requires": {
+        "linkify-it": "^2.0.3",
+        "tlds": "^1.199.0"
+      }
+    },
     "react-proxy": {
       "version": "3.0.0-alpha.1",
       "resolved": "https://registry.npmjs.org/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz",
@@ -5373,6 +5399,11 @@
         "setimmediate": "^1.0.4"
       }
     },
+    "tlds": {
+      "version": "1.203.1",
+      "resolved": "https://registry.npmjs.org/tlds/-/tlds-1.203.1.tgz",
+      "integrity": "sha512-7MUlYyGJ6rSitEZ3r1Q1QNV8uSIzapS8SmmhSusBuIc7uIxPPwsKllEP0GRp1NS6Ik6F+fRZvnjDWm3ecv2hDw=="
+    },
     "to-arraybuffer": {
       "version": "1.0.1",
       "resolved": "https://registry.npmjs.org/to-arraybuffer/-/to-arraybuffer-1.0.1.tgz",
@@ -5474,6 +5505,11 @@
       "version": "0.7.18",
       "resolved": "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.18.tgz",
       "integrity": "sha1-p7/ZL1bt+xFwg7aeMdKqiILUse0="
+    },
+    "uc.micro": {
+      "version": "1.0.6",
+      "resolved": "https://registry.npmjs.org/uc.micro/-/uc.micro-1.0.6.tgz",
+      "integrity": "sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA=="
     },
     "uglify-js": {
       "version": "2.8.29",

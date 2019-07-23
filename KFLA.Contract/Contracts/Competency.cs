@@ -49,13 +49,13 @@ namespace KFLA.Contract
 
         public List<string> Causes { get; set; } = new List<string>();
 
-        public List<(string Type, string CaseStudy)> CaseStudies { get; set; } = new List<(string Type, string CaseStudy)>();
+        public List<CaseStudy> CaseStudies { get; set; } = new List<CaseStudy>();
 
         public List<Tip> Tips { get; set; } = new List<Tip>();
 
         public List<string> JobAssignments { get; set; } = new List<string>();
 
-        public List<(string Statement, string Suggestion)> TimeToReflect { get; set; } = new List<(string Statement, string Suggestion)>();
+        public List<TimeToReflect> TimeToReflect { get; set; } = new List<TimeToReflect>();
 
         public List<string> LearnMore { get; set; } = new List<string>();
 

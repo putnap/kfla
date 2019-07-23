@@ -160,10 +160,10 @@ namespace KFLA.Services.Services
                 competency.Quotes = quotes.Where(o => o.id == competency.ID).OrderBy(o => o.Order).Select(o => o.Quote).ToList();
                 competency.Positioning = positionings.SingleOrDefault(o => o.Id == competency.ID).Positioning;
                 competency.Causes = causes.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.Cause).ToList();
-                competency.CaseStudies = caseStudies.Where(o => o.Id == competency.ID).Select(o => (o.Type, o.CaseStudy)).ToList();
+                competency.CaseStudies = caseStudies.Where(o => o.Id == competency.ID).Select(o => new CaseStudy { Type = o.Type, Case = o.CaseStudy }).ToList();
                 competency.Tips = tips.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.Tip).ToList();
                 competency.JobAssignments = jobAssignments.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.JobAssignment).ToList();
-                competency.TimeToReflect = timeToReflect.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => (o.Statement, o.Suggestion)).ToList();
+                competency.TimeToReflect = timeToReflect.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => new TimeToReflect { Statement = o.Statement, Suggestion = o.Suggestion }).ToList();
                 competency.LearnMore = learnMore.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.LearnMore).ToList();
                 competency.DeepDiveResources = deepDiveLinks.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.DeepDiveResource).ToList();
                 Debug.WriteLine($"Completed competency: {competency.ID}");

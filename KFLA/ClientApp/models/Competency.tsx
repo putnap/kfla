@@ -4,6 +4,23 @@ import { Factor, FactorJSON } from "./Factor";
 import { observable, computed, action } from 'mobx';
 import { Evaluation } from "./Evaluation";
 
+
+export interface Tip {
+    Phrase: string;
+    TipContent: string;
+    WantToLearnMore: string[];
+}
+
+export interface CaseStudy {
+    Type: string;
+    Case: string;
+}
+
+export interface TimeToReflect {
+    Statement: string;
+    Suggestion: string;
+}
+
 export interface CompetencyJSON {
     ID: number;
     Name: string;
@@ -25,12 +42,12 @@ export interface CompetencyJSON {
     Quotes: string[];
     Positioning: string;
     Causes: string[];
-    CaseStudies: [string, string];
+    CaseStudies: CaseStudy[];
     JobAssignments: string[];
-    TimeToReflect: [string, string];
+    TimeToReflect: TimeToReflect[];
     LearnMore: string[];
     DeepDiveResources: string[];
-    Tips: [string, string, string[]];
+    Tips: Tip[];
 }
 
 export class Competency {
@@ -50,12 +67,12 @@ export class Competency {
     Quotes: string[];
     Positioning: string;
     Causes: string[];
-    CaseStudies: [string, string];
+    CaseStudies: CaseStudy[];
     JobAssignments: string[];
-    TimeToReflect: [string, string];
+    TimeToReflect: TimeToReflect[];
     LearnMore: string[];
     DeepDiveResources: string[];
-    Tips: [string, string, string[]];
+    Tips: Tip[];
 
     @observable Questions: Question[];
     @observable Evaluation: Evaluation;
