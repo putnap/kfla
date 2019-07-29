@@ -115,17 +115,15 @@ export class CompetencyStore {
                     return response.text();
                 })
                 .then((data) => {
-                    setTimeout(() => {
-                        if (lang == this.loadingLanguage) {
-                            runInAction(() => {
-                                const competenciesJSON: CompetencyJSON[] = JSON.parse(data);
-                                this.competencies = competenciesJSON.map(competencyJSON => Competency.fromJSON(competencyJSON));
-                                this.factors = this.groupCompetencies(this.competencies);
-                                this.isLoading = false;
-                                this.isLoaded = true;
-                            });
-                        }
-                    }, 1000);
+                    if (lang == this.loadingLanguage) {
+                        runInAction(() => {
+                            const competenciesJSON: CompetencyJSON[] = JSON.parse(data);
+                            this.competencies = competenciesJSON.map(competencyJSON => Competency.fromJSON(competencyJSON));
+                            this.factors = this.groupCompetencies(this.competencies);
+                            this.isLoading = false;
+                            this.isLoaded = true;
+                        });
+                    }
                 });
         }
     }

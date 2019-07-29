@@ -29,20 +29,22 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
     }
 
     generateButton(link: string, icon: IconProp) {
-        return <div className='dropright'>
-            <button type='button' className='btn dropdown-toggle-split rounded-0 background-lib' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                <FontAwesomeIcon style={iconStyle} fixedWidth icon={icon} />
-            </button>
-            <div className='dropdown-menu m-0 rounded-0 border-0 background-lib' style={{ height: '54px' }}>
-                {this.generateLink(link)}
+        return <Link to={`${this.props.match.url}/${link}`}>
+            <div className='dropright'>
+                <div className='btn rounded-0 background-lib'>
+                    <FontAwesomeIcon style={iconStyle} fixedWidth icon={icon} />
+                </div>
+                <div className='dropdown-menu m-0 rounded-0 border-0 background-lib' style={{ height: '54px' }}>
+                    {this.generateLink(link)}
+                </div>
             </div>
-        </div>
+        </Link>
     }
 
     generateLink(link: string) {
         const localizationStore = this.props.localizationStore;
         return <div className='my-auto'>
-            <Link className='text-dark' to={`${this.props.match.url}/${link}`}><span className='pl-2'>{localizationStore.getString(`Library.Items.Links.${link}`)}</span></Link>
+            <span className='text-dark pl-2'>{localizationStore.getString(`Library.Items.Links.${link}`)}</span>
         </div>
     }
 
