@@ -9,7 +9,8 @@ import { StopperItem } from "./StopperItem";
 import { autorun } from "mobx";
 
 interface StopperContainerState {
-    isLoading: boolean
+    isLoading: boolean,
+    language: string,
     stopper?: Stopper
 }
 
@@ -29,19 +30,21 @@ export class StopperContainer extends React.Component<StopperContainerProps, Sto
         super(props);
 
         this.state = {
-            isLoading: true
+            isLoading: true,
+            language: props.localizationStore.language
         };
     }
 
     componentDidMount() {
         const { stopperId } = this.props.match.params;
         autorun(() => {
-            this.fetchLocalizedStopper(this.props.localizationStore.language, stopperId);
+            if (!this.state.stopper || stopperId != this.state.stopper.ID.toString() || this.state.language != this.props.localizationStore.language)
+                this.fetchLocalizedStopper(this.props.localizationStore.language, stopperId);
         });
     }
 
     fetchLocalizedStopper(lang: string, stopperId: string) {
-        this.setState({ isLoading: true });
+        this.setState({ isLoading: true, language: this.props.localizationStore.language });
         fetch(`api/stoppers/${stopperId}`, { headers: { 'Accept-Language': lang } })
             .then(response => {
                 if (!response.ok) {
@@ -50,9 +53,9 @@ export class StopperContainer extends React.Component<StopperContainerProps, Sto
                 return response.json();
             })
             .then(json => {
-                this.setState({ stopper: Stopper.fromJSON(json), isLoading: false })
+                this.setState({ stopper: Stopper.fromJSON(json), isLoading: false, language: this.props.localizationStore.language })
             })
-            .catch(_ => this.setState({ isLoading: false }));
+            .catch(_ => this.setState({ isLoading: false, language: this.props.localizationStore.language }));
     }
 
     public render() {

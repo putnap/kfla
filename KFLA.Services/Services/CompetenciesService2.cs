@@ -71,6 +71,7 @@ namespace KFLA.Services.Services
 
         public List<LocalizedString> GetStrings(string language)
         {
+            var result = new List<LocalizedString>();
             using (var pck = new ExcelPackage())
             {
                 using (var stream = GetDataStream(language))
@@ -78,8 +79,49 @@ namespace KFLA.Services.Services
                     pck.Load(stream);
                 }
 
-                return GetLocalizedStrings(pck.Workbook.Worksheets[3]).ToList();
+                result.AddRange(GetLocalizedStrings(pck.Workbook.Worksheets[3]));
             }
+
+            using (var pck = new ExcelPackage())
+            {
+                using (var stream = GetData2Stream(language))
+                {
+                    pck.Load(stream);
+                }
+
+                var labels = GetLabels(pck).ToList();
+
+                result.Add(new LocalizedString { Key = "Library.Item.Competency.PossibleCauses", Value = labels[8] });
+                result.Add(new LocalizedString { Key = "Library.Item.Competency.PossibleCauses.Description", Value = labels[9] });
+                result.Add(new LocalizedString { Key = "Library.Item.Competency.Tips", Value = labels[10] });
+                result.Add(new LocalizedString { Key = "Library.Item.Tip.WantToLearnMore", Value = labels[11] });
+                result.Add(new LocalizedString { Key = "Library.Item.JobAssignments", Value = labels[12] });
+                result.Add(new LocalizedString { Key = "Library.Item.TimeToReflect", Value = labels[13] });
+                result.Add(new LocalizedString { Key = "Library.Item.LearnMore", Value = labels[14] });
+                result.Add(new LocalizedString { Key = "Library.Item.DeepDive", Value = labels[15] });
+                result.Add(new LocalizedString { Key = "Library.Item.MoreHelp.Title", Value = labels[19] });
+                result.Add(new LocalizedString { Key = "Library.Item.MoreHelp.Content", Value = labels[20] });
+                result.Add(new LocalizedString { Key = "Library.Item.Stopper.PossibleCauses", Value = labels[24] });
+                result.Add(new LocalizedString { Key = "Library.Item.Stopper.OtherCauses", Value = labels[25] });
+                result.Add(new LocalizedString { Key = "Library.Item.Stopper.OtherCauses.Description", Value = labels[26] });
+                result.Add(new LocalizedString { Key = "Library.Item.Stopper.OtherCauses.BeingLessSkilled", Value = labels[27] });
+                result.Add(new LocalizedString { Key = "Library.Item.Stopper.OtherCauses.Overusing", Value = labels[28] });
+                result.Add(new LocalizedString { Key = "Library.Item.Stopper.TipsBeing", Value = labels[29] });
+                result.Add(new LocalizedString { Key = "Library.Item.Stopper.Tips", Value = labels[30] });
+                result.Add(new LocalizedString { Key = "Library.Item.LearningResources", Value = labels[31] });
+
+                result.Add(new LocalizedString { Key = "Library.Items.Links.Tips", Value = labels[10] });
+                result.Add(new LocalizedString { Key = "Library.Items.Links.Reflect", Value = labels[13] });
+                result.Add(new LocalizedString { Key = "Library.Items.Links.LearnMore", Value = labels[14] });
+                result.Add(new LocalizedString { Key = "Library.Items.Links.DeepDive", Value = labels[15] });
+                result.Add(new LocalizedString { Key = "Library.Items.Links.PossibleCauses", Value = labels[24] });
+                result.Add(new LocalizedString { Key = "Library.Items.Links.Jobs", Value = labels[12] });
+                result.Add(new LocalizedString { Key = "Library.Items.Links.Stopper.TipsBeing", Value = labels[29] });
+                result.Add(new LocalizedString { Key = "Library.Items.Links.Stopper.Tips", Value = labels[30] });
+                result.Add(new LocalizedString { Key = "Library.Items.Links.LearningResources", Value = labels[31] });
+            }
+
+            return result;
         }
 
         public List<Evaluation> GetEvaluations(string language)
@@ -207,8 +249,9 @@ namespace KFLA.Services.Services
                 stopper.NotProblem = notAProblemMaps.Where(o => o.ID == stopper.ID).Select(o => o.SkillDescription).ToList();
                 stopper.Questions = stopperQuestions.Where(o => o.StopperID == stopper.ID).ToList();
                 stopper.Quotes = quotes.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Quote).ToList();
-                stopper.OtherCausesBeingLessSkilled = otherCauses[0].Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Cause).ToList();
-                stopper.OtherCausesOverusing = otherCauses[1].Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Cause).ToList();
+                stopper.Causes = causes.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Cause).ToList();
+                stopper.OtherCausesBeingLessSkilled = otherCauses[0].Where(o => o.Id == stopper.ID).OrderBy(o => o.Cause).Select(o => o.Cause).ToList();
+                stopper.OtherCausesOverusing = otherCauses[1].Where(o => o.Id == stopper.ID).OrderBy(o => o.Cause).Select(o => o.Cause).ToList();
                 stopper.Tips = tips.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Tip).ToList();
                 stopper.JobAssignments = jobAssignments.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.JobAssignment).ToList();
                 stopper.LearningResources = learningResources.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.LearningResource).ToList();
@@ -307,14 +350,14 @@ namespace KFLA.Services.Services
             }
         }
 
-        private static IEnumerable<IEnumerable<(int Id, int Order, string Cause)>> GetOtherCauses(ExcelPackage pck)
+        private static IEnumerable<IEnumerable<(int Id, string Cause)>> GetOtherCauses(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Other Causes"];
             var tbl = GetDataTable(ws);
-            var result = new List<List<(int Id, int Order, string Cause)>>()
+            var result = new List<List<(int Id, string Cause)>>()
             {
-                new List<(int Id, int Order, string Cause)>(),
-                new List<(int Id, int Order, string Cause)>()
+                new List<(int Id, string Cause)>(),
+                new List<(int Id, string Cause)>()
             };
             var overusing = false;
 
@@ -324,7 +367,7 @@ namespace KFLA.Services.Services
                 {
                     if (int.TryParse(idString, out var id))
                     {
-                        var otherCause = (id, int.Parse((string)row[2]), (string)row[3]);
+                        var otherCause = (id, $"{row[2]}.  {row[3]}");
                         if (!overusing)
                             result[0].Add(otherCause);
                         else
@@ -474,6 +517,18 @@ namespace KFLA.Services.Services
             {
                 if (row[0] is string id && !string.IsNullOrEmpty(id))
                     yield return (int.Parse(id), int.Parse((string)row[2]), (string)row[3]);
+            }
+        }
+
+        private static IEnumerable<string> GetLabels(ExcelPackage pck)
+        {
+            var ws = pck.Workbook.Worksheets["labels"];
+            var tbl = GetDataTable(ws);
+
+            foreach (DataRow row in tbl.Rows)
+            {
+                if (row[0] is string label && !string.IsNullOrEmpty(label))
+                    yield return label;
             }
         }
 

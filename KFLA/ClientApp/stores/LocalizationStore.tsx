@@ -13,7 +13,7 @@ export class LocalizationStore {
         const localizedString = this.strings.find(s => s.Key == key);
         if (!localizedString) {
             if (!this.isLoading) {
-                console.log(`${key} is doesn't have a translation.`);
+                console.log(`'${key}' doesn't have a translation.`);
                 return key;
             }
         }

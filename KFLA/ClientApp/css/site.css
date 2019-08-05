@@ -21,9 +21,9 @@ body, html {
     line-height: 1.3;
 }
 
-.main-content p, .main-content h5 {
-    margin-bottom: 0.5rem;
-}
+    .main-content p, .main-content h5 {
+        margin-bottom: 0.5rem;
+    }
 
 .navigation-link {
     font-size: 300%;
@@ -45,93 +45,93 @@ body, html {
     height: 64px;
 }
 
-.lds-roller div {
-    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    transform-origin: 32px 32px;
-}
+    .lds-roller div {
+        animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        transform-origin: 32px 32px;
+    }
 
-.lds-roller div:after {
-    content: " ";
-    display: block;
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #666666;
-    margin: -3px 0 0 -3px;
-}
+        .lds-roller div:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #666666;
+            margin: -3px 0 0 -3px;
+        }
 
-.lds-roller div:nth-child(1) {
-    animation-delay: -0.036s;
-}
+        .lds-roller div:nth-child(1) {
+            animation-delay: -0.036s;
+        }
 
-.lds-roller div:nth-child(1):after {
-    top: 50px;
-    left: 50px;
-}
+            .lds-roller div:nth-child(1):after {
+                top: 50px;
+                left: 50px;
+            }
 
-.lds-roller div:nth-child(2) {
-    animation-delay: -0.072s;
-}
+        .lds-roller div:nth-child(2) {
+            animation-delay: -0.072s;
+        }
 
-.lds-roller div:nth-child(2):after {
-    top: 54px;
-    left: 45px;
-}
+            .lds-roller div:nth-child(2):after {
+                top: 54px;
+                left: 45px;
+            }
 
-.lds-roller div:nth-child(3) {
-    animation-delay: -0.108s;
-}
+        .lds-roller div:nth-child(3) {
+            animation-delay: -0.108s;
+        }
 
-.lds-roller div:nth-child(3):after {
-    top: 57px;
-    left: 39px;
-}
+            .lds-roller div:nth-child(3):after {
+                top: 57px;
+                left: 39px;
+            }
 
-.lds-roller div:nth-child(4) {
-    animation-delay: -0.144s;
-}
+        .lds-roller div:nth-child(4) {
+            animation-delay: -0.144s;
+        }
 
-.lds-roller div:nth-child(4):after {
-    top: 58px;
-    left: 32px;
-}
+            .lds-roller div:nth-child(4):after {
+                top: 58px;
+                left: 32px;
+            }
 
-.lds-roller div:nth-child(5) {
-    animation-delay: -0.18s;
-}
+        .lds-roller div:nth-child(5) {
+            animation-delay: -0.18s;
+        }
 
-.lds-roller div:nth-child(5):after {
-    top: 57px;
-    left: 25px;
-}
+            .lds-roller div:nth-child(5):after {
+                top: 57px;
+                left: 25px;
+            }
 
-.lds-roller div:nth-child(6) {
-    animation-delay: -0.216s;
-}
+        .lds-roller div:nth-child(6) {
+            animation-delay: -0.216s;
+        }
 
-.lds-roller div:nth-child(6):after {
-    top: 54px;
-    left: 19px;
-}
+            .lds-roller div:nth-child(6):after {
+                top: 54px;
+                left: 19px;
+            }
 
-.lds-roller div:nth-child(7) {
-    animation-delay: -0.252s;
-}
+        .lds-roller div:nth-child(7) {
+            animation-delay: -0.252s;
+        }
 
-.lds-roller div:nth-child(7):after {
-    top: 50px;
-    left: 14px;
-}
+            .lds-roller div:nth-child(7):after {
+                top: 50px;
+                left: 14px;
+            }
 
-.lds-roller div:nth-child(8) {
-    animation-delay: -0.288s;
-}
+        .lds-roller div:nth-child(8) {
+            animation-delay: -0.288s;
+        }
 
-.lds-roller div:nth-child(8):after {
-    top: 45px;
-    left: 10px;
-}
+            .lds-roller div:nth-child(8):after {
+                top: 45px;
+                left: 10px;
+            }
 
 @keyframes lds-roller {
     0% {
@@ -156,70 +156,70 @@ body, html {
     background: #D3E5EA;
 }
 
-.background-light .nav-link {
-    color: rgba(255, 255, 255, 0.75);
-    /*color: #B5B5B5;*/
-}
+    .background-light .nav-link {
+        color: rgba(255, 255, 255, 0.75);
+        /*color: #B5B5B5;*/
+    }
 
-.background-light .nav-link.active {
-    color: #fff;
-    /*color: #666666;*/
-}
+        .background-light .nav-link.active {
+            color: #fff;
+            /*color: #666666;*/
+        }
 
-.background-light .nav-link:hover, .background-light .nav-link:focus {
-    color: #fff;
-    /*color: #9E9E9E;*/
-}
+        .background-light .nav-link:hover, .background-light .nav-link:focus {
+            color: #fff;
+            /*color: #9E9E9E;*/
+        }
 
 /* background dark */
 .background-dark, .background-dark .navbar {
     background: #5798AC;
 }
 
-.background-dark .loader, .background-dark .lds-roller div:after {
-    color: #FFFFFF;
-}
+    .background-dark .loader, .background-dark .lds-roller div:after {
+        color: #FFFFFF;
+    }
 
-.background-dark .lds-roller div:after {
-    background: #FFFFFF;
-}
+    .background-dark .lds-roller div:after {
+        background: #FFFFFF;
+    }
 
-.background-dark .nav-link {
-    color: rgba(255, 255, 255, 0.75);
-}
+    .background-dark .nav-link {
+        color: rgba(255, 255, 255, 0.75);
+    }
 
-.background-dark .nav-link.active {
-    color: #fff;
-}
+        .background-dark .nav-link.active {
+            color: #fff;
+        }
 
-.background-dark .nav-link:hover, .background-dark .nav-link:focus {
-    color: #fff;
-}
+        .background-dark .nav-link:hover, .background-dark .nav-link:focus {
+            color: #fff;
+        }
 
 .lang, .lang .btn {
     color: rgba(255, 255, 255, 0.75);
 }
 
-.lang .btn {
-    padding: 0px;
-    margin: 10px;
-    background: none;
-}
+    .lang .btn {
+        padding: 0px;
+        margin: 10px;
+        background: none;
+    }
 
-.lang .btn.active {
-    color: #fff;
-}
+        .lang .btn.active {
+            color: #fff;
+        }
 
-.lang .btn:hover, .background-dark .btn:focus {
-    color: #fff;
-}
+        .lang .btn:hover, .background-dark .btn:focus {
+            color: #fff;
+        }
 
 /* background lib */
 .background-lib, .background-lib .navbar {
     background: #C8C8E2;
 }
 
-/*.background-lib .loader, .background-lib .lds-roller div:after {
+    /*.background-lib .loader, .background-lib .lds-roller div:after {
     color: #FFFFFF;
 }
 
@@ -227,17 +227,17 @@ body, html {
     background: #FFFFFF;
 }*/
 
-.background-lib .nav-link {
-    color: rgba(255, 255, 255, 0.75);
-}
+    .background-lib .nav-link {
+        color: rgba(255, 255, 255, 0.75);
+    }
 
-.background-lib .nav-link.active {
-    color: #fff;
-}
+        .background-lib .nav-link.active {
+            color: #fff;
+        }
 
-.background-lib .nav-link:hover, .background-lib .nav-link:focus {
-    color: #fff;
-}
+        .background-lib .nav-link:hover, .background-lib .nav-link:focus {
+            color: #fff;
+        }
 
 
 .color-dark {
@@ -275,7 +275,7 @@ body, html {
     body {
         -webkit-print-color-adjust: exact;
     }
-    
+
     @page {
         margin: 1cm 0;
     }
@@ -299,9 +299,9 @@ body, html {
         line-height: normal;
     }
 
-    .main-content p, .main-content h5 {
-        margin-bottom: 0;
-    }
+        .main-content p, .main-content h5 {
+            margin-bottom: 0;
+        }
 }
 
 .competency-as-button:hover {
@@ -315,13 +315,13 @@ body, html {
     z-index: 99; /* Make sure it does not overlap */
 }
 
-.btn-floating-container .btn {
-    margin: 3px;
-    width: 40px;
-    height: 40px;
-    padding: 0px;
-    display: block;
-}
+    .btn-floating-container .btn {
+        margin: 3px;
+        width: 40px;
+        height: 40px;
+        padding: 0px;
+        display: block;
+    }
 
 .background-light .btn-floating-container .btn {
     background: #5798AC;
@@ -338,41 +338,41 @@ body, html {
     perspective: 800px;
 }
 
-.flip.card.flipped {
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-}
+    .flip.card.flipped {
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
 
-.flip.card.flipped .back {
-    visibility: visible;
-}
+        .flip.card.flipped .back {
+            visibility: visible;
+        }
 
-.flip.card {
-    -webkit-transform-style: preserve-3d;
-    -webkit-transition: 0.5s;
-    transform-style: preserve-3d;
-    transition: 0.5s;
-    background-color: #fff;
-}
+    .flip.card {
+        -webkit-transform-style: preserve-3d;
+        -webkit-transition: 0.5s;
+        transform-style: preserve-3d;
+        transition: 0.5s;
+        background-color: #fff;
+    }
 
-.flip.card .face {
-    -webkit-backface-visibility: hidden;
-    /*backface-visibility: hidden;*/
-    z-index: 2;
-}
+        .flip.card .face {
+            -webkit-backface-visibility: hidden;
+            /*backface-visibility: hidden;*/
+            z-index: 2;
+        }
 
-.flip.card .front {
-    width: 100%;
-    position: absolute;
-    z-index: 1;
-}
+        .flip.card .front {
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+        }
 
-.flip.card .back {
-    color: #FFFFFF;
-    visibility: hidden;
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-}
+        .flip.card .back {
+            color: #FFFFFF;
+            visibility: hidden;
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
 
 .check-container {
     display: block;
@@ -389,12 +389,12 @@ body, html {
     user-select: none;
 }
 
-/* Hide the browser's default checkbox */
-.check-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
+    /* Hide the browser's default checkbox */
+    .check-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
 
 /* Create a custom checkbox */
 .checkmark {
@@ -477,14 +477,15 @@ body, html {
     width: 32px;
     height: 32px;
 }
+
 .form-loader .lds-roller {
     transform: scale(0.7);
     margin-top: -16px;
 }
 
-.form-loader .lds-roller div:after {
-    background: #000000;
-}
+    .form-loader .lds-roller div:after {
+        background: #000000;
+    }
 
 
 .height-100 {
@@ -519,7 +520,13 @@ body, html {
 }
 
 .dropright:hover .dropdown-menu {
-    display: block;
+    display: inline-block;
+}
+
+.slideout-menu-dropdown {
+    width: auto;
+    height: 54px;
+    min-width: 0;
 }
 
 .slideout-menu-icon {

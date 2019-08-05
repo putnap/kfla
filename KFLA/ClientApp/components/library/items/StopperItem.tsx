@@ -3,7 +3,7 @@ import { Stopper } from '../../../models/Stopper';
 import { inject } from 'mobx-react';
 import { LocalizationStore } from '../../../stores/LocalizationStore';
 import { RouteComponentProps, Route } from 'react-router';
-import { generateButton } from './menuHelpers';
+import { generateDroprightButton } from './menuHelpers';
 import { printList } from '../../skillPrinter';
 
 interface StopperItemProps extends Partial<RouteComponentProps<{}>> {
@@ -14,6 +14,14 @@ interface StopperItemProps extends Partial<RouteComponentProps<{}>> {
 @inject("localizationStore")
 export class StopperItem extends React.Component<StopperItemProps, {}> {
 
+    getTipsKey(stopper: Stopper) {
+        const beingTipsIds = [101, 102, 107];
+        if (beingTipsIds.indexOf(stopper.ID) > -1)
+            return 'Library.Items.Links.Stopper.TipsBeing';
+
+        return 'Library.Items.Links.Stopper.Tips';
+    }
+    
     render() {
         const { stopper, localizationStore, match } = this.props;
 
@@ -29,12 +37,12 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
             <div className='row'>
                 <div className='col-1'>
                     <div className='slideout-menu'>
-                        {generateButton(match.url, 'Info', 'info', localizationStore)}
-                        {generateButton(match.url, 'Skills', 'user', localizationStore)}
-                        {generateButton(match.url, 'PossibleCauses', 'sitemap', localizationStore)}
-                        {generateButton(match.url, 'Tips', 'brain', localizationStore)}
-                        {generateButton(match.url, 'Jobs', 'tasks', localizationStore)}
-                        {generateButton(match.url, 'LearningResources', ['fab', 'leanpub'], localizationStore)}
+                        {generateDroprightButton(match.url, 'Info', 'info', stopper.Name)}
+                        {generateDroprightButton(match.url, 'Skills', 'user', localizationStore.getString('Library.Items.Links.Skills'))}
+                        {generateDroprightButton(match.url, 'PossibleCauses', 'sitemap', localizationStore.getString('Library.Items.Links.PossibleCauses'))}
+                        {generateDroprightButton(match.url, 'Tips', 'brain', localizationStore.getString(this.getTipsKey(stopper)).replace('#COMP_TITLE#', stopper.Name))}
+                        {generateDroprightButton(match.url, 'Jobs', 'tasks', localizationStore.getString('Library.Items.Links.Jobs'))}
+                        {generateDroprightButton(match.url, 'LearningResources', ['fab', 'leanpub'], localizationStore.getString('Library.Items.Links.LearningResources'))}
                     </div>
                 </div>
                 <div className='col'>
@@ -105,6 +113,7 @@ export class Skills extends React.Component<StopperDetails, {}> {
 @inject("localizationStore")
 export class PossibleCauses extends React.Component<StopperDetails, {}> {
 
+
     render() {
         const { stopper, localizationStore } = this.props;
         return <div className='row'>
@@ -118,11 +127,19 @@ export class PossibleCauses extends React.Component<StopperDetails, {}> {
             </div>
             <div className='col-12'>
                 <h6>{localizationStore.getString('Library.Item.Stopper.OtherCauses.BeingLessSkilled')}</h6>
-                {printList(stopper.OtherCausesBeingLessSkilled)}
+                <ul className='list-unstyled pl-3'>
+                    {stopper.OtherCausesBeingLessSkilled.map(i => {
+                        return <li key={i}><p className='class-text'  style={{ fontSize: '80%' }}>{i}</p></li>;
+                    })}
+                </ul>
             </div>
             <div className='col-12'>
                 <h6>{localizationStore.getString('Library.Item.Stopper.OtherCauses.Overusing')}</h6>
-                {printList(stopper.OtherCausesOverusing)}
+                <ul className='list-unstyled pl-3'>
+                    {stopper.OtherCausesOverusing.map(i => {
+                        return <li key={i}><p className='class-text' style={{ fontSize: '80%' }}>{i}</p></li>;
+                    })}
+                </ul>
             </div>
         </div>
     }
@@ -131,14 +148,24 @@ export class PossibleCauses extends React.Component<StopperDetails, {}> {
 @inject("localizationStore")
 export class Tips extends React.Component<StopperDetails, {}> {
 
+    getTipsKey(stopper: Stopper) {
+        const beingTipsIds = [101, 102, 107];
+        if (beingTipsIds.indexOf(stopper.ID) > -1)
+            return 'Library.Item.Stopper.TipsBeing';
+
+        return 'Library.Item.Stopper.Tips';
+    }
+
     render() {
         const { stopper, localizationStore } = this.props;
+
+
         return <div className='row'>
             <div className='col-12'>
-                <h5>{localizationStore.getString('Library.Item.Stopper.Tips').replace('#COMP_TITLE#', stopper.Name)}</h5>
+                <h5>{localizationStore.getString(this.getTipsKey(stopper)).replace('#COMP_TITLE#', stopper.Name)}</h5>
             </div>
             {stopper.Tips.map((tip, i) => {
-                return <div className='col-12 py-1'>
+                return <div className='col-12 py-1' key={i}>
                     <p><b>{i + 1}. {tip.Phrase}</b> {tip.TipContent}</p>
                 </div>
             })
