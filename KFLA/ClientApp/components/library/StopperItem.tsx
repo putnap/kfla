@@ -27,7 +27,7 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
     render() {
         const { stopper } = this.props;
         return <div className='row'>
-            <div className='col competency-as-button p-1' onClick={() => this.openStopper(stopper.ID)} style={{ cursor: 'pointer' }}>
+            <div className='col competency-as-button p-1 pointer' onClick={() => this.openStopper(stopper.ID)}>
                 <span>{stopper.ID}.</span>
                 <span className='font-weight-bold ml-3'>{stopper.Name}</span>
             </div>

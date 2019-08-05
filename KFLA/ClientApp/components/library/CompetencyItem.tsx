@@ -36,7 +36,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
     render() {
         const { competency } = this.props;
         return <div>
-            <div className='row competency-as-button' onClick={() => this.openCompetency(competency.ID)} style={{ cursor: 'pointer' }} >
+            <div className='row competency-as-button pointer' onClick={() => this.openCompetency(competency.ID)}>
                 <div className='col-1 p-0 text-right'>
                     <span>{competency.ID}.</span>
                 </div>

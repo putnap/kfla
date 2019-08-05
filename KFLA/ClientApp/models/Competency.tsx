@@ -1,4 +1,4 @@
-﻿import { Question, QuestionJSON } from "./Question";
+﻿import { Question } from "./Question";
 import { Cluster, ClusterJSON } from "./Cluster";
 import { Factor, FactorJSON } from "./Factor";
 import { observable, computed, action } from 'mobx';
@@ -24,7 +24,7 @@ export interface CompetencyJSON {
     FactorID: string;
     Cluster: ClusterJSON;
     Factor: FactorJSON;
-    Questions: QuestionJSON[];
+    Questions: string[];
     IsSelected: boolean;
     IsEvaluated: boolean;
 
@@ -94,7 +94,7 @@ export class Competency {
                 // convert fields that need converting
                 Cluster: Cluster.fromJSON(json.Cluster),
                 Factor: Factor.fromJSON(json.Factor),
-                Questions: json.Questions.map(questionJSON => Question.fromJSON(questionJSON)),
+                Questions: json.Questions.map(questionJSON => new Question(questionJSON)),
             });
         }
     }

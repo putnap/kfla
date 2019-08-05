@@ -87,8 +87,8 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
                                         <span className='font-weight-bold'>{this.props.localizationStore.getString('EvaluationResult.Legend')}:</span>
                                     </div>
                                     {
-                                        store.evaluations.map(evaluation => {
-                                            return <div className='col-12 align-self-center my-2' style={{ color: evaluation.Color }} data-toggle='tooltip' title={evaluation.Tooltip} key={evaluation.ID} >
+                                        store.evaluations.map((evaluation, i) => {
+                                            return <div className='col-12 align-self-center my-2' style={{ color: evaluation.Color }} data-toggle='tooltip' title={evaluation.Tooltip} key={i} >
                                                 <FontAwesomeIcon icon={evaluation.Icon} className='mx-2' />
                                                 <span className='font-weight-bold text-uppercase'>{evaluation.Name}</span>
                                             </div>
