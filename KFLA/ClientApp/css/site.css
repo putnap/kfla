@@ -537,3 +537,18 @@ body, html {
     width: 50px;
     margin-left: -21px;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.column-split {
+    -webkit-column-count: 2;
+    -webkit-column-gap: 40px;
+
+    -moz-column-count: 2;
+    -moz-column-gap: 40px;
+
+    column-count: 2;
+    column-gap: 40px;
+}

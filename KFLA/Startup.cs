@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using KFLA.Contract.Services;
+using KFLA.Persistence.MongoDB;
 using KFLA.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.Webpack;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
@@ -28,23 +24,32 @@ namespace KFLA
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ICompetenciesService, CompetenciesService2>();
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            MongoDBServiceModule.registerConvention();
 
-            services.AddSwaggerGen(options =>
-            {
-                options.DescribeAllEnumsAsStrings();
-                options.CustomSchemaIds(x => x.FriendlyId(true));
-                options.SwaggerDoc("all", new Info
+            services
+                .ConfigureDB(Configuration)
+                .AddSingleton<ICompetenciesService, ExcelCompetenciesService>()
+                .AddTransient<IMongoCompetenciesService, MongoDBService>()
+                .AddSwaggerGen(options =>
                 {
-                    Title = "all",
-                    Version = "v1"
+                    options.DescribeAllEnumsAsStrings();
+                    options.CustomSchemaIds(x => x.FriendlyId(true));
+                    options.SwaggerDoc("all", new Info
+                    {
+                        Title = "all",
+                        Version = "v1"
+                    });
                 });
-            });
+
+            services.AddMvc().AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            var provider = services.BuildServiceProvider();
+
+            var config = provider.GetService<Microsoft.Extensions.Options.IOptions<DBSettings>>().Value;
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

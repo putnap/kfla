@@ -1,6 +1,6 @@
 ﻿import { observable, computed, action } from 'mobx';
 import { StopperClusterJSON, StopperCluster } from './StopperCluster';
-import { QuestionJSON, Question } from './Question';
+import { Question } from './Question';
 import { Tip } from './Tip';
 
 export interface StopperJSON {
@@ -9,7 +9,7 @@ export interface StopperJSON {
     Description: string;
     Problem: string[];
     NotProblem: string[];
-    Questions: QuestionJSON[];
+    Questions: string[];
     Cluster: StopperClusterJSON;
 
     Context: string;
@@ -60,7 +60,7 @@ export class Stopper {
             // copy all the fields from the json object
             return Object.assign(user, json, {
                 StopperType: StopperCluster.fromJSON(json.Cluster),
-                Questions: json.Questions.map(questionJSON => Question.fromJSON(questionJSON)),
+                Questions: json.Questions.map(questionJSON => new Question(questionJSON)),
             });
         }
     }

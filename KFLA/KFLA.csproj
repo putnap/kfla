@@ -73,6 +73,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KFLA.Contract\KFLA.Contract.csproj" />
+    <ProjectReference Include="..\KFLA.Persistence.MongoDB\KFLA.Persistence.MongoDB.fsproj" />
     <ProjectReference Include="..\KFLA.Services\KFLA.Services.csproj" />
   </ItemGroup>
 
@@ -127,6 +128,9 @@
     <Content Update="appsettings.Development.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="appsettings.Production.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -134,6 +138,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\logos\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
   <ItemGroup>

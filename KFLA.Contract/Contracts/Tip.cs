@@ -10,6 +10,6 @@ namespace KFLA.Contract
 
         public string TipContent { get; set; }
 
-        public List<string> WantToLearnMore { get; set; } = new List<string>();
+        public IEnumerable<string> WantToLearnMore { get; set; } = new List<string>();
     }
 }

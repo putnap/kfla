@@ -3,7 +3,6 @@ import { observable, computed, action } from 'mobx';
 import { IconName } from "@fortawesome/fontawesome-svg-core";
 
 export interface EvaluationJSON {
-    ID: number;
     Name: string;
     Limit: number;
     Color: string;
@@ -13,15 +12,13 @@ export interface EvaluationJSON {
 
 export class Evaluation {
 
-    constructor(id: number, name: string, limit: number, color: string, icon: IconName, tooltip: string) {
-        this.ID = id;
+    constructor(name: string, limit: number, color: string, icon: IconName, tooltip: string) {
         this.Name = name;
         this.Limit = limit;
         this.Color = color;
         this.Icon = icon;
         this.Tooltip = tooltip;
     }
-    ID: number;
     Name: string;
     Limit: number;
     Color: string;

@@ -32,24 +32,23 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
             <div className='row'>
                 <div className='col-1'>
                     <div className='slideout-menu'>
-                        {generateDroprightButton(match.url, 'Info', 'info', competency.Name)}
                         {generateDroprightButton(match.url, 'Skills', 'user', localizationStore.getString('Skills.SKILLED'))}
+                        {generateDroprightButton(match.url, 'Info', 'info', competency.Name)}
                         {generateDroprightButton(match.url, 'PossibleCauses', 'sitemap', localizationStore.getString('Library.Items.Links.PossibleCauses'))}
                         {generateDroprightButton(match.url, 'Tips', 'brain', safeReplace(localizationStore.getString('Library.Items.Links.Tips'), competency.Name))}
                         {generateDroprightButton(match.url, 'Jobs', 'tasks', localizationStore.getString('Library.Items.Links.Jobs'))}
                         {generateDroprightButton(match.url, 'Reflect', 'history', localizationStore.getString('Library.Items.Links.Reflect'))}
                         {generateDroprightButton(match.url, 'LearnMore', ['fab', 'leanpub'], safeReplace(localizationStore.getString('Library.Items.Links.LearnMore'), competency.Name))}
-                        {generateDroprightButton(match.url, 'DeepDive', 'link', localizationStore.getString('Library.Items.Links.DeepDive'))}
                     </div>
                 </div>
                 <div className='col'>
                     <Route
+                        path={`${this.props.match.path}/Skills`}
+                        render={() => <Skills {...this.props} />} />
+                    <Route
                         exact
                         path={`${this.props.match.path}`}
                         render={() => <Info {...this.props} />} />
-                    <Route
-                        path={`${this.props.match.path}/Skills`}
-                        render={() => <Skills {...this.props} />} />
                     <Route
                         path={`${this.props.match.path}/PossibleCauses`}
                         render={() => <PossibleCauses {...this.props} />} />
@@ -65,9 +64,6 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                     <Route
                         path={`${this.props.match.path}/LearnMore`}
                         render={() => <LearnMore {...this.props} />} />
-                    <Route
-                        path={`${this.props.match.path}/DeepDive`}
-                        render={() => <DeepDive {...this.props} />} />
                     <Route
                         path={`${this.props.match.path}/Info`}
                         render={() => <Info {...this.props} />} />
@@ -88,7 +84,7 @@ export class Info extends React.Component<CompetencyDetails, {}> {
         return <div className='row'>
             <div className='col'>
                 <p className='font-italic h5 pb-3'>{competency.Description}</p>
-                <p>{competency.Context}</p>
+                <p className='column-split'>{competency.Context}</p>
                 <p className='mx-auto py-2 w-50'>{competency.Quotes[0]}</p>
                 <p><FontAwesomeIcon icon='lightbulb' /><span className='pl-2'>{competency.Positioning}</span></p>
             </div>
@@ -151,13 +147,16 @@ export class Tips extends React.Component<CompetencyDetails, {}> {
             </div>
             {competency.Tips.map((tip, i) => {
                 return <div className='col-12 py-1' key={i}>
-                    <p><b>{i + 1}. {tip.Phrase}</b> {tip.TipContent}</p>
-                    {tip.WantToLearnMore.length > 0 &&
-                        <div className='border p-2 my-2'>
-                            <h5><FontAwesomeIcon icon='user-graduate' /><span className='pl-2'>{localizationStore.getString('Library.Item.Tip.WantToLearnMore')}</span></h5>
-                            {tip.WantToLearnMore.map((learnMore, i) => <p key={i}>{learnMore}</p>)}
-                        </div>
-                    }
+                    <div className='font-weight-bold pointer py-1' data-toggle='collapse' data-target={`#collapseTip${i}`} aria-expanded='false' aria-controls={`collapseTip${i}`}>{i + 1}. {tip.Phrase}</div>
+                    <div className='collapse' id={`collapseTip${i}`}>
+                        <p>{tip.TipContent}</p>
+                        {tip.WantToLearnMore.length > 0 &&
+                            <div className='border p-2 my-2'>
+                                <h5><FontAwesomeIcon icon='user-graduate' /><span className='pl-2'>{localizationStore.getString('Library.Item.Tip.WantToLearnMore')}</span></h5>
+                                {tip.WantToLearnMore.map((learnMore, i) => <p key={i}>{learnMore}</p>)}
+                            </div>
+                        }
+                    </div>
                 </div>
             })
             }
@@ -202,24 +201,6 @@ export class TimeToReflect extends React.Component<CompetencyDetails, {}> {
 
 export class LearnMore extends React.Component<CompetencyDetails, {}> {
 
-    render() {
-        const { competency, localizationStore } = this.props;
-        return <div className='row'>
-            <div className='col-12'>
-                <h5>{safeReplace(localizationStore.getString('Library.Item.LearnMore'), competency.Name)}</h5>
-            </div>
-            {competency.LearnMore.map((learnMore, i) => {
-                return <div className='col-12 py-1' key={i}>
-                    <p>{learnMore}</p>
-                </div>
-            })
-            }
-        </div>
-    }
-}
-
-export class DeepDive extends React.Component<CompetencyDetails, {}> {
-
     targetBlankDecorator(decoratedHref: string, decoratedText: string, key: number) {
         return (
             <a target='_blank' href={decoratedHref} key={key}>
@@ -233,12 +214,22 @@ export class DeepDive extends React.Component<CompetencyDetails, {}> {
         return <ReactLinkify componentDecorator={this.targetBlankDecorator}>
             <div className='row'>
                 <div className='col-12'>
+                    <h5>{safeReplace(localizationStore.getString('Library.Item.LearnMore'), competency.Name)}</h5>
+                </div>
+                {competency.LearnMore.map((learnMore, i) => {
+                    return <div className='col-12 py-1' key={i}>
+                        <p>{learnMore}</p>
+                    </div>
+                })
+                }
+
+                <div className='col-12 pt-3'>
                     <h5>{localizationStore.getString('Library.Item.DeepDive')}</h5>
                 </div>
                 <div className='col-12'>
                     {competency.DeepDiveResources.map((resource, i) => <p className='py-1' key={i}>{resource}</p>)}
                 </div>
-                <div className='col-12'>
+                <div className='col-12 pt-3'>
                     <p className='card-text font-weight-bold'><FontAwesomeIcon icon='cloud-download-alt' /><span className='pl-2'>{localizationStore.getString('Library.Item.MoreHelp.Title')}</span></p>
                     <p>{localizationStore.getString('Library.Item.MoreHelp.Content')}</p>
                 </div>

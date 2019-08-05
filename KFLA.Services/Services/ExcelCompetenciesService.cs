@@ -4,26 +4,24 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace KFLA.Services.Services
 {
-    public class CompetenciesService2 : ICompetenciesService
+    public class ExcelCompetenciesService : ICompetenciesService
     {
         private readonly Regex dataFileRegex = new Regex(@".+data\.(?'lang'[a-z]{2,3})\.xlsx");
 
-        private Dictionary<string, List<Competency>> competencyCache = new Dictionary<string, List<Competency>>();
-        private Dictionary<string, List<Stopper>> stopperCache = new Dictionary<string, List<Stopper>>();
+        private Dictionary<string, IEnumerable<Competency>> competencyCache = new Dictionary<string, IEnumerable<Competency>>();
+        private Dictionary<string, IEnumerable<Stopper>> stopperCache = new Dictionary<string, IEnumerable<Stopper>>();
 
-        public List<Competency> GetCompetencies(string language)
+        public Task<IEnumerable<Competency>> GetCompetencies(string language)
         {
             if (!competencyCache.TryGetValue(language, out var cache))
             {
-                cache = new List<Competency>();
                 using (var pck = new ExcelPackage())
                 {
                     using (var stream = GetData2Stream(language))
@@ -31,24 +29,18 @@ namespace KFLA.Services.Services
                         pck.Load(stream);
                     }
 
-                    cache.AddRange(GetCompetencies(pck, language));
+                    cache = GetCompetencies(pck, language);
                     competencyCache[language] = cache;
                 }
             }
 
-            return cache;
+            return Task.FromResult(cache);
         }
 
-        public Competency GetCompetency(string language, int competencyId)
-        {
-            return GetCompetencies(language).SingleOrDefault(o => o.ID == competencyId);
-        }
-
-        public List<Stopper> GetStoppers(string language)
+        public Task<IEnumerable<Stopper>> GetStoppers(string language)
         {
             if (!stopperCache.TryGetValue(language, out var cache))
             {
-                cache = new List<Stopper>();
                 using (var pck = new ExcelPackage())
                 {
                     using (var stream = GetData2Stream(language))
@@ -56,20 +48,15 @@ namespace KFLA.Services.Services
                         pck.Load(stream);
                     }
 
-                    cache.AddRange(GetStoppers(pck, language));
+                    cache = GetStoppers(pck, language);
                     stopperCache[language] = cache;
                 }
             }
 
-            return cache;
+            return Task.FromResult(cache);
         }
 
-        public Stopper GetStopper(string language, int stopperId)
-        {
-            return GetStoppers(language).SingleOrDefault(o => o.ID == stopperId);
-        }
-
-        public List<LocalizedString> GetStrings(string language)
+        public Task<IEnumerable<LocalizedString>> GetStrings(string language)
         {
             var result = new List<LocalizedString>();
             using (var pck = new ExcelPackage())
@@ -121,10 +108,10 @@ namespace KFLA.Services.Services
                 result.Add(new LocalizedString { Key = "Library.Items.Links.LearningResources", Value = labels[31] });
             }
 
-            return result;
+            return Task.FromResult(result.AsEnumerable());
         }
 
-        public List<Evaluation> GetEvaluations(string language)
+        public Task<IEnumerable<Evaluation>> GetEvaluations(string language)
         {
             using (var pck = new ExcelPackage())
             {
@@ -133,11 +120,11 @@ namespace KFLA.Services.Services
                     pck.Load(stream);
                 }
 
-                return GetEvaluations(pck.Workbook.Worksheets[4]).ToList();
+                return Task.FromResult(GetEvaluations(pck.Workbook.Worksheets[4]).ToList().AsEnumerable());
             }
         }
 
-        public List<string> GetLanguages()
+        public Task<IEnumerable<string>> GetLanguages()
         {
             var result = new List<string>();
             var files = Directory.GetFiles(@".\data", "data.*.xlsx");
@@ -147,7 +134,7 @@ namespace KFLA.Services.Services
                 result.Add(language);
             }
 
-            return result;
+            return Task.FromResult(result.AsEnumerable());
         }
 
         private static Stream GetDataStream(string language)
@@ -205,7 +192,7 @@ namespace KFLA.Services.Services
                 competency.Skilled = skilledMaps.Where(o => o.ID == competency.ID).Select(o => o.SkillDescription).ToList();
                 competency.Talented = talentedMaps.Where(o => o.ID == competency.ID).Select(o => o.SkillDescription).ToList();
                 competency.OverusedSkill = overusedMaps.Where(o => o.ID == competency.ID).Select(o => o.SkillDescription).ToList();
-                competency.Questions = competencyQuestions.Where(o => o.CompetencyID == competency.ID).ToList();
+                competency.Questions = competencyQuestions.Where(o => o.ID == competency.ID).Select(o => o.Question).ToList();
                 competency.Context = competencyContexts.SingleOrDefault(o => o.Id == competency.ID).Context;
                 competency.Quotes = quotes.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.Quote).ToList();
                 competency.Positioning = positionings.SingleOrDefault(o => o.Id == competency.ID).Positioning;
@@ -216,7 +203,6 @@ namespace KFLA.Services.Services
                 competency.TimeToReflect = timeToReflect.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => new TimeToReflect { Statement = o.Statement, Suggestion = o.Suggestion }).ToList();
                 competency.LearnMore = learnMore.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.LearnMore).ToList();
                 competency.DeepDiveResources = deepDiveLinks.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.DeepDiveResource).ToList();
-                Debug.WriteLine($"Completed competency: {competency.ID}");
             }
 
             return competencies;
@@ -247,7 +233,7 @@ namespace KFLA.Services.Services
                 stopper.Context = context.SingleOrDefault(o => o.Id == stopper.ID).Context;
                 stopper.Problem = problemMaps.Where(o => o.ID == stopper.ID).Select(o => o.SkillDescription).ToList();
                 stopper.NotProblem = notAProblemMaps.Where(o => o.ID == stopper.ID).Select(o => o.SkillDescription).ToList();
-                stopper.Questions = stopperQuestions.Where(o => o.StopperID == stopper.ID).ToList();
+                stopper.Questions = stopperQuestions.Where(o => o.ID == stopper.ID).Select(o => o.Question).ToList();
                 stopper.Quotes = quotes.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Quote).ToList();
                 stopper.Causes = causes.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Cause).ToList();
                 stopper.OtherCausesBeingLessSkilled = otherCauses[0].Where(o => o.Id == stopper.ID).OrderBy(o => o.Cause).Select(o => o.Cause).ToList();
@@ -570,7 +556,7 @@ namespace KFLA.Services.Services
             }
         }
 
-        private static IEnumerable<Question> GetCompetencyQuestions(string language)
+        private static IEnumerable<(int ID, string Question)> GetCompetencyQuestions(string language)
         {
             using (var pck = new ExcelPackage())
             {
@@ -583,26 +569,25 @@ namespace KFLA.Services.Services
             }
         }
 
-        private static IEnumerable<Question> GetCompetencyQuestions(ExcelPackage pck)
+        private static IEnumerable<(int ID, string Question)> GetCompetencyQuestions(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets[1];
             var tbl = GetDataTable(ws);
 
-            var id = 0;
             foreach (DataRow row in tbl.Rows)
             {
                 var competencyId = int.Parse((string)row[0]);
                 for (var i = 9; i < row.ItemArray.Count(); i++)
                 {
                     if (row[i] is string value && !string.IsNullOrEmpty(value))
-                        yield return new Question() { QuestionContent = value, ID = id++, CompetencyID = competencyId };
+                        yield return (competencyId, value);
                     else
                         break;
                 }
             }
         }
 
-        private static IEnumerable<StopperQuestion> GetStopperQuestions(string language)
+        private static IEnumerable<(int ID, string Question)> GetStopperQuestions(string language)
         {
             using (var pck = new ExcelPackage())
             {
@@ -615,7 +600,7 @@ namespace KFLA.Services.Services
             }
         }
 
-        private static IEnumerable<StopperQuestion> GetStopperQuestions(ExcelPackage pck)
+        private static IEnumerable<(int ID, string Question)> GetStopperQuestions(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets[2];
             var tbl = GetDataTable(ws);
@@ -626,7 +611,7 @@ namespace KFLA.Services.Services
                 for (var i = 5; i < row.ItemArray.Count(); i++)
                 {
                     if (row[i] is string value && !string.IsNullOrEmpty(value))
-                        yield return new StopperQuestion() { QuestionContent = value, ID = i++, StopperID = stopperId };
+                        yield return (stopperId, value);
                     else
                         break;
                 }
@@ -657,7 +642,6 @@ namespace KFLA.Services.Services
             {
                 var evaluation = new Evaluation()
                 {
-                    ID = int.Parse((string)row[0]),
                     Name = (string)row[1],
                     Limit = int.Parse((string)row[2]),
                     Color = (string)row[3],
@@ -683,7 +667,11 @@ namespace KFLA.Services.Services
                 var row = tbl.Rows.Add();
                 foreach (var cell in wsRow)
                 {
-                    row[cell.Start.Column - 1] = cell.Text;
+                    try
+                    {
+                        row[cell.Start.Column - 1] = cell.Text;
+                    }
+                    catch (IndexOutOfRangeException) { }
                 }
             }
 

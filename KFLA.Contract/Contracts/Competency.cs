@@ -39,7 +39,7 @@ namespace KFLA.Contract
             }
         }
 
-        public List<Question> Questions { get; set; } = new List<Question>();
+        public List<string> Questions { get; set; } = new List<string>();
 
         public string Context { get; set; }
 
