@@ -1,11 +1,12 @@
 ﻿import * as React from "react";
 import { observer, inject } from "mobx-react";
 import { RouteComponentProps } from "react-router";
-import { LocalizationStore } from "../../stores/LocalizationStore";
-import { NavMenu } from '../NavMenu';
-import { Loader } from '../Loader';
-import { Stopper } from "../../models/Stopper";
+import { LocalizationStore } from "../../../stores/LocalizationStore";
+import { NavMenu } from '../../NavMenu';
+import { Loader } from '../../Loader';
+import { Stopper } from "../../../models/Stopper";
 import { StopperItem } from "./StopperItem";
+import { autorun } from "mobx";
 
 interface StopperContainerState {
     isLoading: boolean
@@ -33,12 +34,15 @@ export class StopperContainer extends React.Component<StopperContainerProps, Sto
     }
 
     componentDidMount() {
-        const lang = this.props.localizationStore.language;
         const { stopperId } = this.props.match.params;
+        autorun(() => {
+            this.fetchLocalizedStopper(this.props.localizationStore.language, stopperId);
+        });
+    }
 
-        fetch(`api/stoppers/${stopperId}`, {
-                headers: { 'Accept-Language': lang },
-            })
+    fetchLocalizedStopper(lang: string, stopperId: string) {
+        this.setState({ isLoading: true });
+        fetch(`api/stoppers/${stopperId}`, { headers: { 'Accept-Language': lang } })
             .then(response => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -62,7 +66,7 @@ export class StopperContainer extends React.Component<StopperContainerProps, Sto
                         {
                             isLoading ?
                                 <Loader text={localizationStore.getString('Questionaire.Loading')} /> :
-                                <StopperItem stopper={stopper} />
+                                <StopperItem stopper={stopper} {...this.props} />
                         }
                     </div>
                 </div>

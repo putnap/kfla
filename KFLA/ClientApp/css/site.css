@@ -521,3 +521,12 @@ body, html {
 .dropright:hover .dropdown-menu {
     display: block;
 }
+
+.slideout-menu-icon {
+    margin: 10px 5px;
+}
+
+.slideout-menu {
+    width: 50px;
+    margin-left: -21px;
+}

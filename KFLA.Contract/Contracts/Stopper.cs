@@ -23,5 +23,21 @@ namespace KFLA.Contract
             }
         }
         public List<StopperQuestion> Questions { get; set; } = new List<StopperQuestion>();
+
+        public string Context { get; set; }
+
+        public List<string> Quotes { get; set; } = new List<string>();
+
+        public List<string> Causes { get; set; } = new List<string>();
+
+        public List<string> OtherCausesBeingLessSkilled { get; set; } = new List<string>();
+
+        public List<string> OtherCausesOverusing { get; set; } = new List<string>();
+
+        public List<Tip> Tips { get; set; } = new List<Tip>();
+
+        public List<string> JobAssignments { get; set; } = new List<string>();
+
+        public List<string> LearningResources { get; set; } = new List<string>();
     }
 }

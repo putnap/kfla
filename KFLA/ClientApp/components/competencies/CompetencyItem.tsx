@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DragSource, ConnectDragSource, DragSourceSpec, DragSourceCollector } from "react-dnd";
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { LocalizationStore } from '../../stores/LocalizationStore';
-import { printSkills } from '../skillPrinter';
+import { printList } from '../skillPrinter';
 
 const dragSource: DragSourceSpec<CompetencyItemProps> = {
     beginDrag(props) {
@@ -86,7 +86,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'>{this.props.competency.Description}</p>
                                 <p className='card-text font-weight-bold'><FontAwesomeIcon icon='plus-circle' className='color-dark' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.SKILLED')}</span></p>
-                                {printSkills(this.props.competency.Skilled)}
+                                {printList(this.props.competency.Skilled)}
                             </div>
                         </div>
                         <div className='card-footer' style={{ fontSize: '9px' }}>
@@ -103,11 +103,11 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, Compete
                             <div className='row mr-3'>
                                 <div className='col'>
                                     <p className='card-text font-weight-bold'><FontAwesomeIcon icon='exclamation-circle' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.OVERUSED')}</span></p>
-                                    {printSkills(this.props.competency.OverusedSkill)}
+                                    {printList(this.props.competency.OverusedSkill)}
                                 </div>
                                 <div className='col'>
                                     <p className='card-text font-weight-bold'><FontAwesomeIcon icon='minus-circle' /><span className='pl-2'>{this.props.localizationStore.getString('Skills.LESS')}</span></p>
-                                    {printSkills(this.props.competency.LessSkilled)}
+                                    {printList(this.props.competency.LessSkilled)}
                                 </div>
                             </div>
                         </div>

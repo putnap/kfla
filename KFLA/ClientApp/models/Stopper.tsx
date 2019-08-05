@@ -1,22 +1,44 @@
 ﻿import { observable, computed, action } from 'mobx';
 import { StopperClusterJSON, StopperCluster } from './StopperCluster';
 import { QuestionJSON, Question } from './Question';
+import { Tip } from './Tip';
 
 export interface StopperJSON {
     ID: number;
     Name: string;
+    Description: string;
     Problem: string[];
     NotProblem: string[];
     Questions: QuestionJSON[];
     Cluster: StopperClusterJSON;
+
+    Context: string;
+    Quotes: string[];
+    Causes: string[];
+    OtherCausesBeingLessSkilled: string[];
+    OtherCausesOverusing: string[];
+    JobAssignments: string[];
+    LearningResources: string[];
+    Tips: Tip[];
 }
 
 export class Stopper {
     ID: number;
     Name: string;
+    Description: string;
     Problem: string[];
     NotProblem: string[];
     Cluster: StopperCluster;
+
+    Context: string;
+    Quotes: string[];
+    Causes: string[];
+    OtherCausesBeingLessSkilled: string[];
+    OtherCausesOverusing: string[];
+    JobAssignments: string[];
+    LearningResources: string[];
+    Tips: Tip[];
+
     @observable Questions: Question[];
     @observable IsSelected: boolean;
 

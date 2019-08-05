@@ -7,8 +7,8 @@ import { CompetenciesContainer } from './components/competencies/CompetenciesCon
 import { EvaluationResult } from './components/competencies/EvaluationResult';
 import { QuestionsResult } from './components/questions/QuestionsResult';
 import { LibraryContainer } from './components/library/LibraryContainer';
-import { CompetencyContainer } from './components/competency/CompetencyContainer';
-import { StopperContainer } from './components/stopper/StopperContainer';
+import { CompetencyContainer } from './components/library/items/CompetencyContainer';
+import { StopperContainer } from './components/library/items/StopperContainer';
 
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />

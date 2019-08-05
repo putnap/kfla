@@ -1,10 +1,10 @@
 ﻿import * as React from "react";
 import { observer, inject } from "mobx-react";
 import { RouteComponentProps } from "react-router";
-import { LocalizationStore } from "../../stores/LocalizationStore";
-import { Competency } from "../../models/Competency";
-import { NavMenu } from '../NavMenu';
-import { Loader } from '../Loader';
+import { LocalizationStore } from "../../../stores/LocalizationStore";
+import { Competency } from "../../../models/Competency";
+import { NavMenu } from '../../NavMenu';
+import { Loader } from '../../Loader';
 import { CompetencyItem } from "./CompetencyItem";
 import { autorun } from "mobx";
 

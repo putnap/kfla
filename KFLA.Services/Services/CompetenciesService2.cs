@@ -17,6 +17,7 @@ namespace KFLA.Services.Services
         private readonly Regex dataFileRegex = new Regex(@".+data\.(?'lang'[a-z]{2,3})\.xlsx");
 
         private Dictionary<string, List<Competency>> competencyCache = new Dictionary<string, List<Competency>>();
+        private Dictionary<string, List<Stopper>> stopperCache = new Dictionary<string, List<Stopper>>();
 
         public List<Competency> GetCompetencies(string language)
         {
@@ -45,15 +46,22 @@ namespace KFLA.Services.Services
 
         public List<Stopper> GetStoppers(string language)
         {
-            using (var pck = new ExcelPackage())
+            if (!stopperCache.TryGetValue(language, out var cache))
             {
-                using (var stream = GetData2Stream(language))
+                cache = new List<Stopper>();
+                using (var pck = new ExcelPackage())
                 {
-                    pck.Load(stream);
-                }
+                    using (var stream = GetData2Stream(language))
+                    {
+                        pck.Load(stream);
+                    }
 
-                return GetStoppers(pck, language).ToList();
+                    cache.AddRange(GetStoppers(pck, language));
+                    stopperCache[language] = cache;
+                }
             }
+
+            return cache;
         }
 
         public Stopper GetStopper(string language, int stopperId)
@@ -157,7 +165,7 @@ namespace KFLA.Services.Services
                 competency.OverusedSkill = overusedMaps.Where(o => o.ID == competency.ID).Select(o => o.SkillDescription).ToList();
                 competency.Questions = competencyQuestions.Where(o => o.CompetencyID == competency.ID).ToList();
                 competency.Context = competencyContexts.SingleOrDefault(o => o.Id == competency.ID).Context;
-                competency.Quotes = quotes.Where(o => o.id == competency.ID).OrderBy(o => o.Order).Select(o => o.Quote).ToList();
+                competency.Quotes = quotes.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.Quote).ToList();
                 competency.Positioning = positionings.SingleOrDefault(o => o.Id == competency.ID).Positioning;
                 competency.Causes = causes.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.Cause).ToList();
                 competency.CaseStudies = caseStudies.Where(o => o.Id == competency.ID).Select(o => new CaseStudy { Type = o.Type, Case = o.CaseStudy }).ToList();
@@ -169,29 +177,41 @@ namespace KFLA.Services.Services
                 Debug.WriteLine($"Completed competency: {competency.ID}");
             }
 
-          return competencies;
-        }
-
-        private Competency GetCompetency(ExcelPackage pck, string language, int competencyId)
-        {
-            var competencies = GetCompetencies(pck, language);
-
-            return competencies.SingleOrDefault(o => o.ID == competencyId);
+            return competencies;
         }
 
         private static IEnumerable<Stopper> GetStoppers(ExcelPackage pck, string language)
         {
             var stoppers = GetStoppersDefinitions(pck).ToList();
 
+            var clusters = GetClusters(pck).ToList();
+            var clusterCompetencyMaps = GetClusterCompetencyMaps(pck).ToList();
             var problemMaps = GetSkillDescriptions(pck, "A Problem");
             var notAProblemMaps = GetSkillDescriptions(pck, "Not A Problem");
             var stopperQuestions = GetStopperQuestions(language);
 
+            // details
+            var context = GetContexts(pck).ToList();
+            var quotes = GetQuotes(pck).ToList();
+            var causes = GetCauses(pck).ToList();
+            var otherCauses = GetOtherCauses(pck).ToList();
+            var tips = GetTips(pck).ToList();
+            var jobAssignments = GetJobAssignments(pck).ToList();
+            var learningResources = GetLearningResources(pck).ToList();
+
             foreach (var stopper in stoppers)
             {
+                stopper.Cluster = clusters.SingleOrDefault(o => o.ID == clusterCompetencyMaps.Single(m => m.CompetencyID == stopper.ID).ClusterID);
+                stopper.Context = context.SingleOrDefault(o => o.Id == stopper.ID).Context;
                 stopper.Problem = problemMaps.Where(o => o.ID == stopper.ID).Select(o => o.SkillDescription).ToList();
                 stopper.NotProblem = notAProblemMaps.Where(o => o.ID == stopper.ID).Select(o => o.SkillDescription).ToList();
                 stopper.Questions = stopperQuestions.Where(o => o.StopperID == stopper.ID).ToList();
+                stopper.Quotes = quotes.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Quote).ToList();
+                stopper.OtherCausesBeingLessSkilled = otherCauses[0].Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Cause).ToList();
+                stopper.OtherCausesOverusing = otherCauses[1].Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Cause).ToList();
+                stopper.Tips = tips.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.Tip).ToList();
+                stopper.JobAssignments = jobAssignments.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.JobAssignment).ToList();
+                stopper.LearningResources = learningResources.Where(o => o.Id == stopper.ID).OrderBy(o => o.Order).Select(o => o.LearningResource).ToList();
             }
 
             return stoppers;
@@ -251,7 +271,7 @@ namespace KFLA.Services.Services
             }
         }
 
-        private static IEnumerable<(int id, string Quote, string Order)> GetQuotes(ExcelPackage pck)
+        private static IEnumerable<(int Id, string Quote, string Order)> GetQuotes(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Quotes"];
             var tbl = GetDataTable(ws);
@@ -285,6 +305,37 @@ namespace KFLA.Services.Services
                 if (row[0] is string id && !string.IsNullOrEmpty(id))
                     yield return (int.Parse(id), int.Parse((string)row[2]), (string)row[3]);
             }
+        }
+
+        private static IEnumerable<IEnumerable<(int Id, int Order, string Cause)>> GetOtherCauses(ExcelPackage pck)
+        {
+            var ws = pck.Workbook.Worksheets["Other Causes"];
+            var tbl = GetDataTable(ws);
+            var result = new List<List<(int Id, int Order, string Cause)>>()
+            {
+                new List<(int Id, int Order, string Cause)>(),
+                new List<(int Id, int Order, string Cause)>()
+            };
+            var overusing = false;
+
+            foreach (DataRow row in tbl.Rows)
+            {
+                if (row[0] is string idString && !string.IsNullOrEmpty(idString))
+                {
+                    if (int.TryParse(idString, out var id))
+                    {
+                        var otherCause = (id, int.Parse((string)row[2]), (string)row[3]);
+                        if (!overusing)
+                            result[0].Add(otherCause);
+                        else
+                            result[1].Add(otherCause);
+                    }
+                    else if (!overusing)
+                        overusing = true;
+                }
+            }
+
+            return result;
         }
 
         private static IEnumerable<(int Id, string Type, string CaseStudy)> GetCaseStudies(ExcelPackage pck)
@@ -414,6 +465,18 @@ namespace KFLA.Services.Services
             }
         }
 
+        private static IEnumerable<(int Id, int Order, string LearningResource)> GetLearningResources(ExcelPackage pck)
+        {
+            var ws = pck.Workbook.Worksheets["Learning resources"];
+            var tbl = GetDataTable(ws);
+
+            foreach (DataRow row in tbl.Rows)
+            {
+                if (row[0] is string id && !string.IsNullOrEmpty(id))
+                    yield return (int.Parse(id), int.Parse((string)row[2]), (string)row[3]);
+            }
+        }
+
         private static IEnumerable<Cluster> GetClusters(ExcelPackage pck, bool hasHeader = true)
         {
             var ws = pck.Workbook.Worksheets["Clusters"];
@@ -452,7 +515,7 @@ namespace KFLA.Services.Services
             }
         }
 
-        private static IEnumerable<Question> GetCompetencyQuestions(string language) 
+        private static IEnumerable<Question> GetCompetencyQuestions(string language)
         {
             using (var pck = new ExcelPackage())
             {

@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Stopper } from '../../models/Stopper';
 import { observer, inject } from 'mobx-react';
 import { LocalizationStore } from '../../stores/LocalizationStore';
-import { printSkills } from '../skillPrinter';
+import { printList } from '../skillPrinter';
 
 interface StopperItemProps extends Partial<RouteComponentProps<{}>>{
     stopper: Stopper;
@@ -39,9 +39,9 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
                         <div className='modal-body'>
                             <div className='mr-3'>
                                 <p className='card-text font-weight-bold'><span className='pl-2'>{this.props.localizationStore.getString('StopperItem.Problem')}</span></p>
-                                {printSkills(this.props.stopper.Problem)}
+                                {printList(this.props.stopper.Problem)}
                                 <p className='card-text font-weight-bold'><span className='pl-2'>{this.props.localizationStore.getString('StopperItem.NotAProblem')}</span></p>
-                                {printSkills(this.props.stopper.NotProblem)}
+                                {printList(this.props.stopper.NotProblem)}
                             </div>
                         </div>
                         <div className='modal-footer'>

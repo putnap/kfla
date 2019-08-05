@@ -3,13 +3,8 @@ import { Cluster, ClusterJSON } from "./Cluster";
 import { Factor, FactorJSON } from "./Factor";
 import { observable, computed, action } from 'mobx';
 import { Evaluation } from "./Evaluation";
+import { Tip } from "./Tip";
 
-
-export interface Tip {
-    Phrase: string;
-    TipContent: string;
-    WantToLearnMore: string[];
-}
 
 export interface CaseStudy {
     Type: string;
