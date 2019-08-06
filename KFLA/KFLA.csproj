@@ -41,7 +41,7 @@
     <None Remove="ClientApp\components\FactorList.tsx" />
     <None Remove="ClientApp\components\library\CompetencyItem.tsx" />
     <None Remove="ClientApp\components\library\CompetencyList.tsx" />
-    <None Remove="ClientApp\components\library\items\menuHelpers.tsx" />
+    <None Remove="ClientApp\components\library\items\helpers.tsx" />
     <None Remove="ClientApp\components\library\LibraryContainer.tsx" />
     <None Remove="ClientApp\components\library\StopperItem.tsx" />
     <None Remove="ClientApp\components\library\StoppersList.tsx" />
@@ -81,7 +81,7 @@
     <TypeScriptCompile Include="ClientApp\@types\react-dnd\index.d.ts" />
     <TypeScriptCompile Include="ClientApp\@types\types.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\items\CompetencyContainer.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\library\items\menuHelpers.tsx">
+    <TypeScriptCompile Include="ClientApp\components\library\items\helpers.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\components\library\items\CompetencyItem.tsx" />
@@ -133,7 +133,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\components\library\items\shared\" />
     <Folder Include="ClientApp\logos\" />
   </ItemGroup>
 

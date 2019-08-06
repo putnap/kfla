@@ -2,7 +2,11 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { LocalizationStore } from "../../../stores/LocalizationStore";
+
+export const safeReplace = (text: string, title: string) => {
+    if (text)
+        return text.replace('#COMP_TITLE#', title);
+}
 
 export const generateDroprightButton = (baseUrl: string, link: string, icon: IconProp, linkText: string) => {
     return <Link to={`${baseUrl}/${link}`}>

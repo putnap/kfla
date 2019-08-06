@@ -4,24 +4,17 @@ import { Route, RouteComponentProps } from 'react-router';
 import { Competency } from '../../../models/Competency';
 import { LocalizationStore } from '../../../stores/LocalizationStore';
 import { inject } from 'mobx-react';
-import { generateDroprightButton } from './menuHelpers';
+import { generateDroprightButton, safeReplace } from './helpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { printList } from '../../skillPrinter';
 
-interface CompetencyItemProps extends Partial<RouteComponentProps<{}>> {
+interface CompetencyItemProps extends RouteComponentProps<{}> {
     competency: Competency;
     localizationStore?: LocalizationStore;
 }
 
-const replaceWithCompTitle = (text: string, competency: Competency) => {
-    if (text)
-        return text.replace('#COMP_TITLE#', competency.Name);
-}
-
 @inject("localizationStore")
 export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
-
-
 
     render() {
         const { competency, localizationStore, match } = this.props;
@@ -40,12 +33,12 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                 <div className='col-1'>
                     <div className='slideout-menu'>
                         {generateDroprightButton(match.url, 'Info', 'info', competency.Name)}
-                        {generateDroprightButton(match.url, 'Skills', 'user', localizationStore.getString('Library.Items.Links.Skills'))}
+                        {generateDroprightButton(match.url, 'Skills', 'user', localizationStore.getString('Skills.SKILLED'))}
                         {generateDroprightButton(match.url, 'PossibleCauses', 'sitemap', localizationStore.getString('Library.Items.Links.PossibleCauses'))}
-                        {generateDroprightButton(match.url, 'Tips', 'brain', replaceWithCompTitle(localizationStore.getString('Library.Items.Links.Tips'), competency))}
+                        {generateDroprightButton(match.url, 'Tips', 'brain', safeReplace(localizationStore.getString('Library.Items.Links.Tips'), competency.Name))}
                         {generateDroprightButton(match.url, 'Jobs', 'tasks', localizationStore.getString('Library.Items.Links.Jobs'))}
                         {generateDroprightButton(match.url, 'Reflect', 'history', localizationStore.getString('Library.Items.Links.Reflect'))}
-                        {generateDroprightButton(match.url, 'LearnMore', ['fab', 'leanpub'], replaceWithCompTitle(localizationStore.getString('Library.Items.Links.LearnMore'), competency))}
+                        {generateDroprightButton(match.url, 'LearnMore', ['fab', 'leanpub'], safeReplace(localizationStore.getString('Library.Items.Links.LearnMore'), competency.Name))}
                         {generateDroprightButton(match.url, 'DeepDive', 'link', localizationStore.getString('Library.Items.Links.DeepDive'))}
                     </div>
                 </div>
@@ -53,31 +46,31 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                     <Route
                         exact
                         path={`${this.props.match.path}`}
-                        component={() => <Info competency={competency} />} />
+                        render={() => <Info {...this.props} />} />
                     <Route
                         path={`${this.props.match.path}/Skills`}
-                        component={() => <Skills competency={competency} />} />
+                        render={() => <Skills {...this.props} />} />
                     <Route
                         path={`${this.props.match.path}/PossibleCauses`}
-                        component={() => <PossibleCauses competency={competency} />} />
+                        render={() => <PossibleCauses {...this.props} />} />
                     <Route
                         path={`${this.props.match.path}/Tips`}
-                        component={() => <Tips competency={competency} />} />
+                        render={() => <Tips {...this.props} />} />
                     <Route
                         path={`${this.props.match.path}/Jobs`}
-                        component={() => <JobAssignments competency={competency} />} />
+                        render={() => <JobAssignments {...this.props} />} />
                     <Route
                         path={`${this.props.match.path}/Reflect`}
-                        component={() => <TimeToReflect competency={competency} />} />
+                        render={() => <TimeToReflect {...this.props} />} />
                     <Route
                         path={`${this.props.match.path}/LearnMore`}
-                        component={() => <LearnMore competency={competency} />} />
+                        render={() => <LearnMore {...this.props} />} />
                     <Route
                         path={`${this.props.match.path}/DeepDive`}
-                        component={() => <DeepDive competency={competency} />} />
+                        render={() => <DeepDive {...this.props} />} />
                     <Route
                         path={`${this.props.match.path}/Info`}
-                        component={() => <Info competency={competency} />} />
+                        render={() => <Info {...this.props} />} />
                 </div>
             </div>
         </div>
@@ -89,7 +82,6 @@ interface CompetencyDetails {
     localizationStore?: LocalizationStore;
 }
 
-@inject("localizationStore")
 export class Info extends React.Component<CompetencyDetails, {}> {
     render() {
         const competency = this.props.competency;
@@ -104,7 +96,6 @@ export class Info extends React.Component<CompetencyDetails, {}> {
     }
 }
 
-@inject("localizationStore")
 export class Skills extends React.Component<CompetencyDetails, {}> {
 
     render() {
@@ -130,7 +121,6 @@ export class Skills extends React.Component<CompetencyDetails, {}> {
     }
 }
 
-@inject("localizationStore")
 export class PossibleCauses extends React.Component<CompetencyDetails, {}> {
 
     render() {
@@ -138,7 +128,7 @@ export class PossibleCauses extends React.Component<CompetencyDetails, {}> {
         return <div className='row'>
             <div className='col-12'>
                 <h5>{localizationStore.getString('Library.Item.Competency.PossibleCauses')}</h5>
-                <p>{replaceWithCompTitle(localizationStore.getString('Library.Item.Competency.PossibleCauses.Description'), competency)}</p>
+                <p>{safeReplace(localizationStore.getString('Library.Item.Competency.PossibleCauses.Description'), competency.Name)}</p>
                 {printList(competency.Causes)}
             </div>
             {competency.CaseStudies.length > 0 &&
@@ -151,14 +141,13 @@ export class PossibleCauses extends React.Component<CompetencyDetails, {}> {
     }
 }
 
-@inject("localizationStore")
 export class Tips extends React.Component<CompetencyDetails, {}> {
 
     render() {
         const { competency, localizationStore } = this.props;
         return <div className='row'>
             <div className='col-12'>
-                <h5>{replaceWithCompTitle(localizationStore.getString('Library.Item.Competency.Tips'), competency)}</h5>
+                <h5>{safeReplace(localizationStore.getString('Library.Item.Competency.Tips'), competency.Name)}</h5>
             </div>
             {competency.Tips.map((tip, i) => {
                 return <div className='col-12 py-1' key={i}>
@@ -176,7 +165,6 @@ export class Tips extends React.Component<CompetencyDetails, {}> {
     }
 }
 
-@inject("localizationStore")
 export class JobAssignments extends React.Component<CompetencyDetails, {}> {
 
     render() {
@@ -190,7 +178,6 @@ export class JobAssignments extends React.Component<CompetencyDetails, {}> {
     }
 }
 
-@inject("localizationStore")
 export class TimeToReflect extends React.Component<CompetencyDetails, {}> {
 
     render() {
@@ -213,14 +200,13 @@ export class TimeToReflect extends React.Component<CompetencyDetails, {}> {
     }
 }
 
-@inject("localizationStore")
 export class LearnMore extends React.Component<CompetencyDetails, {}> {
 
     render() {
         const { competency, localizationStore } = this.props;
         return <div className='row'>
             <div className='col-12'>
-                <h5>{replaceWithCompTitle(localizationStore.getString('Library.Item.LearnMore'), competency)}</h5>
+                <h5>{safeReplace(localizationStore.getString('Library.Item.LearnMore'), competency.Name)}</h5>
             </div>
             {competency.LearnMore.map((learnMore, i) => {
                 return <div className='col-12 py-1' key={i}>
@@ -232,7 +218,6 @@ export class LearnMore extends React.Component<CompetencyDetails, {}> {
     }
 }
 
-@inject("localizationStore")
 export class DeepDive extends React.Component<CompetencyDetails, {}> {
 
     targetBlankDecorator(decoratedHref: string, decoratedText: string, key: number) {

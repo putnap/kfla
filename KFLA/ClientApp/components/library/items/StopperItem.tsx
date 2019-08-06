@@ -3,7 +3,7 @@ import { Stopper } from '../../../models/Stopper';
 import { inject } from 'mobx-react';
 import { LocalizationStore } from '../../../stores/LocalizationStore';
 import { RouteComponentProps, Route } from 'react-router';
-import { generateDroprightButton } from './menuHelpers';
+import { generateDroprightButton, safeReplace } from './helpers';
 import { printList } from '../../skillPrinter';
 
 interface StopperItemProps extends Partial<RouteComponentProps<{}>> {
@@ -38,9 +38,9 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
                 <div className='col-1'>
                     <div className='slideout-menu'>
                         {generateDroprightButton(match.url, 'Info', 'info', stopper.Name)}
-                        {generateDroprightButton(match.url, 'Skills', 'user', localizationStore.getString('Library.Items.Links.Skills'))}
+                        {generateDroprightButton(match.url, 'Skills', 'user', localizationStore.getString('StopperItem.Problem'))}
                         {generateDroprightButton(match.url, 'PossibleCauses', 'sitemap', localizationStore.getString('Library.Items.Links.PossibleCauses'))}
-                        {generateDroprightButton(match.url, 'Tips', 'brain', localizationStore.getString(this.getTipsKey(stopper)).replace('#COMP_TITLE#', stopper.Name))}
+                        {generateDroprightButton(match.url, 'Tips', 'brain', safeReplace(localizationStore.getString(this.getTipsKey(stopper)), stopper.Name))}
                         {generateDroprightButton(match.url, 'Jobs', 'tasks', localizationStore.getString('Library.Items.Links.Jobs'))}
                         {generateDroprightButton(match.url, 'LearningResources', ['fab', 'leanpub'], localizationStore.getString('Library.Items.Links.LearningResources'))}
                     </div>
@@ -123,7 +123,7 @@ export class PossibleCauses extends React.Component<StopperDetails, {}> {
             </div>
             <div className='col-12'>
                 <h5>{localizationStore.getString('Library.Item.Stopper.OtherCauses')}</h5>
-                <p>{localizationStore.getString('Library.Item.Stopper.OtherCauses.Description').replace('#COMP_TITLE#', stopper.Name)}</p>
+                <p>{safeReplace(localizationStore.getString('Library.Item.Stopper.OtherCauses.Description'), stopper.Name)}</p>
             </div>
             <div className='col-12'>
                 <h6>{localizationStore.getString('Library.Item.Stopper.OtherCauses.BeingLessSkilled')}</h6>
@@ -162,7 +162,7 @@ export class Tips extends React.Component<StopperDetails, {}> {
 
         return <div className='row'>
             <div className='col-12'>
-                <h5>{localizationStore.getString(this.getTipsKey(stopper)).replace('#COMP_TITLE#', stopper.Name)}</h5>
+                <h5>{safeReplace(localizationStore.getString(this.getTipsKey(stopper)), stopper.Name)}</h5>
             </div>
             {stopper.Tips.map((tip, i) => {
                 return <div className='col-12 py-1' key={i}>
