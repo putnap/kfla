@@ -21,7 +21,8 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
     }
 
     openCompetency(competencyId: number) {
-        this.props.history.push(`/library/competencies/${competencyId}`);
+        const { match } = this.props;
+        this.props.history.push(`${match.url}/competencies/${competencyId}`);
     }
 
     printSkills(skills: string[], classes?: string) {

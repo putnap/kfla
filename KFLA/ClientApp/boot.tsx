@@ -41,7 +41,7 @@ function renderApp() {
     );
 }
 
-localizationStore.loadLanguages(renderApp);
+renderApp();
 
 // Allow Hot Module Replacement
 if (module.hot) {

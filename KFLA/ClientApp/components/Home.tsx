@@ -18,6 +18,7 @@ export class Home extends React.Component<HomeProps, {}> {
     }
 
     public render() {
+        const { match } = this.props;
         let containerStyle: React.CSSProperties;
         let itemStyle: React.CSSProperties;
 
@@ -45,23 +46,23 @@ export class Home extends React.Component<HomeProps, {}> {
             <div className='fixed-top m-1 m-md-3'>
                 <img className='w-25' src={require('../logos/logo-korn-ferry.png')} alt='Korn Ferry' />
                 <div className='float-right'>
-                    <LanguageBar />
+                    <LanguageBar {...this.props} />
                 </div>
             </div>
             <div className='row height-100'>
                 <div className='col-12 col-md-4 background-lib'>
                     <div className='height-sm-33 height-100 text-center mx-auto' style={containerStyle}>
-                        <NavLink to={'/library'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={itemStyle}>{this.props.localizationStore.getString('PageTitles.LIBRARY')}</NavLink>
+                        <NavLink to={`${match.url}/library`} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={itemStyle}>{this.props.localizationStore.getString('PageTitles.LIBRARY')}</NavLink>
                     </div>
                 </div>
                 <div className='d-none d-md-block col-md-4 background-light'>
                     <div className='height-sm-33 height-100 text-center mx-auto' style={containerStyle} >
-                        <NavLink to={'/competencies'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={itemStyle}> { this.props.localizationStore.getString('PageTitles.COMPETENCIES') }</NavLink>
+                        <NavLink to={`${match.url}/competencies`} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={itemStyle}> { this.props.localizationStore.getString('PageTitles.COMPETENCIES') }</NavLink>
                     </div>
                 </div>
                 <div className='col-12 col-md-4 background-dark'>
                     <div className='height-sm-33 height-100 text-center mx-auto' style={containerStyle}>
-                        <NavLink to={'/questions'} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={itemStyle} > { this.props.localizationStore.getString('PageTitles.QUESTIONS') }</NavLink>
+                        <NavLink to={`${match.url}/questions`} activeClassName='active' className='nav-item nav-link navigation-link font-weight-bold' style={itemStyle} > { this.props.localizationStore.getString('PageTitles.QUESTIONS') }</NavLink>
                     </div>
                 </div>
             </div>

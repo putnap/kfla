@@ -1,6 +1,5 @@
 ﻿import { observable, action } from 'mobx';
 
-
 export class Question {
     constructor(content: string) {
         this.QuestionContent = content;
@@ -12,5 +11,5 @@ export class Question {
 
     @action toggleSelection() {
         this.IsSelected = !this.IsSelected;
-    }}
+    }
 }

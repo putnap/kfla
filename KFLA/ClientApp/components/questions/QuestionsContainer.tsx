@@ -15,13 +15,14 @@ import { StopperItem } from './StopperItem';
 import { CompetencyItem } from './CompetencyItem';
 import { StoppersStore } from '../../stores/StoppersStore';
 import { LocalizationStore } from '../../stores/LocalizationStore';
+import { LanguageParam } from '../LanguageParam';
 
 interface QuestionsContainerState {
     loginFailed: boolean
     password?: string
 }
 
-interface QuestionsContainerProps extends RouteComponentProps<{}> {
+interface QuestionsContainerProps extends RouteComponentProps<LanguageParam> {
     stoppersStore?: StoppersStore
     competencyStore?: CompetencyStore
     localizationStore?: LocalizationStore
@@ -53,7 +54,8 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
     }
 
     submitQuestionaire() {
-        this.props.history.push("/questionaire");
+        const { language } = this.props.match.params;
+        this.props.history.push(`/${language}/questionaire`);
     }
 
     login() {
@@ -86,7 +88,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
         const stoppersStore = this.props.stoppersStore;
         const localizationStore = this.props.localizationStore;
         return <div className='row background-dark height-100 '>
-            <NavMenu />
+            <NavMenu {...this.props}/>
             {
                 !competencyStore!.isAuthenticated ?
                     <div className='mx-5 w-100 main-content'>
