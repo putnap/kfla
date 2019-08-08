@@ -12,8 +12,9 @@ import { Question } from '../../models/Question';
 import { PortraitOrientation } from '../orientations';
 import { StoppersStore } from '../../stores/StoppersStore';
 import { LocalizationStore } from '../../stores/LocalizationStore';
+import { LanguageParam } from '../LanguageParam';
 
-interface QuestionsResultProps extends RouteComponentProps<{}> {
+interface QuestionsResultProps extends RouteComponentProps<LanguageParam> {
     stoppersStore?: StoppersStore
     competencyStore?: CompetencyStore
     localizationStore?: LocalizationStore
@@ -28,7 +29,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
             this.props.competencyStore.resetQuestionaire();
             this.props.stoppersStore.resetQuestionaire();
             setTimeout(() => {
-                this.props.history.push("/questions");
+                this.navigateToQuestions();
             }, 1500)
         }
     }
@@ -36,7 +37,12 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
     resetQuestionaire() {
         this.props.competencyStore.resetQuestionaire();
         this.props.stoppersStore.resetQuestionaire();
-        this.props.history.push("/questions");
+        this.navigateToQuestions();
+    }
+
+    navigateToQuestions() {
+        const { language } = this.props.match.params;
+        this.props.history.push(`/${language}/questions`);
     }
 
     printPage() {
@@ -57,7 +63,7 @@ export class QuestionsResult extends React.Component<QuestionsResultProps, {}> {
 
         return <section>
             <div className='row background-dark react-no-print'>
-                <NavMenu />
+                <NavMenu {...this.props} />
             </div>
             <div className='row background-dark contentContainer height-100 px-1 px-md-5'>
                 <PortraitOrientation />

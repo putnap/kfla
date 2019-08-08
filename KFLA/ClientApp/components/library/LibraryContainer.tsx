@@ -15,8 +15,9 @@ import { VideoModal } from '../VideoModal';
 import { StopperItem } from './StopperItem';
 import { Stopper } from '../../models/Stopper';
 import { LocalizationStore } from '../../stores/LocalizationStore';
+import { LanguageParam } from '../LanguageParam';
 
-interface LibraryContainerProps extends RouteComponentProps<{}> {
+interface LibraryContainerProps extends RouteComponentProps<LanguageParam> {
     competencyStore?: CompetencyStore
     localizationStore?: LocalizationStore;
 }
@@ -68,7 +69,7 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
     public render() {
         const store = this.props.competencyStore!;
         return <div className='row background-lib height-100'>
-            <NavMenu />
+            <NavMenu {...this.props} />
             <div className='mx-2 mx-md-5 w-100 main-content'>
                 {
                     store.isLoading ?

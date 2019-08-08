@@ -45,7 +45,7 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
                         {generateDroprightButton(match.url, 'LearningResources', ['fab', 'leanpub'], localizationStore.getString('Library.Items.Links.LearningResources'))}
                     </div>
                 </div>
-                <div className='col'>
+                <div className='col mt-3'>
                     <Route
                         exact
                         path={`${this.props.match.path}`}
@@ -83,9 +83,9 @@ interface StopperDetails {
 export class Info extends React.Component<StopperDetails, {}> {
     render() {
         const stopper = this.props.stopper;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col'>
-                <p>{stopper.Context}</p>
+                <p className='column-split'>{stopper.Context}</p>
                 <p className='mx-auto py-2 w-50'>{stopper.Quotes[0]}</p>
             </div>
         </div>
@@ -97,7 +97,7 @@ export class Skills extends React.Component<StopperDetails, {}> {
 
     render() {
         const { stopper, localizationStore } = this.props;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col-sm-12 col-md-6'>
                 <p className='card-text font-weight-bold'><span className='pl-2'>{localizationStore.getString('StopperItem.Problem')}</span></p>
                 {printList(stopper.Problem)}
@@ -116,7 +116,7 @@ export class PossibleCauses extends React.Component<StopperDetails, {}> {
 
     render() {
         const { stopper, localizationStore } = this.props;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col-12'>
                 <h5>{localizationStore.getString('Library.Item.Stopper.PossibleCauses')}</h5>
                 {printList(stopper.Causes)}
@@ -158,9 +158,7 @@ export class Tips extends React.Component<StopperDetails, {}> {
 
     render() {
         const { stopper, localizationStore } = this.props;
-
-
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col-12'>
                 <h5>{safeReplace(localizationStore.getString(this.getTipsKey(stopper)), stopper.Name)}</h5>
             </div>
@@ -179,7 +177,7 @@ export class JobAssignments extends React.Component<StopperDetails, {}> {
 
     render() {
         const { stopper, localizationStore } = this.props;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col-12'>
                 <h5>{localizationStore.getString('Library.Item.JobAssignments')}</h5>
             </div>
@@ -196,7 +194,7 @@ export class LearningResources extends React.Component<StopperDetails, {}> {
 
     render() {
         const { stopper, localizationStore } = this.props;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col-12'>
                 <h5>{localizationStore.getString('Library.Item.LearningResources')}</h5>
             </div>

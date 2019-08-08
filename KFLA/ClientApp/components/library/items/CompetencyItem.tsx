@@ -41,7 +41,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                         {generateDroprightButton(match.url, 'LearnMore', ['fab', 'leanpub'], safeReplace(localizationStore.getString('Library.Items.Links.LearnMore'), competency.Name))}
                     </div>
                 </div>
-                <div className='col'>
+                <div className='col mt-3'>
                     <Route
                         path={`${this.props.match.path}/Skills`}
                         render={() => <Skills {...this.props} />} />
@@ -81,7 +81,7 @@ interface CompetencyDetails {
 export class Info extends React.Component<CompetencyDetails, {}> {
     render() {
         const competency = this.props.competency;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col'>
                 <p className='font-italic h5 pb-3'>{competency.Description}</p>
                 <p className='column-split'>{competency.Context}</p>
@@ -96,7 +96,7 @@ export class Skills extends React.Component<CompetencyDetails, {}> {
 
     render() {
         const { competency, localizationStore } = this.props;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col-sm-12 col-md-6'>
                 <p className='card-text font-weight-bold'><FontAwesomeIcon icon='plus-circle' /><span className='pl-2'>{localizationStore.getString('Skills.SKILLED')}</span></p>
                 {printList(competency.Skilled)}
@@ -121,7 +121,7 @@ export class PossibleCauses extends React.Component<CompetencyDetails, {}> {
 
     render() {
         const { competency, localizationStore } = this.props;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col-12'>
                 <h5>{localizationStore.getString('Library.Item.Competency.PossibleCauses')}</h5>
                 <p>{safeReplace(localizationStore.getString('Library.Item.Competency.PossibleCauses.Description'), competency.Name)}</p>
@@ -141,7 +141,7 @@ export class Tips extends React.Component<CompetencyDetails, {}> {
 
     render() {
         const { competency, localizationStore } = this.props;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col-12'>
                 <h5>{safeReplace(localizationStore.getString('Library.Item.Competency.Tips'), competency.Name)}</h5>
             </div>
@@ -168,7 +168,7 @@ export class JobAssignments extends React.Component<CompetencyDetails, {}> {
 
     render() {
         const { competency, localizationStore } = this.props;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col-12'>
                 <h5>{localizationStore.getString('Library.Item.JobAssignments')}</h5>
             </div>
@@ -181,7 +181,7 @@ export class TimeToReflect extends React.Component<CompetencyDetails, {}> {
 
     render() {
         const { competency, localizationStore } = this.props;
-        return <div className='row'>
+        return <div className='row animate-bottom'>
             <div className='col-12'>
                 <h5>{localizationStore.getString('Library.Item.TimeToReflect')}</h5>
             </div>
@@ -212,7 +212,7 @@ export class LearnMore extends React.Component<CompetencyDetails, {}> {
     render() {
         const { competency, localizationStore } = this.props;
         return <ReactLinkify componentDecorator={this.targetBlankDecorator}>
-            <div className='row'>
+            <div className='row animate-bottom'>
                 <div className='col-12'>
                     <h5>{safeReplace(localizationStore.getString('Library.Item.LearnMore'), competency.Name)}</h5>
                 </div>

@@ -12,8 +12,9 @@ import { LandscapeOrientation } from '../orientations';
 import { VideoModal } from '../VideoModal';
 import { LocalizationStore } from '../../stores/LocalizationStore';
 import { autorun } from 'mobx';
+import { LanguageParam } from '../LanguageParam';
 
-interface EvaluationResultProps extends RouteComponentProps<{}> {
+interface EvaluationResultProps extends RouteComponentProps<LanguageParam> {
     competencyStore?: CompetencyStore
     localizationStore?: LocalizationStore
 }
@@ -34,7 +35,7 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
             if (!store.evaluationReady) {
                 store.resetEvaluation();
                 setTimeout(() => {
-                    this.props.history.push("/competencies");
+                    this.navigateToCompetencies();
                 }, 2000)
             }
         });
@@ -51,8 +52,13 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
     resetEvaluation() {
         if (window.confirm(this.props.localizationStore.getString('Evaluation.Reset'))) {
             this.props.competencyStore.resetEvaluation();
-            this.props.history.push("/competencies");
+            this.navigateToCompetencies();
         }
+    }
+
+    navigateToCompetencies() {
+        const { language } = this.props.match.params;
+        this.props.history.push(`/${language}/competencies`);
     }
 
     renderCompetency(competency: Competency): JSX.Element {
@@ -73,7 +79,7 @@ export class EvaluationResult extends React.Component<EvaluationResultProps, {}>
         const factors = store.groupCompetencies(store.evaluatedCompetencies);
         return <section>
             <div className='row background-light react-no-print'>
-                <NavMenu />
+                <NavMenu {...this.props} />
             </div>
             <div className='row background-light contentContainer height-100 px-5'>
                 <LandscapeOrientation />

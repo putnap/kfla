@@ -11,8 +11,9 @@ import { CompetencyStore } from '../../stores/CompetencyStore';
 import withDragDropContext from '../withDragDropContext';
 import { VideoModal } from '../VideoModal';
 import { LocalizationStore } from '../../stores/LocalizationStore';
+import { LanguageParam } from '../LanguageParam';
 
-interface CompetenciesContainerProps extends RouteComponentProps<{}> {
+interface CompetenciesContainerProps extends RouteComponentProps<LanguageParam> {
     competencyStore?: CompetencyStore
     localizationStore?: LocalizationStore;
 }
@@ -39,7 +40,8 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
     }
 
     submitEvaluation() {
-        this.props.history.push("/evaluation");
+        const { language } = this.props.match.params;
+        this.props.history.push(`/${language}/evaluation`);
     }
 
     randomEvaluation() {
@@ -59,7 +61,7 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
     public render() {
         const store = this.props.competencyStore;
         return <div className='row background-light height-100'>
-            <NavMenu />
+            <NavMenu {...this.props} />
             <div className='contentContainer w-100 mx-2 mx-md-5'>
                 <EvaluationList evaluations={store!.evaluations} />
                 {

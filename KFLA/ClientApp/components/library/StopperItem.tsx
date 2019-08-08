@@ -21,7 +21,8 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
     }
 
     openStopper(stopperId: number) {
-        this.props.history.push(`/library/stoppers/${stopperId}`);
+        const { match } = this.props;
+        this.props.history.push(`${match.url}/stoppers/${stopperId}`);
     }
 
     render() {

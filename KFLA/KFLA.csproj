@@ -46,6 +46,7 @@
     <None Remove="ClientApp\components\library\StopperItem.tsx" />
     <None Remove="ClientApp\components\library\StoppersList.tsx" />
     <None Remove="ClientApp\components\Loader.tsx" />
+    <None Remove="ClientApp\components\localization\LocalizationContainer.tsx" />
     <None Remove="ClientApp\components\orientations.tsx" />
     <None Remove="ClientApp\components\questions\CompetencyItem.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
@@ -89,6 +90,7 @@
     <TypeScriptCompile Include="ClientApp\components\FactorList.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\StopperItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\CompetencyItem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\localization\LocalizationContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\skillPrinter.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\CompetencyItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\StopperItem.tsx" />

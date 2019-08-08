@@ -28,8 +28,8 @@ export class LocalizationStore {
         });
     }
 
-    @action loadLanguages(callback: () => void) {
-        if (!this.isLoading) {
+    @action loadLanguages() {
+        if (this.languages.length == 0) {
             this.isLoaded = false;
             this.isLoading = true;
             fetch('api/languages')
@@ -44,14 +44,6 @@ export class LocalizationStore {
                     runInAction(() => {
                         this.languages = JSON.parse(data);
                         this.isLoading = false;
-                        this.isLoaded = true;
-
-                        if (this.languages.find(s => s == 'en'))
-                            this.loadStrings('en');
-                        else
-                            this.loadStrings(this.languages[0]);
-                        if (callback)
-                            callback();
                     })
                 );
         }
@@ -74,11 +66,13 @@ export class LocalizationStore {
             })
             .then((data) => {
                 if (lang == this.language) {
-                    runInAction(() => {
-                        this.strings = JSON.parse(data);
-                        this.isLoading = false;
-                        this.isLoaded = true;
-                    })
+                    setTimeout(() =>  
+                        runInAction(() => {
+                            this.strings = JSON.parse(data);
+                            this.isLoading = false;
+                            this.isLoaded = true;
+                        }),
+                        750)
                 }
             });
         }
