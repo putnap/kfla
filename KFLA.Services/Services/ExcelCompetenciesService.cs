@@ -14,46 +14,30 @@ namespace KFLA.Services.Services
     public class ExcelCompetenciesService : ICompetenciesService
     {
         private readonly Regex dataFileRegex = new Regex(@".+data\.(?'lang'[a-z]{2,3})\.xlsx");
-
-        private Dictionary<string, IEnumerable<Competency>> competencyCache = new Dictionary<string, IEnumerable<Competency>>();
-        private Dictionary<string, IEnumerable<Stopper>> stopperCache = new Dictionary<string, IEnumerable<Stopper>>();
-
         public Task<IEnumerable<Competency>> GetCompetencies(string language)
         {
-            if (!competencyCache.TryGetValue(language, out var cache))
+            using (var pck = new ExcelPackage())
             {
-                using (var pck = new ExcelPackage())
+                using (var stream = GetData2Stream(language))
                 {
-                    using (var stream = GetData2Stream(language))
-                    {
-                        pck.Load(stream);
-                    }
-
-                    cache = GetCompetencies(pck, language);
-                    competencyCache[language] = cache;
+                    pck.Load(stream);
                 }
-            }
 
-            return Task.FromResult(cache);
+                return Task.FromResult(GetCompetencies(pck, language).ToList().AsEnumerable());
+            }
         }
 
         public Task<IEnumerable<Stopper>> GetStoppers(string language)
         {
-            if (!stopperCache.TryGetValue(language, out var cache))
+            using (var pck = new ExcelPackage())
             {
-                using (var pck = new ExcelPackage())
+                using (var stream = GetData2Stream(language))
                 {
-                    using (var stream = GetData2Stream(language))
-                    {
-                        pck.Load(stream);
-                    }
-
-                    cache = GetStoppers(pck, language);
-                    stopperCache[language] = cache;
+                    pck.Load(stream);
                 }
-            }
 
-            return Task.FromResult(cache);
+                return Task.FromResult(GetStoppers(pck, language).ToList().AsEnumerable());
+            }
         }
 
         public Task<IEnumerable<LocalizedString>> GetStrings(string language)

@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import ReactLinkify from 'react-linkify';
-import { Route, RouteComponentProps } from 'react-router';
+import { Route, RouteComponentProps, Switch } from 'react-router';
 import { Competency } from '../../../models/Competency';
 import { LocalizationStore } from '../../../stores/LocalizationStore';
 import { inject } from 'mobx-react';
@@ -30,8 +30,8 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                 </div>
             </div>
             <div className='row'>
-                <div className='col-1'>
-                    <div className='slideout-menu'>
+                <div className='col' style={{ display: 'flex' }}>
+                    <div className='slideout-menu' style={{ position: "relative", width: '56px' }}>
                         {generateDroprightButton(match.url, 'Skills', 'user', localizationStore.getString('Skills.SKILLED'))}
                         {generateDroprightButton(match.url, 'Info', 'info', competency.Name)}
                         {generateDroprightButton(match.url, 'PossibleCauses', 'sitemap', localizationStore.getString('Library.Items.Links.PossibleCauses'))}
@@ -40,33 +40,33 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                         {generateDroprightButton(match.url, 'Reflect', 'history', localizationStore.getString('Library.Items.Links.Reflect'))}
                         {generateDroprightButton(match.url, 'LearnMore', ['fab', 'leanpub'], safeReplace(localizationStore.getString('Library.Items.Links.LearnMore'), competency.Name))}
                     </div>
-                </div>
-                <div className='col mt-3'>
-                    <Route
-                        path={`${this.props.match.path}/Skills`}
-                        render={() => <Skills {...this.props} />} />
-                    <Route
-                        exact
-                        path={`${this.props.match.path}`}
-                        render={() => <Info {...this.props} />} />
-                    <Route
-                        path={`${this.props.match.path}/PossibleCauses`}
-                        render={() => <PossibleCauses {...this.props} />} />
-                    <Route
-                        path={`${this.props.match.path}/Tips`}
-                        render={() => <Tips {...this.props} />} />
-                    <Route
-                        path={`${this.props.match.path}/Jobs`}
-                        render={() => <JobAssignments {...this.props} />} />
-                    <Route
-                        path={`${this.props.match.path}/Reflect`}
-                        render={() => <TimeToReflect {...this.props} />} />
-                    <Route
-                        path={`${this.props.match.path}/LearnMore`}
-                        render={() => <LearnMore {...this.props} />} />
-                    <Route
-                        path={`${this.props.match.path}/Info`}
-                        render={() => <Info {...this.props} />} />
+                    <div className='m-3' style={{ width: '100%' }}>
+                        <Route
+                            exact
+                            path={`${this.props.match.path}`}
+                            render={() => <Skills {...this.props} />} />
+                        <Route
+                            path={`${this.props.match.path}/Skills`}
+                            render={() => <Skills {...this.props} />} />
+                        <Route
+                            path={`${this.props.match.path}/Info`}
+                            render={() => <Info {...this.props} />} />
+                        <Route
+                            path={`${this.props.match.path}/PossibleCauses`}
+                            render={() => <PossibleCauses {...this.props} />} />
+                        <Route
+                            path={`${this.props.match.path}/Tips`}
+                            render={() => <Tips {...this.props} />} />
+                        <Route
+                            path={`${this.props.match.path}/Jobs`}
+                            render={() => <JobAssignments {...this.props} />} />
+                        <Route
+                            path={`${this.props.match.path}/Reflect`}
+                            render={() => <TimeToReflect {...this.props} />} />
+                        <Route
+                            path={`${this.props.match.path}/LearnMore`}
+                            render={() => <LearnMore {...this.props} />} />
+                    </div>
                 </div>
             </div>
         </div>
@@ -203,7 +203,7 @@ export class LearnMore extends React.Component<CompetencyDetails, {}> {
 
     targetBlankDecorator(decoratedHref: string, decoratedText: string, key: number) {
         return (
-            <a target='_blank' href={decoratedHref} key={key}>
+            <a className='dont-break-out' target='_blank' href={decoratedHref} key={key}>
                 {decoratedText}
             </a>
         );
@@ -218,9 +218,9 @@ export class LearnMore extends React.Component<CompetencyDetails, {}> {
                 </div>
                 {competency.LearnMore.map((learnMore, i) => {
                     return <div className='col-12 py-1' key={i}>
-                        <p>{learnMore}</p>
-                    </div>
-                })
+                            <p>{learnMore}</p>
+                        </div>
+                    })
                 }
 
                 <div className='col-12 pt-3'>

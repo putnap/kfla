@@ -10,6 +10,7 @@ import 'core-js/fn/object/assign';
 import 'core-js/fn/promise';
 import 'core-js/fn/symbol';
 import 'core-js/es6/array';
+import 'core-js/es6/string';
 
 import * as RoutesModule from './routes';
 import { CompetencyStore } from './stores/CompetencyStore';

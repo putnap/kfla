@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ScrollToTop from './ScrollToTop';
 
 export interface LayoutProps {
     children?: React.ReactNode;
@@ -6,8 +7,10 @@ export interface LayoutProps {
 
 export class Layout extends React.Component<LayoutProps, {}> {
     public render() {
-        return <div className='container-fluid'>
-            { this.props.children }
-        </div>;
+        return <ScrollToTop>
+            <div className='container-fluid'>
+                {this.props.children}
+            </div>
+        </ScrollToTop>;
     }
 }

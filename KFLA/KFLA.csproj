@@ -52,6 +52,7 @@
     <None Remove="ClientApp\components\questions\QuestionsContainer.tsx" />
     <None Remove="ClientApp\components\questions\QuestionsResult.tsx" />
     <None Remove="ClientApp\components\questions\StopperItem.tsx" />
+    <None Remove="ClientApp\components\ScrollToTop.tsx" />
     <None Remove="ClientApp\components\skillPrinter.tsx" />
     <None Remove="ClientApp\components\withDragDropContext.tsx" />
     <None Remove="ClientApp\models\Cluster.tsx" />
@@ -91,6 +92,7 @@
     <TypeScriptCompile Include="ClientApp\components\library\StopperItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\CompetencyItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\localization\LocalizationContainer.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\ScrollToTop.tsx" />
     <TypeScriptCompile Include="ClientApp\components\skillPrinter.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\CompetencyItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\questions\StopperItem.tsx" />
