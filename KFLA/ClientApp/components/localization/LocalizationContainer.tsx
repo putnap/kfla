@@ -12,6 +12,7 @@ import { LibraryContainer } from "../library/LibraryContainer";
 import { CompetencyContainer } from "../library/items/CompetencyContainer";
 import { StopperContainer } from "../library/items/StopperContainer";
 import { LanguageParam } from "../LanguageParam";
+import { ScrollToTop } from "../ScrollToTop";
 
 
 const getSafeLanguage = (language: string): string => {
@@ -43,17 +44,20 @@ export class LocalizationContainer extends React.Component<LocalizationContainer
 
     public render() {
         const { localizationStore, match } = this.props;
-        return !localizationStore.isLoaded || localizationStore.isLoading ?
-            <Loader /> :
-            <div>
-                <Route exact path={`${match.path}/`} component={Home} />
-                <Route path={`${match.path}/questions`} component={QuestionsContainer} />
-                <Route path={`${match.path}/questionaire`} component={QuestionsResult} />
-                <Route path={`${match.path}/competencies`} component={CompetenciesContainer} />
-                <Route path={`${match.path}/evaluation`} component={EvaluationResult} />
-                <Route exact path={`${match.path}/library`} component={LibraryContainer} />
-                <Route path={`${match.path}/library/competencies/:competencyId`} component={CompetencyContainer} />
-                <Route path={`${match.path}/library/stoppers/:stopperId`} component={StopperContainer} />
-            </div>
+        return <ScrollToTop {...this.props} >
+            {!localizationStore.isLoaded || localizationStore.isLoading ?
+                <Loader /> :
+                <div>
+                    <Route exact path={`${match.path}/`} component={Home} />
+                    <Route path={`${match.path}/questions`} component={QuestionsContainer} />
+                    <Route path={`${match.path}/questionaire`} component={QuestionsResult} />
+                    <Route path={`${match.path}/competencies`} component={CompetenciesContainer} />
+                    <Route path={`${match.path}/evaluation`} component={EvaluationResult} />
+                    <Route exact path={`${match.path}/library`} component={LibraryContainer} />
+                    <Route path={`${match.path}/library/competencies/:competencyId`} component={CompetencyContainer} />
+                    <Route path={`${match.path}/library/stoppers/:stopperId`} component={StopperContainer} />
+                </div>
+            }
+        </ScrollToTop>
     }
 }
