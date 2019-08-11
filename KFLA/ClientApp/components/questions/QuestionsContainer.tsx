@@ -15,7 +15,7 @@ import { StopperItem } from './StopperItem';
 import { CompetencyItem } from './CompetencyItem';
 import { StoppersStore } from '../../stores/StoppersStore';
 import { LocalizationStore } from '../../stores/LocalizationStore';
-import { LanguageParam } from '../LanguageParam';
+import { LanguageParam } from '../../@types/types';
 
 interface QuestionsContainerState {
     loginFailed: boolean

@@ -11,8 +11,8 @@ import { EvaluationResult } from "../competencies/EvaluationResult";
 import { LibraryContainer } from "../library/LibraryContainer";
 import { CompetencyContainer } from "../library/items/CompetencyContainer";
 import { StopperContainer } from "../library/items/StopperContainer";
-import { LanguageParam } from "../LanguageParam";
 import { ScrollToTop } from "../ScrollToTop";
+import { LanguageParam } from "@Types/types";
 
 
 const getSafeLanguage = (language: string): string => {

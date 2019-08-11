@@ -60,7 +60,6 @@ namespace KFLA
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true,
-                    ReactHotModuleReplacement = true
                 });
             }
             else

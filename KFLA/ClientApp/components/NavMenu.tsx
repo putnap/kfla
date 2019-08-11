@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { NavLink, RouteComponentProps } from 'react-router-dom';
-import { LocalizationStore } from '../stores/LocalizationStore';
 import { inject, observer } from 'mobx-react';
 import { LanguageBar } from './LanguageBar';
-import { LanguageParam } from './LanguageParam';
+import { LanguageParam } from '@Types/types';
+import { LocalizationStore } from '@Stores/LocalizationStore';
 
 interface NavMenuProps extends RouteComponentProps<LanguageParam> {
     localizationStore?: LocalizationStore;

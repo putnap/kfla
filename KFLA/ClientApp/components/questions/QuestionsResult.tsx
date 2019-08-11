@@ -12,7 +12,7 @@ import { Question } from '../../models/Question';
 import { PortraitOrientation } from '../orientations';
 import { StoppersStore } from '../../stores/StoppersStore';
 import { LocalizationStore } from '../../stores/LocalizationStore';
-import { LanguageParam } from '../LanguageParam';
+import { LanguageParam } from '../../@types/types';
 
 interface QuestionsResultProps extends RouteComponentProps<LanguageParam> {
     stoppersStore?: StoppersStore

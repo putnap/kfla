@@ -1,4 +1,4 @@
-﻿import { Competency } from "ClientApp/models/Competency";
+﻿import { Competency } from "@Models/Competency";
 import { observable, computed, action } from 'mobx';
 import { IconName } from "@fortawesome/fontawesome-svg-core";
 

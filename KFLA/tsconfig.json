@@ -1,17 +1,25 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "ClientApp",
     "module": "es2015",
     "moduleResolution": "node",
     "target": "es5",
     "jsx": "react",
     "sourceMap": true,
-    "skipDefaultLibCheck": true,
     "experimentalDecorators": true,
-    "strictNullChecks": false,
-    "strict": true,
+    "skipDefaultLibCheck": true,
+    "strict": false,
+    "allowUnusedLabels": false,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
     "types": [ "webpack-env" ],
-    "lib": [ "es6", "dom" ]
+    "lib": [ "es6", "dom" ],
+    "paths": {
+      "@Types/*": [ "./@types/*" ],
+      "@Stores/*": [ "./stores/*" ],
+      "@Models/*": [ "./models/*" ],
+      "@Components/*": [ "./components/*" ]
+    }
   },
   "exclude": [
       "bin",

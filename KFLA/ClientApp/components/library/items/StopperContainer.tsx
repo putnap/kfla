@@ -1,12 +1,12 @@
 ﻿import * as React from "react";
 import { observer, inject } from "mobx-react";
 import { RouteComponentProps } from "react-router";
-import { LocalizationStore } from "../../../stores/LocalizationStore";
+import { LocalizationStore } from "@Stores/LocalizationStore";
 import { NavMenu } from '../../NavMenu';
 import { Loader } from '../../Loader';
 import { StopperItem } from "./StopperItem";
-import { StoppersStore } from "../../../stores/StoppersStore";
-import { LanguageParam } from "../../LanguageParam";
+import { StoppersStore } from "@Stores/StoppersStore";
+import { LanguageParam } from "@Types/types";
 
 interface StopperArgumentProps extends LanguageParam {
     stopperId: string

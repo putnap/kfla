@@ -7,3 +7,7 @@ export interface Stores {
     stoppersStore: StoppersStore;
     localizationStore: LocalizationStore;
 }
+
+export interface LanguageParam {
+    language: string
+}

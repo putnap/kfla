@@ -28,9 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\%40types\react-dnd-html5-backend\index.d.ts" />
     <None Remove="ClientApp\%40types\types.tsx" />
-    <None Remove="ClientApp\@types\react-dnd\index.d.ts" />
     <None Remove="ClientApp\CompetencyStore.tsx" />
     <None Remove="ClientApp\components\CompetenciesContainer.tsx" />
     <None Remove="ClientApp\components\competencies\CompetencyItem.tsx" />
@@ -54,10 +52,8 @@
     <None Remove="ClientApp\components\questions\StopperItem.tsx" />
     <None Remove="ClientApp\components\ScrollToTop.tsx" />
     <None Remove="ClientApp\components\skillPrinter.tsx" />
-    <None Remove="ClientApp\components\withDragDropContext.tsx" />
     <None Remove="ClientApp\models\Cluster.tsx" />
     <None Remove="ClientApp\models\Competency.tsx" />
-    <None Remove="ClientApp\models\DragData.tsx" />
     <None Remove="ClientApp\models\Evaluation.tsx" />
     <None Remove="ClientApp\models\Factor.tsx" />
     <None Remove="ClientApp\models\LocalizedString.tsx" />
@@ -80,8 +76,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\@types\react-dnd-html5-backend\index.d.ts" />
-    <TypeScriptCompile Include="ClientApp\@types\react-dnd\index.d.ts" />
     <TypeScriptCompile Include="ClientApp\@types\types.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\items\CompetencyContainer.tsx" />
     <TypeScriptCompile Include="ClientApp\components\library\items\helpers.tsx">
@@ -105,7 +99,6 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\components\library\items\StopperItem.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\withDragDropContext.tsx" />
     <TypeScriptCompile Include="ClientApp\models\LocalizedString.tsx" />
     <TypeScriptCompile Include="ClientApp\models\StopperCluster.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Stopper.tsx" />
@@ -123,7 +116,6 @@
     <TypeScriptCompile Include="ClientApp\models\Evaluation.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Factor.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Cluster.tsx" />
-    <TypeScriptCompile Include="ClientApp\models\DragData.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Question.tsx" />
     <TypeScriptCompile Include="ClientApp\models\Competency.tsx" />
   </ItemGroup>

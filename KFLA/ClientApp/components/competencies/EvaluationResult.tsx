@@ -10,9 +10,9 @@ import { FactorList } from '../FactorList';
 import { Loader } from '../Loader';
 import { LandscapeOrientation } from '../orientations';
 import { VideoModal } from '../VideoModal';
-import { LocalizationStore } from '../../stores/LocalizationStore';
+import { LocalizationStore } from '@Stores/LocalizationStore';
 import { autorun } from 'mobx';
-import { LanguageParam } from '../LanguageParam';
+import { LanguageParam } from '@Types/types';
 
 interface EvaluationResultProps extends RouteComponentProps<LanguageParam> {
     competencyStore?: CompetencyStore

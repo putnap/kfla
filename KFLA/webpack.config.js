@@ -1,7 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const bundleOutputDir = './wwwroot/dist';
 
 module.exports = (env) => {
@@ -9,7 +10,15 @@ module.exports = (env) => {
     return [{
         stats: { modules: false },
         entry: { 'main': './ClientApp/boot.tsx' },
-        resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+        resolve: {
+            extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            alias: {
+                "@Types": path.resolve(__dirname, "ClientApp/@types/"),
+                "@Stores": path.resolve(__dirname, "ClientApp/stores/"),
+                "@Models": path.resolve(__dirname, "ClientApp/models/"),
+                "@Components": path.resolve(__dirname, "ClientApp/components/")
+            }
+        },
         output: {
             path: path.join(__dirname, bundleOutputDir),
             filename: '[name].js',
@@ -18,7 +27,7 @@ module.exports = (env) => {
         module: {
             rules: [
                 { test: /\.tsx?$/, include: /ClientApp/, use: 'awesome-typescript-loader?silent=true' },
-                { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
+                { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : [ MiniCssExtractPlugin.loader, 'css-loader?minimize'] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
         },
@@ -36,8 +45,8 @@ module.exports = (env) => {
             })
         ] : [
                 // Plugins that apply in production builds only
-                new webpack.optimize.UglifyJsPlugin(),
-                new ExtractTextPlugin('site.css')
+                new UglifyJsPlugin(),
+                new MiniCssExtractPlugin('site.css')
             ])
     }];
 };

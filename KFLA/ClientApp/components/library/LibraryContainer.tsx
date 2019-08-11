@@ -15,7 +15,7 @@ import { VideoModal } from '../VideoModal';
 import { StopperItem } from './StopperItem';
 import { Stopper } from '../../models/Stopper';
 import { LocalizationStore } from '../../stores/LocalizationStore';
-import { LanguageParam } from '../LanguageParam';
+import { LanguageParam } from '../../@types/types';
 
 interface LibraryContainerProps extends RouteComponentProps<LanguageParam> {
     competencyStore?: CompetencyStore

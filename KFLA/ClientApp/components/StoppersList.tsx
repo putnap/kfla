@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react';
 import { Loader } from './Loader';
 import { StoppersStore } from '../stores/StoppersStore';
 import { Stopper } from '../models/Stopper';
-import { LocalizationStore } from 'ClientApp/stores/LocalizationStore';
+import { LocalizationStore } from '@Stores/LocalizationStore';
 
 interface StoppersListProps {
     stoppersStore?: StoppersStore;

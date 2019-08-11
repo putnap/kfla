@@ -78,6 +78,12 @@ export class Competency {
         this.IsSelected = !this.IsSelected;
     }
 
+    @action evaluateCompetency(evaluation: Evaluation) {
+        this.Evaluation = evaluation;
+        evaluation.Competencies.push(this);
+        this.IsEvaluated = true;
+    }
+
     @computed get selectedQuestions(): Question[] {
         return this.Questions.filter(question => question.IsSelected);
     }

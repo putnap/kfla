@@ -6,7 +6,7 @@ import { NavMenu } from '../../NavMenu';
 import { Loader } from '../../Loader';
 import { CompetencyStore } from "../../../stores/CompetencyStore";
 import { CompetencyItem } from "./CompetencyItem";
-import { LanguageParam } from "../../LanguageParam";
+import { LanguageParam } from "@Types/types";
 
 interface CompetencyArgumentProps extends LanguageParam {
     competencyId: string

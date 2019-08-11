@@ -53,6 +53,12 @@ export class CompetencyStore {
         competency.IsEvaluated = true;
     }
 
+    @action evaluateCompetencyItem(competency: Competency, evaluation: Evaluation) {
+        competency.Evaluation = evaluation;
+        evaluation.Competencies.push(competency);
+        competency.IsEvaluated = true;
+    }
+
     @action resetEvaluation() {
         this.competencies.forEach(o => {
             o.Evaluation = null;
