@@ -1,16 +1,12 @@
 import './css/site.css';
 import 'bootstrap';
 import 'whatwg-fetch';
+import "core-js/stable";
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
-import 'core-js/fn/object/assign';
-import 'core-js/fn/promise';
-import 'core-js/fn/symbol';
-import 'core-js/es6/array';
-import 'core-js/es6/string';
 
 import * as RoutesModule from './routes';
 import { CompetencyStore } from './stores/CompetencyStore';

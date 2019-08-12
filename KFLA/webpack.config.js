@@ -15,6 +15,7 @@ module.exports = (env) => {
         resolve: {
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
             alias: {
+                'react-dom': '@hot-loader/react-dom',
                 "@Types": path.resolve(__dirname, "ClientApp/@types/"),
                 "@Stores": path.resolve(__dirname, "ClientApp/stores/"),
                 "@Models": path.resolve(__dirname, "ClientApp/models/"),

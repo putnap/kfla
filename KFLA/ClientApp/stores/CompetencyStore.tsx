@@ -158,7 +158,7 @@ export class CompetencyStore {
                 cluster.Competencies.push(competency);
         });
 
-        factors.forEach(o => o.Clusters = o.Clusters.sort((f1, f2) => {
+        factors.forEach(o => o.Clusters = o.Clusters.slice().sort((f1, f2) => {
             if (f1.ID > f2.ID) {
                 return 1;
             }
