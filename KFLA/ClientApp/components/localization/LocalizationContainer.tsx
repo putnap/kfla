@@ -27,18 +27,18 @@ interface LocalizationContainerProps extends RouteComponentProps<LanguageParam> 
 @observer
 export class LocalizationContainer extends React.Component<LocalizationContainerProps, {}> {
 
-    componentDidMount() {
+    async componentDidMount() {
         const { localizationStore } = this.props;
         if (!localizationStore.isLoaded) {
-            localizationStore.loadLanguages();
+            await localizationStore.loadLanguages();
         }
     }
 
-    componentDidUpdate(prevProps: LocalizationContainerProps) {
+    async componentDidUpdate(prevProps: LocalizationContainerProps) {
         const { language } = this.props.match.params;
         const { localizationStore } = this.props;
         if (!prevProps || prevProps.match.params.language != language || !localizationStore.isLoaded) {
-            localizationStore.loadStrings(getSafeLanguage(language));
+            await localizationStore.loadStrings(getSafeLanguage(language));
         }
     }
 

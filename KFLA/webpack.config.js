@@ -49,7 +49,7 @@ module.exports = (env) => {
         ] : [
                 // Plugins that apply in production builds only
                 new UglifyJsPlugin(),
-                new MiniCssExtractPlugin('site.css')
+                new MiniCssExtractPlugin({ filename: 'site.css' })
             ])
     }];
 };

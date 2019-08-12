@@ -1,5 +1,8 @@
-﻿import { observable, action, runInAction, autorun } from "mobx";
+﻿import axios from 'axios';
+import { observable, action, runInAction, autorun } from "mobx";
 import { LocalizedString } from "../models/LocalizedString";
+
+const wait = (ms) => new Promise(res => setTimeout(res, ms));
 
 export class LocalizationStore {
 
@@ -28,53 +31,47 @@ export class LocalizationStore {
         });
     }
 
-    @action loadLanguages() {
+    @action async loadLanguages() {
         if (this.languages.length == 0) {
             this.isLoaded = false;
             this.isLoading = true;
-            fetch('api/languages')
-                .then((response) => {
-                    if (!response.ok) {
-                        this.isLoading = false;
-                        throw Error(response.statusText);
-                    }
-                    return response.text();
-                })
-                .then((data) =>
-                    runInAction(() => {
-                        this.languages = JSON.parse(data);
-                        this.isLoading = false;
-                    })
-                );
+
+            try {
+                const response = await axios.get<string[]>('api/languages');
+                runInAction(() => {
+                    this.languages = response.data;
+                    this.isLoading = false;
+                });
+            }
+            catch (error) {
+                this.isLoading = false;
+                throw Error(error);
+            }
         }
     }
 
-    @action loadStrings(lang: string) {
+    @action async loadStrings(lang: string) {
         if (!this.isLoading || lang != this.language) {
             this.language = lang;
             this.isLoaded = false;
             this.isLoading = true;
-            fetch('api/strings', {
-                headers: { 'Accept-Language': lang },
-            })
-            .then((response) => {
-                if (!response.ok) {
+
+            try {
+                const response = await axios.get<LocalizedString[]>('api/strings', {
+                    headers: { 'Accept-Language': lang }
+                });
+
+                await wait(500);
+                runInAction(() => {
+                    this.strings = response.data;
                     this.isLoading = false;
-                    throw Error(response.statusText);
-                }
-                return response.text();
-            })
-            .then((data) => {
-                if (lang == this.language) {
-                    setTimeout(() =>  
-                        runInAction(() => {
-                            this.strings = JSON.parse(data);
-                            this.isLoading = false;
-                            this.isLoaded = true;
-                        }),
-                        750)
-                }
-            });
+                    this.isLoaded = true;
+                });
+            }
+            catch (error) {
+                this.isLoading = false;
+                throw Error(error);
+            }
         }
 
         //this.strings = [

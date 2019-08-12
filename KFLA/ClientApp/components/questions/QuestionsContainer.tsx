@@ -41,11 +41,11 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.props.localizationStore.setTitle('PageTitles.QUESTIONS');
-        const store = this.props.competencyStore;
-        if (!store!.isLoaded)
-            store!.fetchCompetencies();
+        const { competencyStore } = this.props;
+        if (!competencyStore.isLoaded)
+            await competencyStore.fetchCompetencies();
     }
 
     resetQuestionaire() {
@@ -76,7 +76,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
     }
 
     renderCompetency(competency: Competency): JSX.Element {
-        return <CompetencyItem competency={competency} key={competency.ID}/>;
+        return <CompetencyItem competency={competency} key={competency.ID} />;
     }
 
     renderStopper(stopper: Stopper): JSX.Element {
@@ -84,13 +84,11 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
     }
 
     public render() {
-        const competencyStore = this.props.competencyStore;
-        const stoppersStore = this.props.stoppersStore;
-        const localizationStore = this.props.localizationStore;
+        const { competencyStore, stoppersStore, localizationStore }  = this.props;
         return <div className='row background-dark height-100 '>
-            <NavMenu {...this.props}/>
+            <NavMenu {...this.props} />
             {
-                !competencyStore!.isAuthenticated ?
+                !competencyStore.isAuthenticated ?
                     <div className='mx-5 w-100 main-content'>
                         <div className='card mx-auto mt-5' style={{ width: '450px' }}>
                             <div className='card-body'>
@@ -101,14 +99,14 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
                                 <form className='form-inline mt-3'>
                                     <div className='form-group'>
                                         <label htmlFor='inputPassword'>{localizationStore.getString('Questionaire.Password')}</label>
-                                        <input type='password' id='inputPassword' value={this.state.password} disabled={competencyStore!.isAuthenticating} className='form-control mx-sm-3' aria-describedby='passwordHelpInline' placeholder='Password' required onChange={(e) => this.onChange(e.target.value)} />
+                                        <input type='password' id='inputPassword' value={this.state.password} disabled={competencyStore.isAuthenticating} className='form-control mx-sm-3' aria-describedby='passwordHelpInline' placeholder='Password' required onChange={(e) => this.onChange(e.target.value)} />
                                         {
-                                            competencyStore!.isAuthenticating ?
+                                            competencyStore.isAuthenticating ?
                                                 <div className='form-loader'>
                                                     <div className='lds-roller'><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                                                 </div>
                                                 :
-                                                <button onClick={(e) => this.login()} disabled={!this.state.password || competencyStore!.isAuthenticating} className='btn background-dark' title='Submit' onSubmit={(e) => this.login()}>
+                                                <button onClick={(e) => this.login()} disabled={!this.state.password || competencyStore.isAuthenticating} className='btn background-dark' title='Submit' onSubmit={(e) => this.login()}>
                                                     {localizationStore.getString('Questionaire.Login')}
                                                 </button>
                                         }
@@ -120,7 +118,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
                     :
                     <div className='mx-2 mx-md-5 w-100 main-content'>
                         {
-                            competencyStore!.isLoading ? <Loader text={localizationStore.getString('Questionaire.Loading')} /> : <FactorList factors={competencyStore.factors} renderCompetency={this.renderCompetency} animate={true} />
+                            competencyStore.isLoading ? <Loader text={localizationStore.getString('Questionaire.Loading')} /> : <FactorList factors={competencyStore.factors} renderCompetency={this.renderCompetency} animate={true} />
                         }
                         <StoppersList animate={true} renderStopper={this.renderStopper} />
                         <div className='btn-floating-container'>
@@ -137,7 +135,7 @@ export class QuestionsContainer extends React.Component<QuestionsContainerProps,
                         <VideoModal id='questionsVideo' videoId='F7Dv7Oxo4rc' />
                     </div>
             }
-            
+
         </div>;
 
     }

@@ -43,11 +43,11 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
         this.showInfo = this.showInfo.bind(this);
     }      
 
-    componentDidMount() {
+    async componentDidMount() {
         this.props.localizationStore.setTitle('PageTitles.LIBRARY');
-        const store = this.props.competencyStore;
-        if (!store!.isLoaded)
-            store!.fetchCompetencies();
+        const { competencyStore } = this.props;
+        if (!competencyStore.isLoaded)
+            await competencyStore.fetchCompetencies();
     }
 
     showInfo() {
@@ -67,16 +67,16 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
     }
 
     public render() {
-        const store = this.props.competencyStore!;
+        const { competencyStore } = this.props;
         return <div className='row background-lib height-100'>
             <NavMenu {...this.props} />
             <div className='mx-2 mx-md-5 w-100 main-content'>
                 {
-                    store.isLoading ?
+                    competencyStore.isLoading ?
                         <Loader text={this.props.localizationStore.getString('Library.Loading')} /> :
                         this.state.numericSort ?
-                            <CompetencyList competencies={store.competencies} renderCompetency={this.renderCompetency} /> :
-                            <FactorList factors={store.factors} renderCompetency={this.renderCompetency} animate={true} />
+                            <CompetencyList competencies={competencyStore.competencies} renderCompetency={this.renderCompetency} /> :
+                            <FactorList factors={competencyStore.factors} renderCompetency={this.renderCompetency} animate={true} />
                 }
                 <StoppersList animate={true} renderStopper={this.renderStopper} />
                 <div className='btn-floating-container'>

@@ -1,4 +1,5 @@
 using KFLA.Contract.Services;
+using KFLA.Middleware;
 using KFLA.Persistence.MongoDB;
 using KFLA.Services.Services;
 using Microsoft.AspNetCore.Builder;
@@ -71,6 +72,7 @@ namespace KFLA
             });
 
             app.UseStaticFiles();
+            app.UseMiddleware<NoCacheResponseMiddleware>();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

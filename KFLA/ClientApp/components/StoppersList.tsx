@@ -17,10 +17,10 @@ interface StoppersListProps {
 @observer
 export class StoppersList extends React.Component<StoppersListProps, {}> {
 
-    componentDidMount() {
-        const store = this.props.stoppersStore;
-        if (!store!.isLoaded)
-            store!.fetchStoppers();
+    async componentDidMount() {
+        const { stoppersStore } = this.props;
+        if (!stoppersStore.isLoaded)
+            await stoppersStore.fetchStoppers();
     }
 
     getClassNames() {
@@ -32,8 +32,8 @@ export class StoppersList extends React.Component<StoppersListProps, {}> {
     }
 
     render() {
-        const store = this.props.stoppersStore!;
-        return store.isLoading ? <Loader text={this.props.localizationStore.getString("Stoppers.Loading")} />
+        const { stoppersStore } = this.props;
+        return stoppersStore.isLoading ? <Loader text={this.props.localizationStore.getString("Stoppers.Loading")} />
             :
             (<div className={this.getClassNames()} >
                 <div className='col card bg-light w-100'>
@@ -41,7 +41,7 @@ export class StoppersList extends React.Component<StoppersListProps, {}> {
                         <h4 className='font-weight-bold'>{this.props.localizationStore.getString("Stoppers.Title")}</h4>
                         <div className='row'>
                             {
-                                store.stopperClusters.map(stopperCluster => {
+                                stoppersStore.stopperClusters.map(stopperCluster => {
                                     return <div className='col-lg-12 col-xl-4 mb-2' key={stopperCluster.ID}>
                                         <h5 className='font-weight-bold'>{stopperCluster.Name}</h5>
                                         {

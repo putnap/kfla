@@ -1,4 +1,5 @@
-﻿import { observable, computed, action, runInAction, autorun } from 'mobx';
+﻿import axios from 'axios';
+import { observable, computed, action, runInAction, autorun } from 'mobx';
 import { Competency, CompetencyJSON } from '../models/Competency';
 import { Evaluation, EvaluationJSON } from '../models/Evaluation';
 import { Factor } from '../models/Factor';
@@ -61,63 +62,53 @@ export class CompetencyStore {
         });
     }
 
-    @action fetchEvaluations() {
-        this.fetchLocalizedEvalutions(this.localizationStore.language);
+    @action async fetchEvaluations() {
+        await this.fetchLocalizedEvalutions(this.localizationStore.language);
     }
 
-    @action fetchLocalizedEvalutions(lang: string) {
+    @action async fetchLocalizedEvalutions(lang: string) {
         if (lang) {
-            fetch('api/evaluations', {
-                headers: { 'Accept-Language': lang },
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        this.isLoading = false;
-                        throw Error(response.statusText);
-                    }
-                    return response.text();
-                })
-                .then((data) => {
-                    runInAction(() => {
-                        const evaluationsJSON: EvaluationJSON[] = JSON.parse(data);
-                        this.evaluations = evaluationsJSON.map(evaluationJSON => Evaluation.fromJSON(evaluationJSON));
-                    })
+
+            try {
+                const response = await axios.get<EvaluationJSON[]>('api/evaluations', {
+                    headers: { 'Accept-Language': lang },
                 });
+                runInAction(() => {
+                    this.evaluations = response.data.map(evaluationJSON => Evaluation.fromJSON(evaluationJSON));
+                });
+            }
+            catch (error) {
+                throw Error(error);
+            }
         }
     }
 
-    @action fetchCompetencies() {
-        this.fetchLocalizedCompetencies(this.localizationStore.language);
+    @action async fetchCompetencies() {
+        await this.fetchLocalizedCompetencies(this.localizationStore.language);
     }
 
-    @action fetchLocalizedCompetencies(lang: string) {
+    @action async fetchLocalizedCompetencies(lang: string) {
         if (!this.isLoading && lang || lang != this.loadingLanguage) {
             this.competencies = [];
             this.loadingLanguage = lang;
             this.isLoaded = false;
             this.isLoading = true;
-            fetch('api/competencies', {
-                headers: { 'Accept-Language': lang },
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        this.isLoading = false;
-                        throw Error(response.statusText);
-                    }
 
-                    return response.text();
-                })
-                .then((data) => {
-                    if (lang == this.loadingLanguage) {
-                        runInAction(() => {
-                            const competenciesJSON: CompetencyJSON[] = JSON.parse(data);
-                            this.competencies = competenciesJSON.map(competencyJSON => Competency.fromJSON(competencyJSON));
-                            this.factors = this.groupCompetencies(this.competencies);
-                            this.isLoading = false;
-                            this.isLoaded = true;
-                        });
-                    }
+            try {
+                const response = await axios.get<CompetencyJSON[]>('api/competencies', {
+                    headers: { 'Accept-Language': lang },
                 });
+                runInAction(() => {
+                    this.competencies = response.data.map(competencyJSON => Competency.fromJSON(competencyJSON));
+                    this.factors = this.groupCompetencies(this.competencies);
+                    this.isLoading = false;
+                    this.isLoaded = true;
+                });
+            }
+            catch (error) {
+                this.isLoading = false;
+                throw Error(error);
+            }
         }
     }
 

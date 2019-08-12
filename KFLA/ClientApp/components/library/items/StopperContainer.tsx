@@ -21,11 +21,11 @@ interface StopperContainerProps extends RouteComponentProps<StopperArgumentProps
 @observer
 export class StopperContainer extends React.Component<StopperContainerProps, {}> {
 
-    componentDidMount() {
+    async componentDidMount() {
         this.props.localizationStore.setTitle('PageTitles.LIBRARY');
         const { stoppersStore } = this.props;
         if (!stoppersStore.isLoaded)
-            stoppersStore.fetchStoppers();
+            await stoppersStore.fetchStoppers();
     }
 
     public render() {

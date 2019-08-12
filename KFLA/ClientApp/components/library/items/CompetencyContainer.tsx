@@ -21,11 +21,11 @@ interface CompetencyContainerProps extends RouteComponentProps<CompetencyArgumen
 @observer
 export class CompetencyContainer extends React.Component<CompetencyContainerProps, {}> {
 
-    componentDidMount() {
+    async componentDidMount() {
         this.props.localizationStore.setTitle('PageTitles.LIBRARY');
         const { competencyStore } = this.props;
         if (!competencyStore.isLoaded)
-            competencyStore.fetchCompetencies();
+            await competencyStore.fetchCompetencies();
     }
     
     public render() {
