@@ -46,10 +46,6 @@ namespace KFLA
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            var provider = services.BuildServiceProvider();
-
-            var config = provider.GetService<Microsoft.Extensions.Options.IOptions<DBSettings>>().Value;
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -59,7 +55,7 @@ namespace KFLA
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
-                    HotModuleReplacement = true,
+                    HotModuleReplacement = true
                 });
             }
             else

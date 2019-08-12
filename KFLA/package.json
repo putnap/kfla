@@ -2,6 +2,10 @@
   "name": "kfla",
   "private": true,
   "version": "0.0.0",
+  "scripts": {
+    "build:dev": "node build.before.js --mode=development && node ./node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js && node ./node_modules/webpack/bin/webpack.js --config webpack.config.js",
+    "build:prod": "node build.before.js --mode=development && node ./node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod=true && node ./node_modules/webpack/bin/webpack.js --config webpack.config.js --env.prod=true"
+  },
   "devDependencies": {
     "@types/bootstrap": "^4.1.0",
     "@types/history": "^4.7.2",
@@ -18,7 +22,7 @@
     "aspnet-webpack-react": "4.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "core-js": "^2.5.7",
-    "css-loader": "0.28.4",
+    "css-loader": "^3.2.0",
     "event-source-polyfill": "0.0.9",
     "file-loader": "0.11.2",
     "isomorphic-fetch": "2.2.1",
@@ -29,12 +33,11 @@
     "style-loader": "0.18.2",
     "typescript": "3.5.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "url-loader": "0.5.9",
+    "url-loader": "^2.1.0",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-middleware": "^3.7.0",
-    "webpack-hot-middleware": "^2.25.0",
-    "webpack-merge": "^4.2.1"
+    "webpack-hot-middleware": "^2.25.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.19",

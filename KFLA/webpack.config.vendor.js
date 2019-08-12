@@ -5,7 +5,9 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
+    var mode = isDevBuild ? "development" : "production";
     return [{
+        mode,
         stats: { modules: false },
         resolve: {
             extensions: [ '.js' ]
@@ -17,7 +19,7 @@ module.exports = (env) => {
                     test: /\.css(\?|$)/, use:
                         [
                             MiniCssExtractPlugin.loader,
-                            isDevBuild ? 'css-loader' : 'css-loader?minimize'
+                            'css-loader'
                         ]
                 }
             ]

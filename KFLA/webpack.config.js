@@ -7,7 +7,9 @@ const bundleOutputDir = './wwwroot/dist';
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
+    var mode = isDevBuild ? "development" : "production";
     return [{
+        mode,
         stats: { modules: false },
         entry: { 'main': './ClientApp/boot.tsx' },
         resolve: {
@@ -27,7 +29,7 @@ module.exports = (env) => {
         module: {
             rules: [
                 { test: /\.tsx?$/, include: /ClientApp/, use: 'awesome-typescript-loader?silent=true' },
-                { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : [ MiniCssExtractPlugin.loader, 'css-loader?minimize'] },
+                { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : [ MiniCssExtractPlugin.loader, 'css-loader'] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
         },
