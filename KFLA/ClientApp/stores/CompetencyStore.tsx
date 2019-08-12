@@ -46,19 +46,6 @@ export class CompetencyStore {
         return this.evaluations.length > 0 && this.evaluations.every(o => o.evaluatedCompetences == o.Limit);
     }
 
-    @action evaluateCompetency(competencyID: number, evaluation: Evaluation) {
-        const competency = this.competencies.find(o => o.ID == competencyID);
-        competency.Evaluation = evaluation;
-        evaluation.Competencies.push(competency);
-        competency.IsEvaluated = true;
-    }
-
-    @action evaluateCompetencyItem(competency: Competency, evaluation: Evaluation) {
-        competency.Evaluation = evaluation;
-        evaluation.Competencies.push(competency);
-        competency.IsEvaluated = true;
-    }
-
     @action resetEvaluation() {
         this.competencies.forEach(o => {
             o.Evaluation = null;

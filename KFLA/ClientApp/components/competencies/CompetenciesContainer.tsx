@@ -48,7 +48,7 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
         this.props.competencyStore.evaluations.forEach(evaluation => {
             while (evaluation.Limit > evaluation.evaluatedCompetences) {
                 const competency = this.props.competencyStore.uneavluatedCompetencies[0];
-                this.props.competencyStore.evaluateCompetency(competency.ID, evaluation);
+                competency.evaluateCompetency(evaluation);
             }
         });
         this.submitEvaluation();

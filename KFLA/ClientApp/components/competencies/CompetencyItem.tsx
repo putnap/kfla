@@ -44,7 +44,6 @@ const DragableCompetency: React.FunctionComponent<{ competency: Competency }> = 
         </div>)
 }
 
-
 @inject("competencyStore", "localizationStore")
 @observer
 export class CompetencyItem extends React.Component<CompetencyItemProps, CompetencyItemState> {
