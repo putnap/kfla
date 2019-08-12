@@ -23,15 +23,13 @@ interface CompetenciesContainerProps extends RouteComponentProps<LanguageParam> 
 @observer
 export class CompetenciesContainer extends React.Component<CompetenciesContainerProps, {}> {
 
-    componentDidMount() {
+    async componentDidMount() {
         this.props.localizationStore.setTitle('PageTitles.COMPETENCIES');
-        const store = this.props.competencyStore;
-        if (!store!.isLoaded) {
-            store!.fetchCompetencies();
-            store!.fetchEvaluations();
+        const { competencyStore } = this.props;
+        if (!competencyStore.isLoaded) {
+            await competencyStore.fetchCompetencies();
+            await competencyStore.fetchEvaluations();
         }
-        //else if (store!.evaluatedCompetencies.length > 0)
-        //    this.props.competencyStore.resetEvaluation();
     }
 
     resetEvaluation() {

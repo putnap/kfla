@@ -1,8 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserWebpackPlugin = require("terser-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const bundleOutputDir = './wwwroot/dist';
 
 module.exports = (env) => {
@@ -10,6 +11,23 @@ module.exports = (env) => {
     var mode = isDevBuild ? "development" : "production";
     return [{
         mode,
+        optimization: {
+            minimize: !isDevBuild,
+            usedExports: isDevBuild,
+            minimizer: !isDevBuild ? [
+                // Production.
+                new TerserWebpackPlugin({
+                    terserOptions: {
+                        output: {
+                            comments: false
+                        }
+                    }
+                }),
+                new OptimizeCSSAssetsPlugin()
+            ] : [
+                    // Development.
+                ]
+        },
         stats: { modules: false },
         entry: { 'main': './ClientApp/boot.tsx' },
         resolve: {
@@ -48,7 +66,6 @@ module.exports = (env) => {
             })
         ] : [
                 // Plugins that apply in production builds only
-                new UglifyJsPlugin(),
                 new MiniCssExtractPlugin({ filename: 'site.css' })
             ])
     }];

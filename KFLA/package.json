@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "build:dev": "node build.before.js --mode=development && node ./node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js && node ./node_modules/webpack/bin/webpack.js --config webpack.config.js",
-    "build:prod": "node build.before.js --mode=development && node ./node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod=true && node ./node_modules/webpack/bin/webpack.js --config webpack.config.js --env.prod=true"
+    "build:prod": "node build.before.js --mode=production && node ./node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod=true && node ./node_modules/webpack/bin/webpack.js --config webpack.config.js --env.prod=true"
   },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.9.0-4.12.11",
@@ -29,9 +29,11 @@
     "isomorphic-fetch": "2.2.1",
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^0.8.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "popper.js": "^1.14.3",
     "prop-types": "^15.6.1",
     "style-loader": "1.0.0",
+    "terser-webpack-plugin": "^1.4.1",
     "typescript": "3.5.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^2.1.0",

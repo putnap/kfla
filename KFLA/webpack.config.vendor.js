@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
+const TerserWebpackPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = (env) => {
@@ -8,6 +10,23 @@ module.exports = (env) => {
     var mode = isDevBuild ? "development" : "production";
     return [{
         mode,
+        optimization: {
+            minimize: !isDevBuild,
+            usedExports: isDevBuild,
+            minimizer: !isDevBuild ? [
+                // Production.
+                new TerserWebpackPlugin({
+                    terserOptions: {
+                        output: {
+                            comments: false
+                        }
+                    }
+                }),
+                new OptimizeCSSAssetsPlugin()
+            ] : [
+                    // Development.
+                ]
+        },
         stats: { modules: false },
         resolve: {
             extensions: [ '.js' ]

@@ -11,8 +11,6 @@ var mode = modeTypes.DEVELOPMENT;
 // Note that those paths are mentioned in '.csproj' file in project building scenarios.
 var wwwrootDistDir = "wwwroot/dist";
 var clientAppDistDir = "ClientApp/dist";
-var productionBuildFileName = "production_build"; 
-var productionBuildFilePath = wwwrootDistDir + "/" + productionBuildFileName; 
 
 // Detect mode.
 args.forEach(arg => {
@@ -25,30 +23,18 @@ args.forEach(arg => {
 
     switch (param) {
         case "mode":
-            mode = modeTypes.PRODUCTION.toLowerCase() === value ? modeTypes.PRODUCTION : modeTypes.DEVELOPMENT;
+            mode =
+                modeTypes.PRODUCTION.toLowerCase() === value ? modeTypes.PRODUCTION :
+                    modeTypes.DEVELOPMENT.toLowerCase() === value ? modeTypes.DEVELOPMENT :
+                    modeTypes.CLEAN;
     }
 });
 
 var fs = require("fs");
-var fsAsync = fs.promises;
 var rimraf = require("rimraf");
 
 const exists = (path) => {
     return fs.existsSync(path);
-};
-
-const createEmptyFileAsync = async (filePath) => {
-    let splitted = filePath.split("/");
-
-    if (splitted.length > 1) {
-        // Create intermediate directories if necessary.
-
-        var dirsToCreate = splitted.slice(0, splitted.length - 1);
-        await fsAsync.mkdir(dirsToCreate.join("/"), { recursive: true });
-    }
-
-    // Create empty file.
-    fs.closeSync(fs.openSync(filePath, 'w'));
 };
 
 /**
@@ -76,30 +62,24 @@ const startAsync = async () => {
 
     console.log("======= build.before.js mode: " + mode + " =======");
 
-    var doesProductionBuildFileExist = exists(productionBuildFilePath)
+    var doesDistPathExist = exists(wwwrootDistDir);
 
     var shouldClean =
         // Previous mode was "production".
         // So we need to clean up compiled scripts.
-        doesProductionBuildFileExist ||
+        doesDistPathExist ||
         // Or we need to clean up after development mode
         // to remove those unnecessary files.
-        mode == modeTypes.PRODUCTION ||
+        mode === modeTypes.PRODUCTION ||
         // Clean up only.
-        mode == modeTypes.CLEAN;
+        mode === modeTypes.CLEAN;
 
-    // Create indicator for next build operations.
-    var shouldCreateProductionBuildFile = mode == modeTypes.PRODUCTION;
-    
     if (shouldClean) {
         await cleanUpAsync();
     }
-
-    setTimeout(async () => {
-        if (shouldCreateProductionBuildFile) {
-            await createEmptyFileAsync(productionBuildFilePath);
-        }
-    }, 1000);
+    else {
+        console.log("Not cleaning...?");
+    }
 };
 
 startAsync();
