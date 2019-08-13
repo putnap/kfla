@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+
+  kfla:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"

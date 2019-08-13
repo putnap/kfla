@@ -123,7 +123,7 @@ namespace KFLA.Services.Services
 
         private static Stream GetDataStream(string language)
         {
-            var fileName = $@".\data\data.{language}.xlsx";
+            var fileName = string.Format(".{0}data{0}data.{1}.xlsx", Path.DirectorySeparatorChar, language);
             if (!File.Exists(fileName))
             {
                 throw new Exception($"Data for {language} doesn't exist.");
@@ -134,7 +134,7 @@ namespace KFLA.Services.Services
 
         private static Stream GetData2Stream(string language)
         {
-            var fileName = $@".\data\data2.{language}.xlsx";
+            var fileName = string.Format(".{0}data{0}data2.{1}.xlsx", Path.DirectorySeparatorChar, language);
             if (!File.Exists(fileName))
             {
                 throw new Exception($"Data for {language} doesn't exist.");

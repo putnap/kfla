@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KFLA.Contract", "KFLA.Contr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KFLA.Services", "KFLA.Services\KFLA.Services.csproj", "{2299C985-D10B-457A-9960-651542F89E61}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "KFLA.Persistence.MongoDB", "KFLA.Persistence.MongoDB\KFLA.Persistence.MongoDB.fsproj", "{73C469F4-328C-4940-8FE8-9D2B285F90A9}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "KFLA.Persistence.MongoDB", "KFLA.Persistence.MongoDB\KFLA.Persistence.MongoDB.fsproj", "{73C469F4-328C-4940-8FE8-9D2B285F90A9}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7C91C8AC-425B-431D-B196-99CD59E892C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{73C469F4-328C-4940-8FE8-9D2B285F90A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73C469F4-328C-4940-8FE8-9D2B285F90A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73C469F4-328C-4940-8FE8-9D2B285F90A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C91C8AC-425B-431D-B196-99CD59E892C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C91C8AC-425B-431D-B196-99CD59E892C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C91C8AC-425B-431D-B196-99CD59E892C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C91C8AC-425B-431D-B196-99CD59E892C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

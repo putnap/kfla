@@ -11,6 +11,11 @@ module.exports = (env) => {
     var mode = isDevBuild ? "development" : "production";
     return [{
         mode,
+        watch: isDevBuild,
+        watchOptions: {
+            aggregateTimeout: 300,
+            poll: 1000
+        },
         optimization: {
             minimize: !isDevBuild,
             usedExports: isDevBuild,

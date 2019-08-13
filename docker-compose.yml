@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+
+  kfla:
+    container_name: kfla
+    image: ${DOCKER_REGISTRY-}kfla
+    build:
+      context: .
+      dockerfile: KFLA/Dockerfile
+    environment:
+      - DBSettings__ConnectionString=mongodb://mongo:27017
+    depends_on:
+      - mongo
+
+volumes:
+  mongodb:

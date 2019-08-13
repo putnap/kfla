@@ -1,5 +1,6 @@
 body, html {
     height: 100%;
+    font-family: Arial
 }
 
 .top-navbar {
@@ -538,8 +539,16 @@ body, html {
     margin-left: -21px;
 }
 
+.slideout-menu a.active .background-lib {
+    background: #9c8ebf
+}
+
 .pointer {
     cursor: pointer;
+}
+
+.item-skill-icon {
+    color: #9c8ebf;
 }
 
 .column-split {

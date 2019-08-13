@@ -31,10 +31,10 @@ export class CompetencyContainer extends React.Component<CompetencyContainerProp
     public render() {
         const { competencyId } = this.props.match.params;
         const { localizationStore, competencyStore } = this.props;
-        return <div className='row background-lib height-100 '>
+        return <div className='row background-lib height-100 d-flex justify-content-center' >
             <NavMenu {...this.props} />
-            <div className='mx-2 mx-md-5 w-100 main-content'>
-                <div className='row card mb-2'>
+            <div className='mx-2 mx-md-5 w-100 main-content' style={{ maxWidth: '1400px' }}>
+                <div className='row card mb-2 ' >
                     <div className='col card-body'>
                         {
                             !competencyStore.isLoaded ?
