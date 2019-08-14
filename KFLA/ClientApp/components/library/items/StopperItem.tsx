@@ -3,7 +3,7 @@ import { Stopper } from '../../../models/Stopper';
 import { inject } from 'mobx-react';
 import { LocalizationStore } from '../../../stores/LocalizationStore';
 import { RouteComponentProps, Route, Switch, Redirect } from 'react-router';
-import { safeReplace, DroprightButton, ContextWithQuote, Quote, printList, CollapsableTip } from './shared';
+import { safeReplace, DroprightButton, ContextWithQuote, Quote, printList, CollapsableTip, DropRightMenuItemProps, DropRightMenu } from './shared';
 
 interface StopperItemProps extends Partial<RouteComponentProps<{}>> {
     stopper: Stopper;
@@ -22,7 +22,16 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
     }
 
     render() {
-        const { stopper, localizationStore } = this.props;
+        const { stopper, localizationStore, match } = this.props;
+
+        const menuItems: DropRightMenuItemProps[] = [
+            { link: 'Info', icon: 'info', linkText: stopper.Name },
+            { link: 'Skills', icon: 'user', linkText: localizationStore.getString('StopperItem.Problem') },
+            { link: 'PossibleCauses', icon: 'sitemap', linkText: localizationStore.getString('Library.Items.Links.PossibleCauses') },
+            { link: 'Tips', icon: 'brain', linkText: safeReplace(localizationStore.getString(this.getTipsKey(stopper)), stopper.Name) },
+            { link: 'Jobs', icon: 'tasks', linkText: localizationStore.getString('Library.Items.Links.Jobs') },
+            { link: 'LearningResources', icon: ['fab', 'leanpub'], linkText: localizationStore.getString('Library.Items.Links.LearningResources') },
+        ];
 
         return <div>
             <div className='row'>
@@ -33,35 +42,28 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
             </div>
             <div className='row'>
                 <div className='col d-flex'>
-                    <div className='slideout-menu' style={{ position: "relative", width: '56px' }}>
-                        <DroprightButton link='Info' icon='info'>{stopper.Name}</DroprightButton>
-                        <DroprightButton link='Skills' icon='user'>{localizationStore.getString('StopperItem.Problem')}</DroprightButton>
-                        <DroprightButton link='PossibleCauses' icon='sitemap'>{localizationStore.getString('Library.Items.Links.PossibleCauses')}</DroprightButton>
-                        <DroprightButton link='Tips' icon='brain'>{safeReplace(localizationStore.getString(this.getTipsKey(stopper)), stopper.Name)}</DroprightButton>
-                        <DroprightButton link='Jobs' icon='tasks'>{localizationStore.getString('Library.Items.Links.Jobs')}</DroprightButton>
-                        <DroprightButton link='LearningResources' icon={['fab', 'leanpub']}>{localizationStore.getString('Library.Items.Links.LearningResources')}</DroprightButton>
-                    </div>
+                    <DropRightMenu menuItems={menuItems} />
                     <div className='my-3 mx-3 mx-md-5' style={{ width: '100%' }}>
                         <Switch>
                             <Route
-                                path={`${this.props.match.path}/Info`}
+                                path={`${match.path}/Info`}
                                 component={() => <Info stopper={stopper} />} />
                             <Route
-                                path={`${this.props.match.path}/Skills`}
+                                path={`${match.path}/Skills`}
                                 component={() => <Skills stopper={stopper} />} />
                             <Route
-                                path={`${this.props.match.path}/PossibleCauses`}
+                                path={`${match.path}/PossibleCauses`}
                                 component={() => <PossibleCauses stopper={stopper} />} />
                             <Route
-                                path={`${this.props.match.path}/Tips`}
+                                path={`${match.path}/Tips`}
                                 component={() => <Tips stopper={stopper} />} />
                             <Route
-                                path={`${this.props.match.path}/Jobs`}
+                                path={`${match.path}/Jobs`}
                                 component={() => <JobAssignments stopper={stopper} />} />
                             <Route
-                                path={`${this.props.match.path}/LearningResources`}
+                                path={`${match.path}/LearningResources`}
                                 component={() => <LearningResources stopper={stopper} />} />
-                            <Redirect to={`${this.props.match.path}/Info`} />
+                            <Redirect to={`${match.path}/Info`} />
                         </Switch>
                     </div>
                 </div>

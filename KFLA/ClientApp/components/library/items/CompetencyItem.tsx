@@ -4,8 +4,9 @@ import { Route, RouteComponentProps, Switch, Redirect } from 'react-router';
 import { Competency } from '../../../models/Competency';
 import { LocalizationStore } from '../../../stores/LocalizationStore';
 import { inject } from 'mobx-react';
-import { safeReplace, printList, DroprightButton, ContextWithQuote, Quote, CollapsableTip } from './shared';
+import { safeReplace, printList, DroprightButton, ContextWithQuote, Quote, CollapsableTip, DropRightMenuItemProps, DropRightMenu } from './shared';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface CompetencyItemProps extends RouteComponentProps<{}> {
     competency: Competency;
@@ -17,6 +18,16 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
 
     render() {
         const { competency, localizationStore, match } = this.props;
+
+        const menuItems: DropRightMenuItemProps[] = [
+            { link: 'Skills', icon: 'user', linkText: localizationStore.getString('Skills.SKILLED') },
+            { link: 'Info', icon: 'info', linkText: competency.Name },
+            { link: 'PossibleCauses', icon: 'sitemap', linkText: localizationStore.getString('Library.Items.Links.PossibleCauses') },
+            { link: 'Tips', icon: 'brain', linkText: safeReplace(localizationStore.getString('Library.Items.Links.Tips'), competency.Name) },
+            { link: 'Jobs', icon: 'tasks', linkText: localizationStore.getString('Library.Items.Links.Jobs') },
+            { link: 'Reflect', icon: 'history', linkText: localizationStore.getString('Library.Items.Links.Reflect') },
+            { link: 'LearnMore', icon: ['fab', 'leanpub'], linkText: safeReplace(localizationStore.getString('Library.Items.Links.LearnMore'), competency.Name) },
+        ];
 
         return <div>
             <div className='row'>
@@ -30,39 +41,31 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
             </div>
             <div className='row'>
                 <div className='col d-flex'>
-                    <div className='slideout-menu' style={{ position: "relative", width: '56px' }}>
-                        <DroprightButton link='Skills' icon='user'>{localizationStore.getString('Skills.SKILLED')}</DroprightButton>
-                        <DroprightButton link='Info' icon='info'>{competency.Name}</DroprightButton>
-                        <DroprightButton link='PossibleCauses' icon='sitemap'>{localizationStore.getString('Library.Items.Links.PossibleCauses')}</DroprightButton>
-                        <DroprightButton link='Tips' icon='brain'>{safeReplace(localizationStore.getString('Library.Items.Links.Tips'), competency.Name)}</DroprightButton>
-                        <DroprightButton link='Jobs' icon='tasks'>{localizationStore.getString('Library.Items.Links.Jobs')}</DroprightButton>
-                        <DroprightButton link='Reflect' icon='history'>{localizationStore.getString('Library.Items.Links.Reflect')}</DroprightButton>
-                        <DroprightButton link='LearnMore' icon={['fab', 'leanpub']}>{safeReplace(localizationStore.getString('Library.Items.Links.LearnMore'), competency.Name)}</DroprightButton>
-                    </div>
+                    <DropRightMenu menuItems={menuItems} />
                     <div className='my-3 mx-3 mx-md-5' style={{ width: '100%' }}>
                         <Switch>
                             <Route
-                                path={`${this.props.match.path}/Skills`}
+                                path={`${match.path}/Skills`}
                                 render={() => <Skills {...this.props} />} />
                             <Route
-                                path={`${this.props.match.path}/Info`}
+                                path={`${match.path}/Info`}
                                 render={() => <Info {...this.props} />} />
                             <Route
-                                path={`${this.props.match.path}/PossibleCauses`}
+                                path={`${match.path}/PossibleCauses`}
                                 render={() => <PossibleCauses {...this.props} />} />
                             <Route
-                                path={`${this.props.match.path}/Tips`}
+                                path={`${match.path}/Tips`}
                                 render={() => <Tips {...this.props} />} />
                             <Route
-                                path={`${this.props.match.path}/Jobs`}
+                                path={`${match.path}/Jobs`}
                                 render={() => <JobAssignments {...this.props} />} />
                             <Route
-                                path={`${this.props.match.path}/Reflect`}
+                                path={`${match.path}/Reflect`}
                                 render={() => <TimeToReflect {...this.props} />} />
                             <Route
-                                path={`${this.props.match.path}/LearnMore`}
+                                path={`${match.path}/LearnMore`}
                                 render={() => <LearnMore {...this.props} />} />
-                            <Redirect to={`${this.props.match.path}/Skills`} />
+                            <Redirect to={`${match.path}/Skills`} />
                         </Switch>
                     </div>
                 </div>
@@ -81,9 +84,11 @@ const Info: React.FunctionComponent<CompetencyDetails> = props => {
 
     return <div className='row animate-bottom'>
         <div className='col'>
-            <div className='font-italic h5'>{competency.Description}</div>
+            <div className='row'>
+                <div className='col col-md-6 font-italic h5'>{competency.Description}</div>
+            </div>
             <ContextWithQuote context={competency.Context} quote={competency.Quotes[0]} />
-            <div><FontAwesomeIcon icon='lightbulb' /><span className='pl-2'>{competency.Positioning}</span></div>
+            <div><FontAwesomeIcon className='item-skill-icon' icon='lightbulb' /><span className='pl-2'>{competency.Positioning}</span></div>
         </div>
     </div>
 }
@@ -93,19 +98,19 @@ const Skills: React.FunctionComponent<CompetencyDetails> = props => {
 
     return <div className='row animate-bottom'>
         <div className='col-sm-12 col-md-6'>
-            <p className='card-text font-weight-bold'><FontAwesomeIcon className='item-skill-icon' icon='plus-circle' /><span className='pl-2'>{localizationStore.getString('Skills.SKILLED')}</span></p>
+            <p className='card-text font-weight-bold item-skill-icon pr-md-3'><FontAwesomeIcon icon='plus-circle' /><span className='pl-2'>{localizationStore.getString('Skills.SKILLED')}</span></p>
             {printList(competency.Skilled)}
         </div>
         <div className='col-sm-12 col-md-6'>
-            <p className='card-text font-weight-bold'><FontAwesomeIcon className='item-skill-icon' icon='minus-circle' /><span className='pl-2'>{localizationStore.getString('Skills.LESS')}</span></p>
+            <p className='card-text font-weight-bold item-skill-icon pl-md-3'><FontAwesomeIcon icon='minus-circle' /><span className='pl-2'>{localizationStore.getString('Skills.LESS')}</span></p>
             {printList(competency.LessSkilled)}
         </div>
         <div className='col-sm-12 col-md-6'>
-            <p className='card-text font-weight-bold'><FontAwesomeIcon className='item-skill-icon' icon='gem' /><span className='pl-2'>{localizationStore.getString('Skills.TALENTED')}</span></p>
+            <p className='card-text font-weight-bold item-skill-icon pr-md-3'><FontAwesomeIcon icon='gem' /><span className='pl-2'>{localizationStore.getString('Skills.TALENTED')}</span></p>
             {printList(competency.Talented)}
         </div>
         <div className='col-sm-12 col-md-6'>
-            <p className='card-text font-weight-bold'><FontAwesomeIcon className='item-skill-icon' icon='exclamation-circle' /><span className='pl-2'>{localizationStore.getString('Skills.OVERUSED')}</span></p>
+            <p className='card-text font-weight-bold item-skill-icon pl-md-3'><FontAwesomeIcon icon='exclamation-circle' /><span className='pl-2'>{localizationStore.getString('Skills.OVERUSED')}</span></p>
             {printList(competency.OverusedSkill)}
         </div>
     </div>

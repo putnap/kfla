@@ -526,7 +526,7 @@ body, html {
 
 .slideout-menu-dropdown {
     width: auto;
-    height: 54px;
+    height: 55px;
     min-width: 0;
 }
 
@@ -535,12 +535,24 @@ body, html {
 }
 
 .slideout-menu {
-    width: 50px;
     margin-left: -21px;
+}
+
+.slideout-menu, .divider {
+    width: 56px;
 }
 
 .slideout-menu a.active .background-lib {
     background: #9c8ebf
+}
+
+.slideout-menu a.active .slideout-menu-icon {
+    color: #FFFFFF
+}
+
+.divider {
+    height: 3px;
+    background: #000000;
 }
 
 .pointer {
