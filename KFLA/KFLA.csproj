@@ -42,14 +42,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\App.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="ClientApp\logos\logo-korn-ferry.png" />
-    <Content Include="ClientApp\logos\Logo-Web-Green.png" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\KFLA.Contract\KFLA.Contract.csproj" />
     <ProjectReference Include="..\KFLA.Persistence.MongoDB\KFLA.Persistence.MongoDB.fsproj" />
     <ProjectReference Include="..\KFLA.Services\KFLA.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\App.tsx" />
   </ItemGroup>
 
   <ItemGroup>

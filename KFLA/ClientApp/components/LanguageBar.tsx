@@ -36,9 +36,6 @@ export class LanguageBar extends React.Component<LanguageBarProps, {}> {
                     return <NavLink to={this.getUrl(language)} activeClassName='active' className='btn' key={language}>
                         {language.toUpperCase()}
                     </NavLink>
-                    //return <button onClick={(e) => this.changeLanguage(language)} className={this.props.localizationStore.language == language ? 'btn active' : 'btn'} key={language}>
-                    //    {language.toUpperCase()}
-                    //</button>
                 })
             }
         </div>;

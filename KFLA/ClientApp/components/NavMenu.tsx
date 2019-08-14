@@ -14,8 +14,8 @@ interface NavMenuProps extends RouteComponentProps<LanguageParam> {
 export class NavMenu extends React.Component<NavMenuProps, {}> {
 
     public render() {
-        const { localizationStore } = this.props;
-        const { language } = this.props.match.params;
+        const { localizationStore, match } = this.props;
+        const { language } = match.params;
         return <div className='navbar navbar-expand-md top-navbar' role='navigation'>
             <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarTogglerDemo01' aria-controls='navbarTogglerDemo01' aria-expanded='false' aria-label='Toggle navigation'>
                 <span className='navbar-toggler-icon'></span>

@@ -1,19 +1,14 @@
 ﻿import * as React from 'react';
 
-export interface LoaderProps {
-    text?: string;
-}
-
-export class Loader extends React.Component<LoaderProps, {}> {
-    public render() {
-        return <div className='row vertical-center loader'>
-            <div className='col text-center'>
-                <div className='lds-roller'><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                
+export const Loader: React.FunctionComponent<{ text?: string }> = props => {
+    return <div className='row vertical-center loader'>
+        <div className='col text-center'>
+            <div className='lds-roller'><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            {props.text &&
                 <p className='mx-2'>
-                    {this.props.text}
+                    {props.text}
                 </p>
-            </div>
-        </div>  
-    }
+            }
+        </div>
+    </div>
 }
