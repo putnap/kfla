@@ -48,11 +48,7 @@ export class CompetencyStore {
     }
 
     @action resetEvaluation() {
-        this.competencies.forEach(o => {
-            o.Evaluation = null;
-            o.IsEvaluated = false;
-        });
-        this.evaluations.forEach(o => o.Competencies.splice(0, o.Competencies.length));
+        this.competencies.forEach(o => o.evaluateCompetency());
     }
 
     @action resetQuestionaire() {

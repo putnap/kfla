@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Competency } from '../../models/Competency';
-import { NavMenu } from '../NavMenu';
+import NavMenu from '../NavMenu';
 import { CompetencyStore } from '../../stores/CompetencyStore';
 import { Loader } from '../Loader';
 import { FactorList } from '../FactorList';

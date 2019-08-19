@@ -1,4 +1,33 @@
-﻿FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
+﻿## 1. Prepare server side build image
+ #
+#FROM microsoft/dotnet:2.2-sdk as build-env
+#WORKDIR /app
+#COPY KFLA/*.csproj ./src/KFLA/
+#COPY *.sln ./
+#RUN dotnet restore KFLA.sln
+ #
+##2 Build client-side artifacts
+ #
+#FROM node:latest as clientBuild
+#WORKDIR /src/KFLA
+#RUN npm install
+#RUN npm run build:dev
+ #
+##3 Publish final output by merging server-side and client-side artifacts
+ #
+#FROM build-env as publish
+#COPY . ./
+#RUN dotnet publish -c Release -o out
+#COPY --from=clientBuild ./ClientApp/dist ./src/KFLA/out/ClientApp/dist
+ #
+## Build runtime image
+#FROM microsoft/dotnet:2.2-aspnetcore-runtime
+#WORKDIR /app
+#COPY --from=publish /app/src/KFLA/out/ .
+#EXPOSE 80:80
+#ENTRYPOINT ["dotnet", "KFLA.dll"]
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
 RUN apt-get install -y nodejs

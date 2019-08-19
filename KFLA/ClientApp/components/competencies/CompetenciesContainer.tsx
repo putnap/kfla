@@ -1,18 +1,42 @@
 ﻿import * as React from 'react';
 import * as jQuery from 'jquery';
 import { RouteComponentProps } from 'react-router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer, inject } from 'mobx-react';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend'
-import { CompetencyList } from './CompetencyList';
-import { EvaluationList } from './EvaluationList';
-import { NavMenu } from '../NavMenu';
-import { Loader } from '../Loader';
-import { CompetencyStore } from '../../stores/CompetencyStore';
-import { VideoModal } from '../VideoModal';
-import { LocalizationStore } from '../../stores/LocalizationStore';
+import NavMenu from '@Components/NavMenu';
+import { Loader } from '@Components/Loader';
+
 import { LanguageParam } from '@Types/types';
+import { CompetencyStore } from '@Stores/CompetencyStore';
+import { LocalizationStore } from '@Stores/LocalizationStore';
+import { useStore } from '@Stores/hook';
+import { VideoModal } from '@Components/VideoModal';
+import { FloatingButtonProps, FloatingActionButtons } from '@Components/FloatingButtons';
+import { CompetencyItem } from './CompetencyItem';
+import { EvaluationItem } from './EvaluationItem';
+
+const CompetencyList = observer(() => {
+    const competencyStore = useStore(stores => stores.competencyStore);
+
+    return <div className='row animate-bottom'>
+        {
+            competencyStore.uneavluatedCompetencies.map(competency => {
+                return <CompetencyItem competency={competency} key={competency.ID} />
+            })
+        }
+    </div>
+})
+
+const EvaluationList = ({ evaluations }) => {
+    return <div className='row pb-2 sticky-top background-light' style={{ top: '60px' }}>
+        {
+            evaluations.map((evaluation, i) => {
+                return <EvaluationItem evaluation={evaluation} key={i} />
+            })
+        }
+    </div>
+}
 
 interface CompetenciesContainerProps extends RouteComponentProps<LanguageParam> {
     competencyStore?: CompetencyStore
@@ -22,15 +46,22 @@ interface CompetenciesContainerProps extends RouteComponentProps<LanguageParam> 
 @inject("competencyStore", "localizationStore")
 @observer
 export class CompetenciesContainer extends React.Component<CompetenciesContainerProps, {}> {
+    constructor(props: CompetenciesContainerProps) {
+        super(props);
 
-    async componentDidMount() {
-        this.props.localizationStore.setTitle('PageTitles.COMPETENCIES');
-        const { competencyStore } = this.props;
-        if (!competencyStore.isLoaded) {
-            await competencyStore.fetchCompetencies();
-            await competencyStore.fetchEvaluations();
-        }
+        this.resetEvaluation = this.resetEvaluation.bind(this);
+        this.submitEvaluation = this.submitEvaluation.bind(this);
+        this.randomEvaluation = this.randomEvaluation.bind(this);
     }
+
+    //async componentDidMount() {
+    //    this.props.localizationStore.setTitle('PageTitles.COMPETENCIES');
+    //    const { competencyStore } = this.props;
+    //    if (!competencyStore.isLoaded) {
+    //        await competencyStore.fetchCompetencies();
+    //        await competencyStore.fetchEvaluations();
+    //    }
+    //}
 
     resetEvaluation() {
         if (window.confirm(this.props.localizationStore.getString('Evaluation.Reset')))
@@ -57,31 +88,26 @@ export class CompetenciesContainer extends React.Component<CompetenciesContainer
     }
 
     public render() {
-        const store = this.props.competencyStore;
+        const { competencyStore, localizationStore }= this.props;
+
+        const floatingButtons: FloatingButtonProps[] = [
+            { label: localizationStore.getString('Buttons.Info'), icon: "info", onClick: () => jQuery('#competenciesVideo').modal() },
+            { label: localizationStore.getString('Buttons.Submit'), icon: "check", onClick: this.submitEvaluation, disabled: !competencyStore.evaluationReady },
+            //{ label: localizationStore.getString('Buttons.Submit'), icon: "random", onClick: this.randomEvaluation },
+            { label: localizationStore.getString('Buttons.Reset'), icon: "redo", onClick: this.resetEvaluation },
+        ]
+
         return <DndProvider backend={HTML5Backend}>
             <div className='row background-light height-100'>
                 <NavMenu {...this.props} />
                 <div className='contentContainer w-100 mx-2 mx-md-5'>
-                    <EvaluationList evaluations={store!.evaluations} />
+                    <EvaluationList evaluations={competencyStore.evaluations} />
                     {
-                        store!.isLoading ? <Loader text={this.props.localizationStore.getString('Evaluation.Loading')} /> : <CompetencyList competencyStore={store!} />
+                        competencyStore.isLoading ?
+                            <Loader text={localizationStore.getString('Evaluation.Loading')} /> :
+                            <CompetencyList />
                     }
-                    <div className='btn-floating-container'>
-                        <button onClick={(e) => this.showInfo()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Info')}>
-                            <FontAwesomeIcon icon='info' />
-                        </button>
-                        <button onClick={(e) => this.submitEvaluation()} disabled={!store.evaluationReady} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Submit')}>
-                            <FontAwesomeIcon icon='check' />
-                        </button>
-                        {/*
-                    <button onClick={(e) => this.randomEvaluation()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Submit')}>
-                        <FontAwesomeIcon icon='check' />
-                    </button>
-                    */}
-                        <button onClick={(e) => this.resetEvaluation()} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Reset')}>
-                            <FontAwesomeIcon icon='redo' />
-                        </button>
-                    </div>
+                    <FloatingActionButtons floatingButtons={floatingButtons} />
                     <VideoModal id='competenciesVideo' videoId='2yT0gqnKb-A' />
                 </div>
             </div>

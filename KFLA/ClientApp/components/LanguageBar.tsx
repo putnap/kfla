@@ -1,43 +1,30 @@
 import * as React from 'react';
-import { LocalizationStore } from '../stores/LocalizationStore';
-import { inject, observer } from 'mobx-react';
-import { NavLink, RouteComponentProps } from 'react-router-dom';
+import { NavLink, RouteComponentProps, match, withRouter } from 'react-router-dom';
 import { compile } from 'path-to-regexp';
+import { useStore } from '@Stores/hook';
 
-interface LanguageBarProps extends RouteComponentProps<{}> {
-    localizationStore?: LocalizationStore;
+const getUrl = (language: string, match: match<{}>) => {
+    const toPath = compile(match.path);
+    const newPath = toPath({ ...match.params, language: language });
+
+    if (newPath.endsWith("/"))
+        return newPath.substring(0, newPath.length - 1);
+
+    return newPath;
 }
 
-@inject("localizationStore")
-@observer
-export class LanguageBar extends React.Component<LanguageBarProps, {}> {
+const LanguageBar: React.FunctionComponent<RouteComponentProps<{}>> = props => {
+    const localizationStore = useStore(stores => stores.localizationStore);
 
-    constructor(props: LanguageBarProps) {
-        super(props);
-
-        this.getUrl = this.getUrl.bind(this);
-    }
-
-    getUrl(language: string): string {
-        const { match } = this.props;
-        const toPath = compile(match.path);
-        const newPath = toPath({ ...match.params, language: language });
-
-        if (newPath.endsWith("/"))
-            return newPath.substring(0, newPath.length - 1);
-
-        return newPath;
-    }
-
-    public render() {
-        return <div className='lang'>
-            {
-                this.props.localizationStore.languages.map(language => {
-                    return <NavLink to={this.getUrl(language)} activeClassName='active' className='btn' key={language}>
-                        {language.toUpperCase()}
-                    </NavLink>
-                })
-            }
-        </div>;
-    }
+    return <div className='lang' >
+        {
+            localizationStore.languages.map(language => {
+                return <NavLink to={getUrl(language, props.match)} activeClassName='active' className='btn' key={language}>
+                    {language.toUpperCase()}
+                </NavLink>
+            })
+        }
+    </div>
 }
+
+export default withRouter(LanguageBar);

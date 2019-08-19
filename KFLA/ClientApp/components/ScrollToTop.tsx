@@ -1,18 +1,24 @@
 ﻿import * as React from "react";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, withRouter } from "react-router";
 
-interface ScrollToTopProps extends RouteComponentProps<{}> {
-    children?: React.ReactNode;
-}
+const ScrollToTop: React.FunctionComponent<RouteComponentProps> = props => {
+    const { children, location: { pathname } } = props;
 
-export class ScrollToTop extends React.Component<ScrollToTopProps, {}> {
-    componentDidUpdate(prevProps: ScrollToTopProps & RouteComponentProps<{}>) {
-        if (this.props.location.pathname !== prevProps.location.pathname) {
+    React.useEffect(() => {
+        try {
+            // trying to use new API - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
+            window.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth',
+            });
+        } catch (error) {
+            // just a fallback for older browsers
             window.scrollTo(0, 0);
         }
-    }
+    }, [pathname]);
 
-    render() {
-        return this.props.children;
-    }
-}
+    return <>{children || null}</>;
+};
+
+export default withRouter(ScrollToTop);

@@ -29,15 +29,6 @@ export class Evaluation {
         return this.Competencies.length;
     }
 
-    @action removeCompetency(competency: Competency) {
-        var index = this.Competencies.indexOf(competency, 0);
-        if (index > -1) {
-            this.Competencies.splice(index, 1);
-        }
-        competency.Evaluation = null;
-        competency.IsEvaluated = false;
-    }
-
     static fromJSON(json: EvaluationJSON | string): Evaluation {
         if (typeof json === 'string') {
             // if it's a string, parse it first

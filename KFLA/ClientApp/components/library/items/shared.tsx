@@ -16,9 +16,7 @@ export const printList = (list: string[], classes?: string) => {
     </ul>
 }
 
-interface DropRightButtonProps extends RouteComponentProps<{}> {
-    link: string
-    icon: IconProp
+interface DropRightButtonProps extends RouteComponentProps, DropRightMenuItemProps {
 }
 
 export interface DropRightMenuItemProps {
@@ -27,49 +25,42 @@ export interface DropRightMenuItemProps {
     linkText: string
 }
 
-const DropRightButtonFunction: React.FunctionComponent<DropRightButtonProps> = props => {
+const DropRightButtonComponent: React.FunctionComponent<DropRightButtonProps> = props => {
+    const { link, icon, linkText, match: { url } } = props;
 
-    const { link, icon, match, children } = props;
-
-    return <NavLink to={`${match.url}/${link}`} activeClassName='active'>
+    return <NavLink to={`${url}/${link}`} activeClassName='active'>
         <div className='dropright'>
             <div className='btn rounded-0 background-lib'>
                 <FontAwesomeIcon className='slideout-menu-icon' fixedWidth icon={icon} />
             </div>
             <div className='slideout-menu-dropdown dropdown-menu m-0 rounded-0 border-0 background-lib'>
-                <p className='py-2 px-4 font-weight-bold text-nowrap'>{children}</p>
+                <p className='py-2 px-4 font-weight-bold text-nowrap'>{linkText}</p>
             </div>
         </div>
     </NavLink>
 }
 
-export const DroprightButton = withRouter(DropRightButtonFunction);
+export const DroprightButton = withRouter(DropRightButtonComponent);
 
-export const DropRightMenu: React.FunctionComponent<{ menuItems: DropRightMenuItemProps[] }> = props => {
-    const { menuItems } = props;
-
+export const DropRightMenu = ({ menuItems }) => {
     return <div className='slideout-menu'>
         {
             menuItems
-                .map((item, i) => <DroprightButton link={item.link} icon={item.icon} key={i}>{item.linkText}</DroprightButton>)
+                .map((item, i) => <DroprightButton {...item} key={i} />)
                 .map((item, i) => [i > 0 && <div className='divider' key={i + menuItems.length}></div>, item])
         }
     </div>
 }
 
-export const Quote: React.FunctionComponent<{ quote: string, background?: string }> = props => {
-    const { quote, background } = props;
-
-    return <div className='rounded ml-md-3 px-3 py-4 p-md-5 h-100 d-flex align-items-center w-100' style={{ background: `#${background || 'e2ddf2'}` }}>
+export const Quote = ({ quote, background = 'e2ddf2' }) => {
+    return <div className='rounded ml-md-3 px-3 py-4 p-md-5 h-100 d-flex align-items-center w-100' style={{ background: `#${background}` }}>
         <p className='h5 font-italic'>
             {quote}
         </p>
     </div>
 }
 
-export const ContextWithQuote: React.FunctionComponent<{ context: string, quote: string }> = props => {
-    const { context, quote } = props;
-
+export const ContextWithQuote = ({ context, quote })=> {
     return <div className='row py-3'>
         <div className='col-12 col-md-6 pr-md-2 text-justify' style={{ lineHeight: '1.5' }}><p className='mr-md-3'>{context}</p></div>
         <div className='col-12 col-md-6 pl-md-2'>

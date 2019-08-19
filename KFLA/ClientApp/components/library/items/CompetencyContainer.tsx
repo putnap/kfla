@@ -2,11 +2,11 @@
 import { observer, inject } from "mobx-react";
 import { RouteComponentProps, Route } from "react-router";
 import { LocalizationStore } from "../../../stores/LocalizationStore";
-import { NavMenu } from '../../NavMenu';
+import NavMenu from '../../NavMenu';
 import { Loader } from '../../Loader';
 import { CompetencyStore } from "../../../stores/CompetencyStore";
-import { CompetencyItem } from "./CompetencyItem";
 import { LanguageParam } from "@Types/types";
+import CompetencyItem from "./CompetencyItem";
 
 interface CompetencyArgumentProps extends LanguageParam {
     competencyId: string
@@ -39,7 +39,7 @@ export class CompetencyContainer extends React.Component<CompetencyContainerProp
                         {
                             !competencyStore.isLoaded ?
                                 <Loader text={localizationStore.getString('Questionaire.Loading')} /> :
-                                <CompetencyItem competency={competencyStore.competencies.find(c => c.ID.toString() == competencyId)} {...this.props} />
+                                <CompetencyItem competency={competencyStore.competencies.find(c => c.ID.toString() == competencyId)} />
                         }
                     </div>
                 </div>

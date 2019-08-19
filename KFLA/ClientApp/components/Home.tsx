@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 import { LocalizationStore } from '../stores/LocalizationStore';
-import { LanguageBar } from './LanguageBar';
+import LanguageBar from './LanguageBar';
 import { isIE } from 'react-device-detect';
 
 interface HomeProps extends RouteComponentProps<{}> {
@@ -46,7 +46,7 @@ export class Home extends React.Component<HomeProps, {}> {
             <div className='fixed-top m-1 m-md-3'>
                 <img className='w-25' src={require('../logos/logo-korn-ferry.png')} alt='Korn Ferry' />
                 <div className='float-right'>
-                    <LanguageBar {...this.props} />
+                    <LanguageBar />
                 </div>
             </div>
             <div className='row height-100'>

@@ -2,11 +2,11 @@
 import { observer, inject } from "mobx-react";
 import { RouteComponentProps } from "react-router";
 import { LocalizationStore } from "@Stores/LocalizationStore";
-import { NavMenu } from '../../NavMenu';
+import NavMenu from '../../NavMenu';
 import { Loader } from '../../Loader';
-import { StopperItem } from "./StopperItem";
 import { StoppersStore } from "@Stores/StoppersStore";
 import { LanguageParam } from "@Types/types";
+import StopperItem from "./StopperItem";
 
 interface StopperArgumentProps extends LanguageParam {
     stopperId: string
@@ -39,7 +39,7 @@ export class StopperContainer extends React.Component<StopperContainerProps, {}>
                         {
                             !stoppersStore.isLoaded ?
                                 <Loader text={localizationStore.getString('Stoppers.Loading')} /> :
-                                <StopperItem stopper={stoppersStore.stoppers.find(s => s.ID.toString() == stopperId)} {...this.props} />
+                                <StopperItem stopper={stoppersStore.stoppers.find(s => s.ID.toString() == stopperId)} />
                         }
                     </div>
                 </div>

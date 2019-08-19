@@ -25,8 +25,6 @@ export interface CompetencyJSON {
     Cluster: ClusterJSON;
     Factor: FactorJSON;
     Questions: string[];
-    IsSelected: boolean;
-    IsEvaluated: boolean;
 
     LessSkilled: string[];
     Skilled: string[];
@@ -72,20 +70,30 @@ export class Competency {
     @observable Questions: Question[];
     @observable Evaluation: Evaluation;
     @observable IsSelected: boolean;
-    @observable IsEvaluated: boolean;
 
     @action toggleSelection() {
         this.IsSelected = !this.IsSelected;
     }
 
-    @action evaluateCompetency(evaluation: Evaluation) {
+    @action evaluateCompetency(evaluation?: Evaluation) {
+        if (this.Evaluation) {
+            const index = this.Evaluation.Competencies.indexOf(this, 0);
+            if (index > -1) {
+                this.Evaluation.Competencies.splice(index, 1);
+            }
+        }
         this.Evaluation = evaluation;
-        evaluation.Competencies.push(this);
-        this.IsEvaluated = true;
+        if (this.Evaluation) {
+            evaluation.Competencies.push(this);
+        }
     }
 
     @computed get selectedQuestions(): Question[] {
         return this.Questions.filter(question => question.IsSelected);
+    }
+
+    @computed get IsEvaluated(): boolean {
+        return this.Evaluation != null;
     }
 
     static fromJSON(json: CompetencyJSON | string): Competency {

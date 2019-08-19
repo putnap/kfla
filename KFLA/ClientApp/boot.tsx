@@ -9,20 +9,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 
 import * as RoutesModule from './routes';
-import { CompetencyStore } from './stores/CompetencyStore';
-import { Stores } from './@types/types';
-import { StoppersStore } from './stores/StoppersStore';
-import { LocalizationStore } from './stores/LocalizationStore';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { faLeanpub } from '@fortawesome/free-brands-svg-icons'
+import StoreProvider from './context';
+import { createStores } from '@Stores/Stores';
 
 library.add(fas, faLeanpub);
 
 let routes = RoutesModule.routes;
-const localizationStore = new LocalizationStore();
-const stores: Stores = { competencyStore: new CompetencyStore(localizationStore), stoppersStore: new StoppersStore(localizationStore), localizationStore: localizationStore };
+const stores = createStores();
 
 function renderApp() {
     // This code starts up the React app when it runs in a browser. It sets up the routing
@@ -31,7 +28,9 @@ function renderApp() {
     ReactDOM.render(
         <AppContainer>
             <Provider {...stores}>
-                <BrowserRouter children={routes} basename={baseUrl} />
+                <StoreProvider createStores={() => stores}>
+                    <BrowserRouter children={routes} basename={baseUrl} />
+                </StoreProvider>
             </Provider>
         </AppContainer>,
         document.getElementById('react-app')
