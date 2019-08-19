@@ -20,13 +20,13 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
         const { competency, localizationStore, match } = this.props;
 
         const menuItems: DropRightMenuItemProps[] = [
-            { link: 'Skills', icon: 'user', linkText: localizationStore.getString('Skills.SKILLED') },
-            { link: 'Info', icon: 'info', linkText: competency.Name },
+            { link: 'Scales', icon: 'user', linkText: localizationStore.getString('Library.Items.Links.Scales') },
+            { link: 'Overview', icon: 'info', linkText: localizationStore.getString('Library.Items.Links.Overview') },
             { link: 'PossibleCauses', icon: 'sitemap', linkText: localizationStore.getString('Library.Items.Links.PossibleCauses') },
-            { link: 'Tips', icon: 'brain', linkText: safeReplace(localizationStore.getString('Library.Items.Links.Tips'), competency.Name) },
+            { link: 'Tips', icon: 'brain', linkText: localizationStore.getString('Library.Items.Links.Tips') },
             { link: 'Jobs', icon: 'tasks', linkText: localizationStore.getString('Library.Items.Links.Jobs') },
             { link: 'Reflect', icon: 'history', linkText: localizationStore.getString('Library.Items.Links.Reflect') },
-            { link: 'LearnMore', icon: ['fab', 'leanpub'], linkText: safeReplace(localizationStore.getString('Library.Items.Links.LearnMore'), competency.Name) },
+            { link: 'LearnMore', icon: ['fab', 'leanpub'], linkText: localizationStore.getString('Library.Items.Links.LearnMore') },
         ];
 
         return <div>
@@ -45,11 +45,11 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                     <div className='my-3 mx-3 mx-md-5' style={{ width: '100%' }}>
                         <Switch>
                             <Route
-                                path={`${match.path}/Skills`}
-                                render={() => <Skills {...this.props} />} />
+                                path={`${match.path}/Scales`}
+                                render={() => <Scales {...this.props} />} />
                             <Route
-                                path={`${match.path}/Info`}
-                                render={() => <Info {...this.props} />} />
+                                path={`${match.path}/Overview`}
+                                render={() => <Overview {...this.props} />} />
                             <Route
                                 path={`${match.path}/PossibleCauses`}
                                 render={() => <PossibleCauses {...this.props} />} />
@@ -65,7 +65,7 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
                             <Route
                                 path={`${match.path}/LearnMore`}
                                 render={() => <LearnMore {...this.props} />} />
-                            <Redirect to={`${match.path}/Skills`} />
+                            <Redirect to={`${match.path}/Scales`} />
                         </Switch>
                     </div>
                 </div>
@@ -79,13 +79,13 @@ interface CompetencyDetails {
     localizationStore?: LocalizationStore;
 }
 
-const Info: React.FunctionComponent<CompetencyDetails> = props => {
+const Overview: React.FunctionComponent<CompetencyDetails> = props => {
     const competency = props.competency;
 
     return <div className='row animate-bottom'>
         <div className='col'>
             <div className='row'>
-                <div className='col col-md-6 font-italic h5'>{competency.Description}</div>
+                <div className='col col-md-6 h5 font-italic font-weight-bold'>{competency.Description}</div>
             </div>
             <ContextWithQuote context={competency.Context} quote={competency.Quotes[0]} />
             <div><FontAwesomeIcon className='item-skill-icon' icon='lightbulb' /><span className='pl-2'>{competency.Positioning}</span></div>
@@ -93,7 +93,7 @@ const Info: React.FunctionComponent<CompetencyDetails> = props => {
     </div>
 }
 
-const Skills: React.FunctionComponent<CompetencyDetails> = props => {
+const Scales: React.FunctionComponent<CompetencyDetails> = props => {
     const { competency, localizationStore } = props;
 
     return <div className='row animate-bottom'>
@@ -121,17 +121,19 @@ export class PossibleCauses extends React.Component<CompetencyDetails, {}> {
     render() {
         const { competency, localizationStore } = this.props;
         return <div className='row animate-bottom'>
-            <div className='col-12'>
-                <h5>{localizationStore.getString('Library.Item.Competency.PossibleCauses')}</h5>
-                <p>{safeReplace(localizationStore.getString('Library.Item.Competency.PossibleCauses.Description'), competency.Name)}</p>
-                {printList(competency.Causes)}
-            </div>
-            {competency.CaseStudies.length > 0 &&
-                <div className='col-12'>
-                    <h5 className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' /><span className='pl-2'>{competency.CaseStudies[0].Type}</span></h5>
-                    <p>{competency.CaseStudies[0].Case}</p>
+            <div className='col-12 col-md-6'>
+                <div className='mr-md-3'>
+                    <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.Competency.PossibleCauses')}</h5>
+                    <p>{safeReplace(localizationStore.getString('Library.Item.Competency.PossibleCauses.Description'), competency.Name)}</p>
+                    {printList(competency.Causes)}
                 </div>
-            }
+            </div>
+            <div className='col-12 col-md-6'>
+                <div className='rounded ml-md-3 px-3 py-4 p-md-4 h-100 w-100 text-justify' style={{ background: '#d3e5ea' }}>
+                    <h5 className='card-text font-weight-bold'><FontAwesomeIcon icon='question-circle' /><span className='pl-2'>{competency.CaseStudy.Type}</span></h5>
+                    <p>{competency.CaseStudy.Case}</p>
+                </div>
+            </div>
         </div>
     }
 }
@@ -142,7 +144,7 @@ export class Tips extends React.Component<CompetencyDetails, {}> {
         const { competency, localizationStore } = this.props;
         return <div className='row animate-bottom'>
             <div className='col-12'>
-                <h5>{safeReplace(localizationStore.getString('Library.Item.Competency.Tips'), competency.Name)}</h5>
+                <h5 className='font-italic font-weight-bold'>{safeReplace(localizationStore.getString('Library.Item.Competency.Tips'), competency.Name)}</h5>
             </div>
             {competency.Tips.map((tip, i) => {
                 return <CollapsableTip index={i} phrase={tip.Phrase} content={tip.TipContent} key={i}>
@@ -165,7 +167,7 @@ export class JobAssignments extends React.Component<CompetencyDetails, {}> {
         const { competency, localizationStore } = this.props;
         return <div className='row animate-bottom'>
             <div className='col-12'>
-                <h5>{localizationStore.getString('Library.Item.JobAssignments')}</h5>
+                <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.JobAssignments')}</h5>
             </div>
             {printList(competency.JobAssignments)}
         </div>
@@ -178,16 +180,20 @@ export class TimeToReflect extends React.Component<CompetencyDetails, {}> {
         const { competency, localizationStore } = this.props;
         return <div className='row animate-bottom'>
             <div className='col-12'>
-                <h5>{localizationStore.getString('Library.Item.TimeToReflect')}</h5>
+                <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.TimeToReflect')}</h5>
             </div>
-            {competency.TimeToReflect.map((timeToReflect, i) => {
-                return <div className='col-12 py-1' key={i}>
-                    <p className='font-italic'>{timeToReflect.Statement}</p>
-                    <p className='pl-3'>{timeToReflect.Suggestion}</p>
-                </div>
-            })
-            }
-            <Quote quote={competency.Quotes[1]} />
+            <div className='col-12 col-md-6 pr-md-2'>
+                {competency.TimeToReflect.map((timeToReflect, i) => {
+                    return <div className='py-1' key={i}>
+                            <p className='font-italic'>{timeToReflect.Statement}</p>
+                            <p className='pl-3'>{timeToReflect.Suggestion}</p>
+                        </div>
+                    })
+                }
+            </div>
+            <div className='col-12 col-md-6 pl-md-2'>
+                <Quote quote={competency.Quotes[1]} background='e6e6e6' />
+            </div>
         </div>
     }
 }
@@ -196,7 +202,7 @@ export class LearnMore extends React.Component<CompetencyDetails, {}> {
 
     targetBlankDecorator(decoratedHref: string, decoratedText: string, key: number) {
         return (
-            <a className='dont-break-out' target='_blank' href={decoratedHref} key={key}>
+            <a className='linkify-link' target='_blank' href={decoratedHref} key={key}>
                 {decoratedText}
             </a>
         );
@@ -207,19 +213,18 @@ export class LearnMore extends React.Component<CompetencyDetails, {}> {
         return <ReactLinkify componentDecorator={this.targetBlankDecorator}>
             <div className='row animate-bottom'>
                 <div className='col-12'>
-                    <h5>{safeReplace(localizationStore.getString('Library.Item.LearnMore'), competency.Name)}</h5>
+                    <h5 className='font-italic font-weight-bold'>{safeReplace(localizationStore.getString('Library.Item.LearnMore'), competency.Name)}</h5>
                 </div>
                 {competency.LearnMore.map((learnMore, i) => {
                     return <div className='col-12 py-1' key={i}>
-                        <p>{learnMore}</p>
-                    </div>
-                })
+                            <p>{learnMore}</p>
+                        </div>
+                    })
                 }
-
                 <div className='col-12 pt-3'>
-                    <h5>{localizationStore.getString('Library.Item.DeepDive')}</h5>
+                    <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.DeepDive')}</h5>
                 </div>
-                <div className='col-12'>
+                <div className='col-12 column-split rounded p-3' style={{ background: '#d5e8e0' }}>
                     {competency.DeepDiveResources.map((resource, i) => <p className='py-1' key={i}>{resource}</p>)}
                 </div>
                 <div className='col-12 pt-3'>

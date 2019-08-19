@@ -81,14 +81,7 @@ namespace KFLA.Services.Services
                 result.Add(new LocalizedString { Key = "Library.Item.Stopper.Tips", Value = labels[30] });
                 result.Add(new LocalizedString { Key = "Library.Item.LearningResources", Value = labels[31] });
 
-                result.Add(new LocalizedString { Key = "Library.Items.Links.Tips", Value = labels[10] });
-                result.Add(new LocalizedString { Key = "Library.Items.Links.Reflect", Value = labels[13] });
-                result.Add(new LocalizedString { Key = "Library.Items.Links.LearnMore", Value = labels[14] });
-                result.Add(new LocalizedString { Key = "Library.Items.Links.DeepDive", Value = labels[15] });
-                result.Add(new LocalizedString { Key = "Library.Items.Links.PossibleCauses", Value = labels[24] });
                 result.Add(new LocalizedString { Key = "Library.Items.Links.Jobs", Value = labels[12] });
-                result.Add(new LocalizedString { Key = "Library.Items.Links.Stopper.TipsBeing", Value = labels[29] });
-                result.Add(new LocalizedString { Key = "Library.Items.Links.Stopper.Tips", Value = labels[30] });
                 result.Add(new LocalizedString { Key = "Library.Items.Links.LearningResources", Value = labels[31] });
             }
 
@@ -181,7 +174,8 @@ namespace KFLA.Services.Services
                 competency.Quotes = quotes.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.Quote).ToList();
                 competency.Positioning = positionings.SingleOrDefault(o => o.Id == competency.ID).Positioning;
                 competency.Causes = causes.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.Cause).ToList();
-                competency.CaseStudies = caseStudies.Where(o => o.Id == competency.ID).Select(o => new CaseStudy { Type = o.Type, Case = o.CaseStudy }).ToList();
+                var caseStudy = caseStudies.SingleOrDefault(o => o.Id == competency.ID);
+                competency.CaseStudy = new CaseStudy { Type = caseStudy.Type, Case = caseStudy.CaseStudy };
                 competency.Tips = tips.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.Tip).ToList();
                 competency.JobAssignments = jobAssignments.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => o.JobAssignment).ToList();
                 competency.TimeToReflect = timeToReflect.Where(o => o.Id == competency.ID).OrderBy(o => o.Order).Select(o => new TimeToReflect { Statement = o.Statement, Suggestion = o.Suggestion }).ToList();

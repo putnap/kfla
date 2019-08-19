@@ -25,10 +25,10 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
         const { stopper, localizationStore, match } = this.props;
 
         const menuItems: DropRightMenuItemProps[] = [
-            { link: 'Info', icon: 'info', linkText: stopper.Name },
-            { link: 'Skills', icon: 'user', linkText: localizationStore.getString('StopperItem.Problem') },
+            { link: 'Overview', icon: 'info', linkText: localizationStore.getString('Library.Items.Links.Overview') },
+            { link: 'Scales', icon: 'user', linkText: localizationStore.getString('Library.Items.Links.Scales') },
             { link: 'PossibleCauses', icon: 'sitemap', linkText: localizationStore.getString('Library.Items.Links.PossibleCauses') },
-            { link: 'Tips', icon: 'brain', linkText: safeReplace(localizationStore.getString(this.getTipsKey(stopper)), stopper.Name) },
+            { link: 'Tips', icon: 'brain', linkText: localizationStore.getString("Library.Items.Links.Tips") },
             { link: 'Jobs', icon: 'tasks', linkText: localizationStore.getString('Library.Items.Links.Jobs') },
             { link: 'LearningResources', icon: ['fab', 'leanpub'], linkText: localizationStore.getString('Library.Items.Links.LearningResources') },
         ];
@@ -46,11 +46,11 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
                     <div className='my-3 mx-3 mx-md-5' style={{ width: '100%' }}>
                         <Switch>
                             <Route
-                                path={`${match.path}/Info`}
-                                component={() => <Info stopper={stopper} />} />
+                                path={`${match.path}/Overview`}
+                                component={() => <Overview stopper={stopper} />} />
                             <Route
-                                path={`${match.path}/Skills`}
-                                component={() => <Skills stopper={stopper} />} />
+                                path={`${match.path}/Scales`}
+                                component={() => <Scales stopper={stopper} />} />
                             <Route
                                 path={`${match.path}/PossibleCauses`}
                                 component={() => <PossibleCauses stopper={stopper} />} />
@@ -63,7 +63,7 @@ export class StopperItem extends React.Component<StopperItemProps, {}> {
                             <Route
                                 path={`${match.path}/LearningResources`}
                                 component={() => <LearningResources stopper={stopper} />} />
-                            <Redirect to={`${match.path}/Info`} />
+                            <Redirect to={`${match.path}/Overview`} />
                         </Switch>
                     </div>
                 </div>
@@ -78,7 +78,7 @@ interface StopperDetails {
 }
 
 @inject("localizationStore")
-export class Info extends React.Component<StopperDetails, {}> {
+export class Overview extends React.Component<StopperDetails, {}> {
     render() {
         const stopper = this.props.stopper;
         return <div className='row animate-bottom'>
@@ -90,7 +90,7 @@ export class Info extends React.Component<StopperDetails, {}> {
 }
 
 @inject("localizationStore")
-export class Skills extends React.Component<StopperDetails, {}> {
+export class Scales extends React.Component<StopperDetails, {}> {
 
     render() {
         const { stopper, localizationStore } = this.props;
@@ -115,18 +115,18 @@ export class PossibleCauses extends React.Component<StopperDetails, {}> {
         const { stopper, localizationStore } = this.props;
         return <div className='row animate-bottom'>
             <div className='col-12'>
-                <h5>{localizationStore.getString('Library.Item.Stopper.PossibleCauses')}</h5>
+                <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.Stopper.PossibleCauses')}</h5>
                 {printList(stopper.Causes)}
             </div>
             <div className='col-12'>
-                <h5>{localizationStore.getString('Library.Item.Stopper.OtherCauses')}</h5>
+                <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.Stopper.OtherCauses')}</h5>
                 <p>{safeReplace(localizationStore.getString('Library.Item.Stopper.OtherCauses.Description'), stopper.Name)}</p>
             </div>
             <div className='col-12'>
                 <h6>{localizationStore.getString('Library.Item.Stopper.OtherCauses.BeingLessSkilled')}</h6>
                 <ul className='list-unstyled pl-3'>
                     {stopper.OtherCausesBeingLessSkilled.map(i => {
-                        return <li key={i}><p className='class-text' style={{ fontSize: '80%' }}>{i}</p></li>;
+                        return <li key={i}><p className='class-text'>{i}</p></li>;
                     })}
                 </ul>
             </div>
@@ -134,7 +134,7 @@ export class PossibleCauses extends React.Component<StopperDetails, {}> {
                 <h6>{localizationStore.getString('Library.Item.Stopper.OtherCauses.Overusing')}</h6>
                 <ul className='list-unstyled pl-3'>
                     {stopper.OtherCausesOverusing.map(i => {
-                        return <li key={i}><p className='class-text' style={{ fontSize: '80%' }}>{i}</p></li>;
+                        return <li key={i}><p className='class-text'>{i}</p></li>;
                     })}
                 </ul>
             </div>
@@ -157,7 +157,7 @@ export class Tips extends React.Component<StopperDetails, {}> {
         const { stopper, localizationStore } = this.props;
         return <div className='row animate-bottom'>
             <div className='col-12'>
-                <h5>{safeReplace(localizationStore.getString(this.getTipsKey(stopper)), stopper.Name)}</h5>
+                <h5 className='font-italic font-weight-bold'>{safeReplace(localizationStore.getString(this.getTipsKey(stopper)), stopper.Name)}</h5>
             </div>
             {stopper.Tips.map((tip, i) => {
                 return <CollapsableTip index={i} phrase={tip.Phrase} content={tip.TipContent} key={i} />
@@ -174,10 +174,14 @@ export class JobAssignments extends React.Component<StopperDetails, {}> {
         const { stopper, localizationStore } = this.props;
         return <div className='row animate-bottom'>
             <div className='col-12'>
-                <h5>{localizationStore.getString('Library.Item.JobAssignments')}</h5>
+                <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.JobAssignments')}</h5>
             </div>
-            {printList(stopper.JobAssignments)}
-            <Quote quote={stopper.Quotes[1]} />
+            <div className='col-12 col-md-6 pr-md-2'>
+                {printList(stopper.JobAssignments)}
+            </div>
+            <div className='col-12 col-md-6 pl-md-2'>
+                <Quote quote={stopper.Quotes[1]} />
+            </div>
         </div>
     }
 }
@@ -189,7 +193,7 @@ export class LearningResources extends React.Component<StopperDetails, {}> {
         const { stopper, localizationStore } = this.props;
         return <div className='row animate-bottom'>
             <div className='col-12'>
-                <h5>{localizationStore.getString('Library.Item.LearningResources')}</h5>
+                <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.LearningResources')}</h5>
             </div>
             {stopper.LearningResources.map((resource, i) => {
                 return <div className='col-12 py-1' key={i}>

@@ -37,7 +37,7 @@ export interface CompetencyJSON {
     Quotes: string[];
     Positioning: string;
     Causes: string[];
-    CaseStudies: CaseStudy[];
+    CaseStudy: CaseStudy;
     JobAssignments: string[];
     TimeToReflect: TimeToReflect[];
     LearnMore: string[];
@@ -62,7 +62,7 @@ export class Competency {
     Quotes: string[];
     Positioning: string;
     Causes: string[];
-    CaseStudies: CaseStudy[];
+    CaseStudy: CaseStudy;
     JobAssignments: string[];
     TimeToReflect: TimeToReflect[];
     LearnMore: string[];

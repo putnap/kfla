@@ -542,17 +542,21 @@ body, html {
     width: 56px;
 }
 
-.slideout-menu a.active .background-lib {
-    background: #9c8ebf
-}
+    .slideout-menu a.active .background-lib {
+        background: #9c8ebf
+    }
 
-.slideout-menu a.active .slideout-menu-icon {
-    color: #FFFFFF
-}
+    .slideout-menu a.active p {
+        color: #FFFFFF
+    }
+
+    .slideout-menu a.active .slideout-menu-icon {
+        color: #FFFFFF
+    }
 
 .divider {
     height: 3px;
-    background: #000000;
+    background: #FFFFFF;
 }
 
 .pointer {
@@ -566,15 +570,32 @@ body, html {
 .column-split {
     -webkit-column-count: 2;
     -webkit-column-gap: 40px;
-
     -moz-column-count: 2;
     -moz-column-gap: 40px;
-
     column-count: 2;
     column-gap: 40px;
 }
 
-.dont-break-out {
+    .column-split p {
+        -webkit-column-break-inside: avoid;
+        -moz-column-break-inside: avoid;
+        -moz-page-break-inside: avoid;
+        page-break-inside: avoid;
+        break-inside: avoid-column;
+    }
+
+@media (max-width: 768px) {
+    .column-split {
+        -webkit-column-count: 1;
+        -webkit-column-gap: 40px;
+        -moz-column-count: 1;
+        -moz-column-gap: 40px;
+        column-count: 1;
+        column-gap: 40px;
+    }
+}
+
+.linkify-link {
     /* These are technically the same, but use both */
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -588,4 +609,5 @@ body, html {
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
+    color: #007e3a;
 }

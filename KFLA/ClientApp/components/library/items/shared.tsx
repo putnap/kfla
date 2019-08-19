@@ -32,7 +32,7 @@ const DropRightButtonFunction: React.FunctionComponent<DropRightButtonProps> = p
     const { link, icon, match, children } = props;
 
     return <NavLink to={`${match.url}/${link}`} activeClassName='active'>
-        <div className='dropright text-dark'>
+        <div className='dropright'>
             <div className='btn rounded-0 background-lib'>
                 <FontAwesomeIcon className='slideout-menu-icon' fixedWidth icon={icon} />
             </div>
@@ -52,15 +52,15 @@ export const DropRightMenu: React.FunctionComponent<{ menuItems: DropRightMenuIt
         {
             menuItems
                 .map((item, i) => <DroprightButton link={item.link} icon={item.icon} key={i}>{item.linkText}</DroprightButton>)
-                .map((item, i) => [i > 0 && <div className='divider'></div>, item])
+                .map((item, i) => [i > 0 && <div className='divider' key={i + menuItems.length}></div>, item])
         }
     </div>
 }
 
-export const Quote: React.FunctionComponent<{ quote: string }> = props => {
-    const { quote } = props;
+export const Quote: React.FunctionComponent<{ quote: string, background?: string }> = props => {
+    const { quote, background } = props;
 
-    return <div className='rounded ml-md-3 px-3 py-4 p-md-5 h-100 d-flex align-items-center w-100' style={{ background: '#e2ddf2' }}>
+    return <div className='rounded ml-md-3 px-3 py-4 p-md-5 h-100 d-flex align-items-center w-100' style={{ background: `#${background || 'e2ddf2'}` }}>
         <p className='h5 font-italic'>
             {quote}
         </p>

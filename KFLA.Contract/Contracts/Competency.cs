@@ -49,7 +49,7 @@ namespace KFLA.Contract
 
         public List<string> Causes { get; set; } = new List<string>();
 
-        public List<CaseStudy> CaseStudies { get; set; } = new List<CaseStudy>();
+        public CaseStudy CaseStudy { get; set; }
 
         public List<Tip> Tips { get; set; } = new List<Tip>();
 
