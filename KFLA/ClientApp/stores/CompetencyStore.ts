@@ -24,8 +24,6 @@ export class CompetencyStore {
     @observable isLoaded: boolean;
     @observable isLoading: boolean;
     @observable loadingLanguage: string;
-    @observable isAuthenticated: boolean = true;
-    @observable isAuthenticating: boolean;
 
     @computed get uneavluatedCompetencies(): Competency[] {
         return this.competencies.filter(o => !o.IsEvaluated);
@@ -106,24 +104,6 @@ export class CompetencyStore {
                 throw Error(error);
             }
         }
-    }
-
-    @action login(password: string, failCallback: () => void) {
-        this.isAuthenticated = false;
-        this.isAuthenticating = true;
-        fetch('api/login', {
-            method: 'post',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(password)
-        })
-            .then((response) =>
-                setTimeout(() => {
-                    this.isAuthenticating = false;
-                    this.isAuthenticated = response.status == 200;
-                    if (!this.isAuthenticated)
-                        failCallback();
-                }, 750)
-            );
     }
 
     @action groupCompetencies(competencies: Competency[]): Factor[] {

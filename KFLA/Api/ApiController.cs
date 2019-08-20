@@ -28,6 +28,11 @@ namespace KFLA.API
             return Ok(await mongoCompetenciesService.GetCompetencies(language));
         }
 
+        [HttpGet("evaluations")]
+        public async Task<IActionResult> GetEvaluations([FromHeader(Name = "Accept-Language")] string language)
+        {
+            return Ok(await mongoCompetenciesService.GetEvaluations(language));
+        }
 
         [HttpGet("stoppers")]
         public async Task<IActionResult> GetStoppers([FromHeader(Name = "Accept-Language")] string language)
@@ -41,41 +46,92 @@ namespace KFLA.API
             return Ok(await mongoCompetenciesService.GetStrings(language));
         }
 
-        [HttpGet("evaluations")]
-        public async Task<IActionResult> GetEvaluations([FromHeader(Name = "Accept-Language")] string language)
-        {
-            return Ok(await mongoCompetenciesService.GetEvaluations(language));
-        }
-
         [HttpGet("languages")]
         public async Task<IActionResult> GetLanguages()
         {
             return Ok(await mongoCompetenciesService.GetLanguages());
         }
 
-        [HttpPost("login")]
-        public IActionResult Login([FromBody]string password)
+        [HttpPut("competencies")]
+        public async Task<IActionResult> UpdateCompetencies(string language)
         {
-            if (configuration["QuestionairePassword"] == password)
-                return Ok();
-
-            return Unauthorized();
-        }
-
-        [HttpPut("db")]
-        public async Task<IActionResult> WriteToDBForLanguage([FromHeader(Name = "Accept-Language")] string language)
-        {
-            await GetLanguageTask(language);
+            if (string.IsNullOrEmpty(language))
+            {
+                var languages = await mongoCompetenciesService.GetLanguages();
+                foreach (var lang in languages)
+                    await WriteCompetencies(lang);
+            }
+            else
+            {
+                await WriteCompetencies(language);
+            }
 
             return NoContent();
         }
 
-        [HttpPut("db/all")]
-        public async Task<IActionResult> WriteToDB()
+        [HttpPut("evaluations")]
+        public async Task<IActionResult> UpdateEvaluations(string language)
         {
-            var languages = await mongoCompetenciesService.GetLanguages();
+            if (string.IsNullOrEmpty(language))
+            {
+                var languages = await mongoCompetenciesService.GetLanguages();
+                foreach (var lang in languages)
+                    await WriteEvaluations(lang);
+            }
+            else
+            {
+                await WriteEvaluations(language);
+            }
 
-            await Task.WhenAll(languages.Select(GetLanguageTask));
+            return NoContent();
+        }
+
+        [HttpPut("stoppers")]
+        public async Task<IActionResult> UpdateStoppers(string language)
+        {
+            if (string.IsNullOrEmpty(language))
+            {
+                var languages = await mongoCompetenciesService.GetLanguages();
+                foreach (var lang in languages)
+                    await WriteStoppers(lang);
+            }
+            else
+            {
+                await WriteStoppers(language);
+            }
+
+            return NoContent();
+        }
+
+        [HttpPut("strings")]
+        public async Task<IActionResult> UpdateStrings(string language)
+        {
+            if (string.IsNullOrEmpty(language))
+            {
+                var languages = await mongoCompetenciesService.GetLanguages();
+                foreach (var lang in languages)
+                    await WriteStrings(lang);
+            }
+            else
+            {
+                await WriteStrings(language);
+            }
+
+            return NoContent();
+        }
+
+        [HttpPut("all")]
+        public async Task<IActionResult> UpdateAll(string language)
+        {
+            if (string.IsNullOrEmpty(language))
+            {
+                var languages = await mongoCompetenciesService.GetLanguages();
+                await Task.WhenAll(languages.Select(GetLanguageTask));
+            }
+            else
+            {
+                await GetLanguageTask(language);
+            }
 
             return NoContent();
         }
