@@ -14,10 +14,10 @@ const StopperItem: React.FunctionComponent<StopperItemProps> = props => {
 
     const menuItems: DropRightMenuItemProps[] = [
         { link: 'Overview', icon: 'info', linkText: localizationStore.getString('Library.Items.Links.Overview') },
-        { link: 'Scales', icon: 'user', linkText: localizationStore.getString('Library.Items.Links.Scales') },
+        { link: 'Scales', icon: 'balance-scale', linkText: localizationStore.getString('Library.Items.Links.Scales') },
         { link: 'PossibleCauses', icon: 'sitemap', linkText: localizationStore.getString('Library.Items.Links.PossibleCauses') },
         { link: 'Tips', icon: 'brain', linkText: localizationStore.getString("Library.Items.Links.Tips") },
-        { link: 'Jobs', icon: 'tasks', linkText: localizationStore.getString('Library.Items.Links.Jobs') },
+        { link: 'Jobs', icon: 'briefcase', linkText: localizationStore.getString('Library.Items.Links.Jobs') },
         { link: 'LearningResources', icon: ['fab', 'leanpub'], linkText: localizationStore.getString('Library.Items.Links.LearningResources') },
     ];
 
@@ -75,11 +75,11 @@ const Scales = ({ stopper }) => {
 
     return <div className='row animate-bottom'>
         <div className='col-sm-12 col-md-6'>
-            <p className='card-text font-weight-bold'><span className='pl-2'>{localizationStore.getString('StopperItem.Problem')}</span></p>
+            <p className='card-text font-weight-bold item-skill-icon'><span className='pl-2'>{localizationStore.getString('StopperItem.Problem')}</span></p>
             {printList(stopper.Problem)}
         </div>
         <div className='col-sm-12 col-md-6'>
-            <p className='card-text font-weight-bold'><span className='pl-2'>{localizationStore.getString('StopperItem.NotAProblem')}</span></p>
+            <p className='card-text font-weight-bold item-skill-icon'><span className='pl-2'>{localizationStore.getString('StopperItem.NotAProblem')}</span></p>
             {printList(stopper.NotProblem)}
         </div>
     </div>
@@ -90,11 +90,11 @@ const PossibleCauses = ({ stopper }) => {
 
     return <div className='row animate-bottom'>
         <div className='col-12'>
-            <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.Stopper.PossibleCauses')}</h5>
+            <h5 className='text-uppercase font-weight-bold' style={{ color: 'rgb(29,118,144)' }}>{localizationStore.getString('Library.Item.Stopper.PossibleCauses')}</h5>
             {printList(stopper.Causes)}
         </div>
         <div className='col-12'>
-            <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.Stopper.OtherCauses')}</h5>
+            <h5 className='text-uppercase font-weight-bold' style={{ color: 'rgb(29,118,144)' }}>{localizationStore.getString('Library.Item.Stopper.OtherCauses')}</h5>
             <p>{safeReplace(localizationStore.getString('Library.Item.Stopper.OtherCauses.Description'), stopper.Name)}</p>
         </div>
         <div className='col-12'>
@@ -130,7 +130,7 @@ const Tips = ({ stopper }) => {
 
     return <div className='row animate-bottom'>
         <div className='col-12'>
-            <h5 className='font-italic font-weight-bold'>{safeReplace(localizationStore.getString(getTipsKey(stopper)), stopper.Name)}</h5>
+            <h5 className='text-uppercase font-weight-bold' style={{ color: 'rgb(0,126,58)' }}>{safeReplace(localizationStore.getString(getTipsKey(stopper)), stopper.Name)}</h5>
         </div>
         {stopper.Tips.map((tip, i) => {
             return <CollapsableTip index={i} phrase={tip.Phrase} content={tip.TipContent} key={i} />
@@ -144,10 +144,12 @@ const JobAssignments = ({ stopper }) => {
 
     return <div className='row animate-bottom'>
         <div className='col-12'>
-            <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.JobAssignments')}</h5>
+            <h5 className='text-uppercase font-weight-bold' style={{ color: 'rgba(127, 127, 127, 1)' }}>{localizationStore.getString('Library.Item.JobAssignments')}</h5>
         </div>
-        <div className='col-12 col-md-6 pr-md-2'>
-            {printList(stopper.JobAssignments)}
+        <div className='col-12 col-md-6 pr-md-2 mb-3 mb-md-0'>
+            <div className='rounded py-4 pr-3' style={{ background: 'rgba(230,230,230,0.6)' }}>
+                {printList(stopper.JobAssignments)}
+            </div>
         </div>
         <div className='col-12 col-md-6 pl-md-2'>
             <Quote quote={stopper.Quotes[1]} />
@@ -160,7 +162,7 @@ const LearningResources = ({ stopper }) => {
 
     return <div className='row animate-bottom'>
         <div className='col-12'>
-            <h5 className='font-italic font-weight-bold'>{localizationStore.getString('Library.Item.LearningResources')}</h5>
+            <h5 className='text-uppercase font-weight-bold' style={{ color: 'rgb(0,126,58)' }}>{localizationStore.getString('Library.Item.LearningResources')}</h5>
         </div>
         {stopper.LearningResources.map((resource, i) => {
             return <div className='col-12 py-1' key={i}>
