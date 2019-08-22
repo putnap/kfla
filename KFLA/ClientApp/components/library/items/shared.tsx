@@ -54,7 +54,7 @@ export const DropRightMenu = ({ menuItems }) => {
 
 export const Quote = ({ quote, background = '#e2ddf2' }) => {
     return <div className='rounded ml-md-3 px-3 py-4 p-md-5 h-100 d-flex align-items-center w-100' style={{ background: background }}>
-        <p className='h5 font-italic' dangerouslySetInnerHTML={{ __html: quote }}>
+        <p className='h5' dangerouslySetInnerHTML={{ __html: quote }}>
         </p>
     </div>
 }
@@ -72,7 +72,7 @@ export const CollapsableTip = ({ index, phrase, content, children = null }) => {
     return <div className='col-12 py-1'>
         <div className='rounded font-weight-bold pointer p-2' style={{ background: 'rgba(213,232,224,1)' }} data-toggle='collapse' data-target={`#collapseTip${index}`} aria-expanded='false' aria-controls={`collapseTip${index}`}>{index + 1}. {phrase}</div>
         <div className='collapse p-1' id={`collapseTip${index}`}>
-            <p>{content}</p>
+            <p style={{ lineHeight: '1.5' }}>{content}</p>
             {children}
         </div>
     </div>

@@ -13,9 +13,9 @@ const StopperItem: React.FunctionComponent<StopperItemProps> = props => {
     const { stopper, match } = props;
 
     const menuItems: DropRightMenuItemProps[] = [
-        { link: 'Overview', icon: 'info', linkText: localizationStore.getString('Library.Items.Links.Overview') },
         { link: 'Scales', icon: 'balance-scale', linkText: localizationStore.getString('Library.Items.Links.Scales') },
-        { link: 'PossibleCauses', icon: 'sitemap', linkText: localizationStore.getString('Library.Items.Links.PossibleCauses') },
+        { link: 'Overview', icon: 'info', linkText: localizationStore.getString('Library.Items.Links.Overview') },
+        { link: 'PossibleCauses', icon: 'route', linkText: localizationStore.getString('Library.Items.Links.PossibleCauses') },
         { link: 'Tips', icon: 'brain', linkText: localizationStore.getString("Library.Items.Links.Tips") },
         { link: 'Jobs', icon: 'briefcase', linkText: localizationStore.getString('Library.Items.Links.Jobs') },
         { link: 'LearningResources', icon: ['fab', 'leanpub'], linkText: localizationStore.getString('Library.Items.Links.LearningResources') },
@@ -34,11 +34,11 @@ const StopperItem: React.FunctionComponent<StopperItemProps> = props => {
                 <div className='my-3 mx-3 mx-md-5' style={{ width: '100%' }}>
                     <Switch>
                         <Route
-                            path={`${match.path}/Overview`}
-                            component={() => <Overview stopper={stopper} />} />
-                        <Route
                             path={`${match.path}/Scales`}
                             component={() => <Scales stopper={stopper} />} />
+                        <Route
+                            path={`${match.path}/Overview`}
+                            component={() => <Overview stopper={stopper} />} />
                         <Route
                             path={`${match.path}/PossibleCauses`}
                             component={() => <PossibleCauses stopper={stopper} />} />

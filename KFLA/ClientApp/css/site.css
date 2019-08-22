@@ -595,7 +595,7 @@ body, html {
     }
 }
 
-.linkify-link {
+.break-all {
     /* These are technically the same, but use both */
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -609,5 +609,8 @@ body, html {
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
+}
+
+.linkify-link {
     color: #007e3a;
 }

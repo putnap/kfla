@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import ReactLinkify from 'react-linkify';
 import { Route, RouteComponentProps, Switch, Redirect, withRouter } from 'react-router';
+import { isEdge } from 'react-device-detect';
 import { Competency } from '@Models/Competency';
 import { safeReplace, printList, ContextWithQuote, Quote, CollapsableTip, DropRightMenuItemProps, DropRightMenu } from './shared';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,7 +19,7 @@ const CompetencyItem: React.FunctionComponent<CompetencyItemProps> = props => {
     const menuItems: DropRightMenuItemProps[] = [
         { link: 'Scales', icon: 'balance-scale', linkText: localizationStore.getString('Library.Items.Links.Scales') },
         { link: 'Overview', icon: 'info', linkText: localizationStore.getString('Library.Items.Links.Overview') },
-        { link: 'PossibleCauses', icon: 'sitemap', linkText: localizationStore.getString('Library.Items.Links.PossibleCauses') },
+        { link: 'PossibleCauses', icon: 'route', linkText: localizationStore.getString('Library.Items.Links.PossibleCauses') },
         { link: 'Tips', icon: 'brain', linkText: localizationStore.getString('Library.Items.Links.Tips') },
         { link: 'Jobs', icon: 'briefcase', linkText: localizationStore.getString('Library.Items.Links.Jobs') },
         { link: 'Reflect', icon: 'history', linkText: localizationStore.getString('Library.Items.Links.Reflect') },
@@ -38,7 +39,7 @@ const CompetencyItem: React.FunctionComponent<CompetencyItemProps> = props => {
         <div className='row'>
             <div className='col d-flex'>
                 <DropRightMenu menuItems={menuItems} />
-                <div className='my-3 mx-3 mx-md-5' style={{ width: '100%' }}>
+                <div className='my-3 mx-3 mx-md-5 flex-grow-1'>
                     <Switch>
                         <Route
                             path={`${path}/Scales`}
@@ -186,7 +187,7 @@ const TimeToReflect = ({ competency }) => {
 
 const targetBlankDecorator = (decoratedHref: string, decoratedText: string, key: number) => {
     return (
-        <a className='linkify-link' target='_blank' href={decoratedHref} key={key}>
+        <a className='linkify-link break-all' target='_blank' href={decoratedHref} key={key}>
             {decoratedText}
         </a>
     );
@@ -194,6 +195,8 @@ const targetBlankDecorator = (decoratedHref: string, decoratedText: string, key:
 
 const LearnMore = ({ competency }) => {
     const localizationStore = useStore(stores => stores.localizationStore);
+
+    const deepDiveClass = isEdge ? 'break-all' : 'text-break';
 
     return <ReactLinkify componentDecorator={targetBlankDecorator}>
         <div className='row animate-bottom'>
@@ -210,7 +213,7 @@ const LearnMore = ({ competency }) => {
                 <h5 className='text-uppercase font-weight-bold' style={{ color: 'rgb(0,126,58)' }}>{localizationStore.getString('Library.Item.DeepDive')}</h5>
             </div>
             <div className='col-12 column-split rounded p-3' style={{ background: '#d5e8e0' }}>
-                {competency.DeepDiveResources.map((resource, i) => <p className='py-1' key={i}>{resource}</p>)}
+                {competency.DeepDiveResources.map((resource, i) => <p className={`py-1 ${deepDiveClass}`} key={i}>{resource}</p>)}
             </div>
             <div className='col-12 pt-3'>
                 <p className='card-text font-weight-bold' style={{ color: 'rgb(0,126,58)' }}><FontAwesomeIcon icon='cloud-download-alt' /><span className='pl-2'>{localizationStore.getString('Library.Item.MoreHelp.Title')}</span></p>
