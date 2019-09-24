@@ -51,7 +51,7 @@ const StopperItem: React.FunctionComponent<StopperItemProps> = props => {
                         <Route
                             path={`${match.path}/LearningResources`}
                             component={() => <LearningResources stopper={stopper} />} />
-                        <Redirect to={`${match.path}/Overview`} />
+                        <Redirect to={`${match.path}/Scales`} />
                     </Switch>
                 </div>
             </div>
