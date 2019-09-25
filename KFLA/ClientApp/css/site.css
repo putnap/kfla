@@ -324,6 +324,11 @@ body, html {
         display: block;
     }
 
+.background-lib .btn-floating-container .btn {
+    background: #9c8ebf;
+    color: #FFFFFF;
+}
+
 .background-light .btn-floating-container .btn {
     background: #5798AC;
     color: #FFFFFF;

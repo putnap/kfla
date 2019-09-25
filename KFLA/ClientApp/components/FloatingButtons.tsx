@@ -7,10 +7,11 @@ export interface FloatingButtonProps {
     label: string
     onClick: () => any
     disabled?: boolean
+    hidden?: boolean
 }
 
-const ButtonWithIcon = ({ icon, label, onClick, disabled = false }) => {
-    return <button onClick={onClick} className='btn rounded-circle' title={label} disabled={disabled} >
+const ButtonWithIcon = ({ icon, label, onClick, disabled = false, hidden = false }) => {
+    return <button onClick={onClick} className='btn rounded-circle' title={label} disabled={disabled} hidden={hidden} >
         <FontAwesomeIcon icon={icon} />
     </button>
 }

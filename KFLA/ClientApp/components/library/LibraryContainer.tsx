@@ -2,20 +2,20 @@
 import * as jQuery from 'jquery';
 import { RouteComponentProps } from 'react-router';
 import { observer, inject } from 'mobx-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Competency } from '../../models/Competency';
-import NavMenu from '../NavMenu';
-import { CompetencyStore } from '../../stores/CompetencyStore';
-import { Loader } from '../Loader';
-import { FactorList } from '../FactorList';
+import { Competency } from '@Models/Competency';
+import NavMenu from '@Components/NavMenu';
+import { CompetencyStore } from '@Stores/CompetencyStore';
+import { Loader } from '@Components/Loader';
+import { FactorList } from '@Components/FactorList';
 import { CompetencyItem } from './CompetencyItem';
-import { StoppersList } from '../StoppersList';
+import { StoppersList } from '@Components/StoppersList';
 import { CompetencyList } from './CompetencyList';
-import { VideoModal } from '../VideoModal';
+import { VideoModal } from '@Components/VideoModal';
 import { StopperItem } from './StopperItem';
-import { Stopper } from '../../models/Stopper';
-import { LocalizationStore } from '../../stores/LocalizationStore';
-import { LanguageParam } from '../../@types/types';
+import { Stopper } from '@Models/Stopper';
+import { LocalizationStore } from '@Stores/LocalizationStore';
+import { LanguageParam } from '@Types/types';
+import { FloatingButtonProps, FloatingActionButtons } from '@Components/FloatingButtons';
 
 interface LibraryContainerProps extends RouteComponentProps<LanguageParam> {
     competencyStore?: CompetencyStore
@@ -67,7 +67,13 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
     }
 
     public render() {
-        const { competencyStore } = this.props;
+        const { competencyStore, localizationStore } = this.props;
+        const floatingButtons: FloatingButtonProps[] = [
+            { label: localizationStore.getString('Library.SortByNumber'), icon: "sort-numeric-down", onClick: this.changeSort, hidden: this.state.numericSort },
+            { label: localizationStore.getString('Library.SortByFactors'), icon: "sort-amount-down", onClick: this.changeSort, hidden: !this.state.numericSort },
+            { label: localizationStore.getString('Buttons.Info'), icon: "info", onClick: () => jQuery('#libraryVideo').modal() },
+        ]
+
         return <div className='row background-lib height-100'>
             <NavMenu {...this.props} />
             <div className='mx-2 mx-md-5 w-100 main-content'>
@@ -79,18 +85,8 @@ export class LibraryContainer extends React.Component<LibraryContainerProps, Lib
                             <FactorList factors={competencyStore.factors} renderCompetency={this.renderCompetency} animate={true} />
                 }
                 <StoppersList animate={true} renderStopper={this.renderStopper} />
-                <div className='btn-floating-container'>
-                    <button onClick={this.changeSort} className='btn rounded-circle' title={this.props.localizationStore.getString('Library.SortByNumber')} hidden={this.state.numericSort}>
-                        <FontAwesomeIcon icon='sort-numeric-down' />
-                    </button>
-                    <button onClick={this.changeSort} className='btn rounded-circle' title={this.props.localizationStore.getString('Library.SortByFactors')} hidden={!this.state.numericSort}>
-                        <FontAwesomeIcon icon='sort-amount-down' />
-                    </button>
-                    <button onClick={this.showInfo} className='btn rounded-circle' title={this.props.localizationStore.getString('Buttons.Info')}>
-                        <FontAwesomeIcon icon='info' />
-                    </button>
-                </div>
-                <VideoModal id='libraryVideo' videoId='XINbgbwJ0PQ' />
+                <FloatingActionButtons floatingButtons={floatingButtons} />
+                <VideoModal id='libraryVideo' videoId='2Kwp81JJLgM' />
             </div>
         </div>;
         
