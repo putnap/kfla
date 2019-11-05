@@ -27,7 +27,7 @@
 #EXPOSE 80:80
 #ENTRYPOINT ["dotnet", "KFLA.dll"]
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
 RUN apt-get install -y nodejs
@@ -35,7 +35,7 @@ RUN apt-get install -y nodejs
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
 WORKDIR /src
 COPY ["KFLA/KFLA.csproj", "KFLA/"]
 COPY ["KFLA.Services/KFLA.Services.csproj", "KFLA.Services/"]
@@ -44,13 +44,12 @@ COPY ["KFLA.Persistence.MongoDB/KFLA.Persistence.MongoDB.fsproj", "KFLA.Persiste
 RUN dotnet restore "KFLA/KFLA.csproj"
 COPY . .
 WORKDIR "/src/KFLA"
-RUN dotnet build "KFLA.csproj" -o /app
+RUN dotnet build "KFLA.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "KFLA.csproj" -o /app
+RUN dotnet publish "KFLA.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "KFLA.dll"]
-

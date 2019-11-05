@@ -1,7 +1,6 @@
 ﻿using KFLA.Contract.Services;
 using KFLA.Persistence.MongoDB;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,45 +10,44 @@ namespace KFLA.API
     [Route("api")]
     public class ApiController : Controller
     {
-        private readonly ICompetenciesService competenciesService;
-        private readonly IConfiguration configuration;
-        private readonly IMongoCompetenciesService mongoCompetenciesService;
+        private readonly ICompetenciesService _competenciesService;
+        private readonly IMongoCompetenciesService _mongoCompetenciesService;
 
-        public ApiController(ICompetenciesService competenciesService, IConfiguration configuration, IMongoCompetenciesService mongoCompetenciesService)
+        public ApiController(ICompetenciesService competenciesService, IMongoCompetenciesService mongoCompetenciesService)
         {
-            this.competenciesService = competenciesService;
-            this.configuration = configuration;
-            this.mongoCompetenciesService = mongoCompetenciesService;
+            _competenciesService = competenciesService;
+            _mongoCompetenciesService = mongoCompetenciesService;
         }
 
         [HttpGet("competencies")]
         public async Task<IActionResult> GetCompetencies([FromHeader(Name = "Accept-Language")] string language)
         {
-            return Ok(await mongoCompetenciesService.GetCompetencies(language));
+            return Ok(await _mongoCompetenciesService.GetCompetencies(language));
         }
 
         [HttpGet("evaluations")]
         public async Task<IActionResult> GetEvaluations([FromHeader(Name = "Accept-Language")] string language)
         {
-            return Ok(await mongoCompetenciesService.GetEvaluations(language));
+            return Ok(await _mongoCompetenciesService.GetEvaluations(language));
         }
 
         [HttpGet("stoppers")]
         public async Task<IActionResult> GetStoppers([FromHeader(Name = "Accept-Language")] string language)
         {
-            return Ok(await mongoCompetenciesService.GetStoppers(language));
+            return Ok(await _mongoCompetenciesService.GetStoppers(language));
         }
 
         [HttpGet("strings")]
         public async Task<IActionResult> GetStrings([FromHeader(Name = "Accept-Language")] string language)
         {
-            return Ok(await mongoCompetenciesService.GetStrings(language));
+            var strings = await _mongoCompetenciesService.GetStrings(language);
+            return Ok(strings.ToList());
         }
 
         [HttpGet("languages")]
         public async Task<IActionResult> GetLanguages()
         {
-            return Ok(await mongoCompetenciesService.GetLanguages());
+            return Ok(await _mongoCompetenciesService.GetLanguages());
         }
 
         [HttpPut("competencies")]
@@ -57,7 +55,7 @@ namespace KFLA.API
         {
             if (string.IsNullOrEmpty(language))
             {
-                var languages = await mongoCompetenciesService.GetLanguages();
+                var languages = await _mongoCompetenciesService.GetLanguages();
                 foreach (var lang in languages)
                     await WriteCompetencies(lang);
             }
@@ -74,7 +72,7 @@ namespace KFLA.API
         {
             if (string.IsNullOrEmpty(language))
             {
-                var languages = await mongoCompetenciesService.GetLanguages();
+                var languages = await _mongoCompetenciesService.GetLanguages();
                 foreach (var lang in languages)
                     await WriteEvaluations(lang);
             }
@@ -91,7 +89,7 @@ namespace KFLA.API
         {
             if (string.IsNullOrEmpty(language))
             {
-                var languages = await mongoCompetenciesService.GetLanguages();
+                var languages = await _mongoCompetenciesService.GetLanguages();
                 foreach (var lang in languages)
                     await WriteStoppers(lang);
             }
@@ -108,7 +106,7 @@ namespace KFLA.API
         {
             if (string.IsNullOrEmpty(language))
             {
-                var languages = await mongoCompetenciesService.GetLanguages();
+                var languages = await _mongoCompetenciesService.GetLanguages();
                 foreach (var lang in languages)
                     await WriteStrings(lang);
             }
@@ -125,7 +123,7 @@ namespace KFLA.API
         {
             if (string.IsNullOrEmpty(language))
             {
-                var languages = await mongoCompetenciesService.GetLanguages();
+                var languages = await _mongoCompetenciesService.GetLanguages();
                 await Task.WhenAll(languages.Select(GetLanguageTask));
             }
             else
@@ -147,26 +145,26 @@ namespace KFLA.API
 
         private async Task WriteStrings(string language)
         {
-            var strings = await competenciesService.GetStrings(language);
-            await mongoCompetenciesService.InsertStrings(language, strings);
+            var strings = await _competenciesService.GetStrings(language);
+            await _mongoCompetenciesService.InsertStrings(language, strings);
         }
 
         private async Task WriteEvaluations(string language)
         {
-            var evaluations = await competenciesService.GetEvaluations(language);
-            await mongoCompetenciesService.InsertEvaluations(language, evaluations);
+            var evaluations = await _competenciesService.GetEvaluations(language);
+            await _mongoCompetenciesService.InsertEvaluations(language, evaluations);
         }
 
         private async Task WriteStoppers(string language)
         {
-            var stoppers = await competenciesService.GetStoppers(language);
-            await mongoCompetenciesService.InsertStoppers(language, stoppers);
+            var stoppers = await _competenciesService.GetStoppers(language);
+            await _mongoCompetenciesService.InsertStoppers(language, stoppers);
         }
 
         private async Task WriteCompetencies(string language)
         {
-            var competencies = await competenciesService.GetCompetencies(language);
-            await mongoCompetenciesService.InsertCompetencies(language, competencies);
+            var competencies = await _competenciesService.GetCompetencies(language);
+            await _mongoCompetenciesService.InsertCompetencies(language, competencies);
         }
     }
 }

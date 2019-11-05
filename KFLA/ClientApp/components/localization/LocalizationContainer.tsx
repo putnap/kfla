@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react";
 import { RouteComponentProps, Route, Switch } from "react-router";
 import { LocalizationStore } from "@Stores/LocalizationStore";
 import { Loader } from "@Components/Loader";
-import { Home } from '@Components/Home';
+import Home from '@Components/Home';
 import { QuestionsContainer } from "@Components/questions/QuestionsContainer";
 import { QuestionsResult } from "@Components/questions/QuestionsResult";
 import { CompetenciesContainer } from "@Components/competencies/CompetenciesContainer";

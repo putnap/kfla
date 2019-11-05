@@ -13,31 +13,28 @@ namespace KFLA.Services.Services
 {
     public class ExcelCompetenciesService : ICompetenciesService
     {
-        private readonly Regex dataFileRegex = new Regex(@".+data\.(?'lang'[a-z]{2,3})\.xlsx");
+        private readonly Regex _dataFileRegex = new Regex(@".+data\.(?'lang'[a-z]{2,3})\.xlsx");
+
         public Task<IEnumerable<Competency>> GetCompetencies(string language)
         {
-            using (var pck = new ExcelPackage())
+            using var pck = new ExcelPackage();
+            using (var stream = GetData2Stream(language))
             {
-                using (var stream = GetData2Stream(language))
-                {
-                    pck.Load(stream);
-                }
-
-                return Task.FromResult(GetCompetencies(pck, language).ToList().AsEnumerable());
+                pck.Load(stream);
             }
+
+            return Task.FromResult(GetCompetencies(pck, language).ToList().AsEnumerable());
         }
 
         public Task<IEnumerable<Stopper>> GetStoppers(string language)
         {
-            using (var pck = new ExcelPackage())
+            using var pck = new ExcelPackage();
+            using (var stream = GetData2Stream(language))
             {
-                using (var stream = GetData2Stream(language))
-                {
-                    pck.Load(stream);
-                }
-
-                return Task.FromResult(GetStoppers(pck, language).ToList().AsEnumerable());
+                pck.Load(stream);
             }
+
+            return Task.FromResult(GetStoppers(pck, language).ToList().AsEnumerable());
         }
 
         public Task<IEnumerable<LocalizedString>> GetStrings(string language)
@@ -90,15 +87,13 @@ namespace KFLA.Services.Services
 
         public Task<IEnumerable<Evaluation>> GetEvaluations(string language)
         {
-            using (var pck = new ExcelPackage())
+            using var pck = new ExcelPackage();
+            using (var stream = GetDataStream(language))
             {
-                using (var stream = GetDataStream(language))
-                {
-                    pck.Load(stream);
-                }
-
-                return Task.FromResult(GetEvaluations(pck.Workbook.Worksheets[4]).ToList().AsEnumerable());
+                pck.Load(stream);
             }
+
+            return Task.FromResult(GetEvaluations(pck.Workbook.Worksheets[4]).ToList().AsEnumerable());
         }
 
         public Task<IEnumerable<string>> GetLanguages()
@@ -107,7 +102,7 @@ namespace KFLA.Services.Services
             var files = Directory.GetFiles(@".\data", "data.*.xlsx");
             foreach (var file in files)
             {
-                var language = dataFileRegex.Match(file).Groups["lang"].Value;
+                var language = _dataFileRegex.Match(file).Groups["lang"].Value;
                 result.Add(language);
             }
 
@@ -227,7 +222,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<Stopper> GetStoppersDefinitions(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Cluster-Comp S&S Mapping"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -252,7 +247,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<Factor> GetFactors(ExcelPackage pck, bool hasHeader = true)
         {
             var ws = pck.Workbook.Worksheets["Factors"];
-            var tbl = GetDataTable(ws, hasHeader);
+            using var tbl = GetDataTable(ws, hasHeader);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -269,7 +264,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, string Context)> GetContexts(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Context"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -281,7 +276,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, string Quote, string Order)> GetQuotes(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Quotes"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -293,7 +288,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, string Positioning)> GetPositioning(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Positioning"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -305,7 +300,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, int Order, string Cause)> GetCauses(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Causes"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -317,7 +312,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<IEnumerable<(int Id, string Cause)>> GetOtherCauses(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Other Causes"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
             var result = new List<List<(int Id, string Cause)>>()
             {
                 new List<(int Id, string Cause)>(),
@@ -348,7 +343,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, string Type, string CaseStudy)> GetCaseStudies(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Case Studies"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -360,7 +355,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, int Order, Tip Tip)> GetTips(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Tips"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             var wantToLearnMore = GetWantToLearnMore(pck);
 
@@ -379,7 +374,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, int Tip, int Order, string Reading)> GetWantToLearnMore(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Want to learn more"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -391,7 +386,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, int Order, string JobAssignment)> GetJobAssignments(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Job Assignments"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -403,7 +398,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, int Order, string Statement, string Suggestion)> GetTakeTimeToReflect(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Time to reflect"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -415,7 +410,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, int Order, string LearnMore)> GetLearnMore(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Learn More"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -427,7 +422,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, int Order, string DeepDiveResource)> GetDeepDiveLearningResources(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Deep dive learning resources"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -439,7 +434,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(string FactorID, string ClusterID)> GetFactorClusterMaps(ExcelPackage pck, bool hasHeader = true)
         {
             var ws = pck.Workbook.Worksheets["Factor-Cluster Mapping"];
-            var tbl = GetDataTable(ws, hasHeader);
+            using var tbl = GetDataTable(ws, hasHeader);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -451,7 +446,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(string ClusterID, int CompetencyID)> GetClusterCompetencyMaps(ExcelPackage pck, bool hasHeader = true)
         {
             var ws = pck.Workbook.Worksheets["Cluster-Comp S&S Mapping"];
-            var tbl = GetDataTable(ws, hasHeader);
+            using var tbl = GetDataTable(ws, hasHeader);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -463,7 +458,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int ID, string SkillDescription)> GetSkillDescriptions(ExcelPackage pck, string skill, bool hasHeader = true)
         {
             var ws = pck.Workbook.Worksheets[skill];
-            var tbl = GetDataTable(ws, hasHeader);
+            using var tbl = GetDataTable(ws, hasHeader);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -475,7 +470,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<(int Id, int Order, string LearningResource)> GetLearningResources(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["Learning resources"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -487,7 +482,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<string> GetLabels(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets["labels"];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -499,7 +494,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<Cluster> GetClusters(ExcelPackage pck, bool hasHeader = true)
         {
             var ws = pck.Workbook.Worksheets["Clusters"];
-            var tbl = GetDataTable(ws, hasHeader);
+            using var tbl = GetDataTable(ws, hasHeader);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -519,7 +514,7 @@ namespace KFLA.Services.Services
         private static IEnumerable<Competency> GetCompetencyDefinitions(ExcelPackage pck, bool hasHeader = true)
         {
             var ws = pck.Workbook.Worksheets["Comp Definition"];
-            var tbl = GetDataTable(ws, hasHeader);
+            using var tbl = GetDataTable(ws, hasHeader);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -536,21 +531,19 @@ namespace KFLA.Services.Services
 
         private static IEnumerable<(int ID, string Question)> GetCompetencyQuestions(string language)
         {
-            using (var pck = new ExcelPackage())
+            using var pck = new ExcelPackage();
+            using (var stream = GetDataStream(language))
             {
-                using (var stream = GetDataStream(language))
-                {
-                    pck.Load(stream);
-                }
-
-                return GetCompetencyQuestions(pck).ToList();
+                pck.Load(stream);
             }
+
+            return GetCompetencyQuestions(pck).ToList();
         }
 
         private static IEnumerable<(int ID, string Question)> GetCompetencyQuestions(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets[1];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -567,21 +560,19 @@ namespace KFLA.Services.Services
 
         private static IEnumerable<(int ID, string Question)> GetStopperQuestions(string language)
         {
-            using (var pck = new ExcelPackage())
+            using var pck = new ExcelPackage();
+            using (var stream = GetDataStream(language))
             {
-                using (var stream = GetDataStream(language))
-                {
-                    pck.Load(stream);
-                }
-
-                return GetStopperQuestions(pck).ToList();
+                pck.Load(stream);
             }
+
+            return GetStopperQuestions(pck).ToList();
         }
 
         private static IEnumerable<(int ID, string Question)> GetStopperQuestions(ExcelPackage pck)
         {
             var ws = pck.Workbook.Worksheets[2];
-            var tbl = GetDataTable(ws);
+            using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -598,7 +589,7 @@ namespace KFLA.Services.Services
 
         private static IEnumerable<LocalizedString> GetLocalizedStrings(ExcelWorksheet ws, bool hasHeader = true)
         {
-            var tbl = GetDataTable(ws, hasHeader);
+            using var tbl = GetDataTable(ws, hasHeader);
 
             foreach (DataRow row in tbl.Rows)
             {
@@ -614,7 +605,7 @@ namespace KFLA.Services.Services
 
         private static IEnumerable<Evaluation> GetEvaluations(ExcelWorksheet ws, bool hasHeader = true)
         {
-            var tbl = GetDataTable(ws, hasHeader);
+            using var tbl = GetDataTable(ws, hasHeader);
 
             foreach (DataRow row in tbl.Rows)
             {
