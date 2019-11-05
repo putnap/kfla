@@ -1,3 +1,6 @@
+import 'core-js/es';
+import 'react-app-polyfill/ie11';
+
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/site.css';
