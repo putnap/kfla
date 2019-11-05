@@ -26,9 +26,8 @@ export class CompetencyItem extends React.Component<CompetencyItemProps, {}> {
 
     printSkills(skills: string[], classes?: string) {
         return <ul>
-            {skills.map(i => {
-                if (i)
-                    return <li key={i}><p className={`class-text ${classes}`} style={{ fontSize: '80%' }}>{i}</p></li>;
+            {skills.filter(item => item).map(i => {
+                return <li key={i}><p className={`class-text ${classes}`} style={{ fontSize: '80%' }}>{i}</p></li>;
             })}
         </ul>
     }

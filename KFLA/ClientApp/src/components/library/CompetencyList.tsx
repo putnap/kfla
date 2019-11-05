@@ -1,6 +1,5 @@
 ﻿import * as React from 'react'; 
-import { render } from 'react-dom';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { Competency } from '../../models/Competency';
 
 interface CompetencyListState {
@@ -30,7 +29,7 @@ export class CompetencyList extends React.Component<CompetencyListProps, Compete
 
     updateDimensions() {
         const numberOfColumns = this.getNumberOfColumns();
-        if (numberOfColumns == this.state.numberOfColumns)
+        if (numberOfColumns === this.state.numberOfColumns)
             return;
 
         const rows = this.buildColumns(numberOfColumns);
@@ -62,7 +61,7 @@ export class CompetencyList extends React.Component<CompetencyListProps, Compete
     buildColumns(numberOfColumns: number): Competency[][]{
         const itemsPerColumn: number = Math.ceil(this.props.competencies.length / numberOfColumns);
         const rows: Competency[][] = [];
-        this.props.competencies.map((competency, index) => {
+        this.props.competencies.forEach((competency, index) => {
             const rowIndex = index % itemsPerColumn;
             if (!rows[rowIndex])
                 rows[rowIndex] = [];

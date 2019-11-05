@@ -74,7 +74,7 @@ export const EvaluationItem: React.FunctionComponent<EvaluationItemProps> = obse
                 <span className='font-weight-bold text-uppercase'>{evaluation.Name}</span>
                 <span className='font-weight-bold color-dark float-right'>{evaluation.evaluatedCompetences}/{evaluation.Limit}</span>
             </div>
-            <button type="button" className='btn dropdown-toggle-split rounded-0 background-dark' style={{ width: '75px', height: '60px' }} data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' disabled={evaluation.evaluatedCompetences == 0}>
+            <button type="button" className='btn dropdown-toggle-split rounded-0 background-dark' style={{ width: '75px', height: '60px' }} data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' disabled={evaluation.evaluatedCompetences === 0}>
                 <FontAwesomeIcon icon='sort-down' style={{ fontSize: '150%' }} className='align-self-center text-white' />
             </button>
             <div className='dropdown-menu dropdown-menu-right container m-0 p-0 pb-1 rounded-0 border-0 background-dark'>

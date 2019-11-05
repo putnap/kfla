@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { NavLink, RouteComponentProps, match, withRouter } from 'react-router-dom';
+import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
 import { compile } from 'path-to-regexp';
 import { useStore } from '../stores/hook';
 
-const getUrl = (language: string, match: match<{}>) => {
+const getUrl = (language, match) => {
     const toPath = compile(match.path);
     const newPath = toPath({ ...match.params, language: language });
 

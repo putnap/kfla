@@ -40,7 +40,7 @@ export class StoppersStore {
     }
 
     @action async fetchLocalizedStoppers(lang: string) {
-        if (!this.isLoading && lang || lang != this.loadingLanguage) {
+        if ((!this.isLoading && lang) || lang !== this.loadingLanguage) {
             this.stoppers = [];
             this.stopperClusters = [];
             this.loadingLanguage = lang;
@@ -69,12 +69,12 @@ export class StoppersStore {
         const clusters: StopperCluster[] = [];
         stoppers.forEach(stopper => {
             let type = new StopperCluster(stopper.Cluster.ID, stopper.Cluster.Name);
-            if (!clusters.some(f => f.ID == type.ID))
+            if (!clusters.some(f => f.ID === type.ID))
                 clusters.push(type);
             else
-                type = clusters.find(f => f.ID == type.ID);
+                type = clusters.find(f => f.ID === type.ID);
 
-            if (!type.Stoppers.some(c => c.ID == stopper.ID))
+            if (!type.Stoppers.some(c => c.ID === stopper.ID))
                 type.Stoppers.push(stopper);
         });
 

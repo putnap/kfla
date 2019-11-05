@@ -39,7 +39,7 @@ export class StopperContainer extends React.Component<StopperContainerProps, {}>
                         {
                             !stoppersStore.isLoaded ?
                                 <Loader text={localizationStore.getString('Stoppers.Loading')} /> :
-                                <StopperItem stopper={stoppersStore.stoppers.find(s => s.ID.toString() == stopperId)} />
+                                <StopperItem stopper={stoppersStore.stoppers.find(s => s.ID.toString() === stopperId)} />
                         }
                     </div>
                 </div>

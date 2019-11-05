@@ -3,7 +3,6 @@ import { RouteComponentProps } from 'react-router';
 import { Stopper } from '../../models/Stopper';
 import { observer, inject } from 'mobx-react';
 import { LocalizationStore } from '../../stores/LocalizationStore';
-import { printList } from '../skillPrinter';
 
 interface StopperItemProps extends Partial<RouteComponentProps<{}>>{
     stopper: Stopper;

@@ -1,6 +1,6 @@
 ﻿import * as React from "react";
 import { observer, inject } from "mobx-react";
-import { RouteComponentProps, Route } from "react-router";
+import { RouteComponentProps } from "react-router";
 import { LocalizationStore } from "../../../stores/LocalizationStore";
 import NavMenu from '../../NavMenu';
 import { Loader } from '../../Loader';
@@ -39,7 +39,7 @@ export class CompetencyContainer extends React.Component<CompetencyContainerProp
                         {
                             !competencyStore.isLoaded ?
                                 <Loader text={localizationStore.getString('Questionaire.Loading')} /> :
-                                <CompetencyItem competency={competencyStore.competencies.find(c => c.ID.toString() == competencyId)} />
+                                <CompetencyItem competency={competencyStore.competencies.find(c => c.ID.toString() === competencyId)} />
                         }
                     </div>
                 </div>

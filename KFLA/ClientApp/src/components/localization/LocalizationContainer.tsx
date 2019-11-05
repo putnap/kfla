@@ -37,7 +37,7 @@ export class LocalizationContainer extends React.Component<LocalizationContainer
     async componentDidUpdate(prevProps: LocalizationContainerProps) {
         const { language } = this.props.match.params;
         const { localizationStore } = this.props;
-        if (!prevProps || prevProps.match.params.language != language || !localizationStore.isLoaded) {
+        if (!prevProps || prevProps.match.params.language !== language || !localizationStore.isLoaded) {
             await localizationStore.loadStrings(getSafeLanguage(language));
         }
     }

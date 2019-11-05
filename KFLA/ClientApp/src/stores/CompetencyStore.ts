@@ -42,7 +42,7 @@ export class CompetencyStore {
     }
 
     @computed get evaluationReady(): boolean {
-        return this.evaluations.length > 0 && this.evaluations.every(o => o.evaluatedCompetences == o.Limit);
+        return this.evaluations.length > 0 && this.evaluations.every(o => o.evaluatedCompetences === o.Limit);
     }
 
     @action resetEvaluation() {
@@ -82,7 +82,7 @@ export class CompetencyStore {
     }
 
     @action async fetchLocalizedCompetencies(lang: string) {
-        if (!this.isLoading && lang || lang != this.loadingLanguage) {
+        if ((!this.isLoading && lang) || lang !== this.loadingLanguage) {
             this.competencies = [];
             this.loadingLanguage = lang;
             this.isLoaded = false;
@@ -111,17 +111,17 @@ export class CompetencyStore {
         competencies.forEach(competency => {
             let factor = new Factor(competency.Factor.ID, competency.Factor.Name);
             let cluster = new Cluster(competency.Cluster.ID, competency.Cluster.Name);
-            if (!factors.some(f => f.ID == competency.Factor.ID))
+            if (!factors.some(f => f.ID === competency.Factor.ID))
                 factors.push(factor);
             else
-                factor = factors.find(f => f.ID == competency.Factor.ID);
+                factor = factors.find(f => f.ID === competency.Factor.ID);
 
-            if (!factor.Clusters.some(c => c.ID == cluster.ID))
+            if (!factor.Clusters.some(c => c.ID === cluster.ID))
                 factor.Clusters.push(cluster);
             else
-                cluster = factor.Clusters.find(c => c.ID == cluster.ID);
+                cluster = factor.Clusters.find(c => c.ID === cluster.ID);
 
-            if (!cluster.Competencies.some(c => c.ID == competency.ID))
+            if (!cluster.Competencies.some(c => c.ID === competency.ID))
                 cluster.Competencies.push(competency);
         });
 
