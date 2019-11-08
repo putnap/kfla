@@ -6,8 +6,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './css/site.css';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -21,22 +19,11 @@ library.add(fas, faLeanpub);
 
 const stores = createStores();
 
-function renderApp() {
-    // This code starts up the React app when it runs in a browser. It sets up the routing
-    // configuration and injects the app into a DOM element.
-    const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href')!;
-    ReactDOM.render(
-        <AppContainer>
-            <Provider {...stores}>
-                <StoreProvider createStores={() => stores}>
-                    <BrowserRouter basename={baseUrl}>
-                        <App />
-                    </BrowserRouter>
-                </StoreProvider>
-            </Provider>
-        </AppContainer>,
-        document.getElementById('react-app')
-    );
-}
-
-renderApp();
+ReactDOM.render(
+    <Provider {...stores}>
+        <StoreProvider createStores={() => stores}>
+            <App />
+        </StoreProvider>
+    </Provider>,
+    document.getElementById('react-app')
+);
