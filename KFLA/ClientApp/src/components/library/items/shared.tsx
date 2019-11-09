@@ -26,7 +26,7 @@ export interface DropRightMenuItemProps {
     linkText: string
 }
 
-const DropRightButtonComponent: React.FunctionComponent<DropRightButtonProps> = props => {
+const DropRightButtonComponent: React.FC<DropRightButtonProps> = props => {
     const { link, icon, linkText, match: { url } } = props;
 
     return <NavLink to={`${url}/${link}`} activeClassName='active'>

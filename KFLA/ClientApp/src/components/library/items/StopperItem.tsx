@@ -8,7 +8,7 @@ interface StopperItemProps extends RouteComponentProps<{}> {
     stopper: Stopper;
 }
 
-const StopperItem: React.FunctionComponent<StopperItemProps> = props => {
+const StopperItem: React.FC<StopperItemProps> = props => {
     const localizationStore = useStore(stores => stores.localizationStore);
     const { stopper, match } = props;
 

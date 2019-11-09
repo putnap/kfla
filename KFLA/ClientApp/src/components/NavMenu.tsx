@@ -4,7 +4,7 @@ import { LanguageParam } from '../@types/types';
 import { useStore } from '../stores/hook';
 import LanguageBar from './LanguageBar';
 
-const NavMenu: React.FunctionComponent<RouteComponentProps<LanguageParam>> = props => {
+const NavMenu: React.FC<RouteComponentProps<LanguageParam>> = props => {
     const localizationStore = useStore(stores => stores.localizationStore);
     const { match: { params: { language } } } = props;
 

@@ -33,7 +33,7 @@ const LegendEvaluation = ({ evaluation }) => {
     </div>
 }
 
-export const EvaluationResultContainer: React.FunctionComponent<RouteComponentProps<LanguageParam>> = observer(props => {
+export const EvaluationResultContainer: React.FC<RouteComponentProps<LanguageParam>> = observer(props => {
 
     const competencyStore = useStore(stores => stores.competencyStore);
     const localizationStore = useStore(stores => stores.localizationStore);

@@ -5,7 +5,7 @@ import LanguageBar from './LanguageBar';
 import { isIE } from 'react-device-detect';
 import { useStore } from '../stores/hook';
 
-const Home: React.FunctionComponent<RouteComponentProps<{}>> = props => {
+const Home: React.FC<RouteComponentProps<{}>> = props => {
     const localizationStore = useStore(stores => stores.localizationStore);
     React.useEffect(() => localizationStore.setTitle('Home.Title'));
     const { match } = props;

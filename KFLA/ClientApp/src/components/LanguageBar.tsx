@@ -13,7 +13,7 @@ const getUrl = (language, match) => {
     return newPath;
 }
 
-const LanguageBar: React.FunctionComponent<RouteComponentProps<{}>> = props => {
+const LanguageBar: React.FC<RouteComponentProps<{}>> = props => {
     const localizationStore = useStore(stores => stores.localizationStore);
 
     return <div className='lang' >

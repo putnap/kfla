@@ -19,7 +19,7 @@ interface CompetencyItemState {
     cardHeight?: number;
 }
 
-const DragableCompetency: React.FunctionComponent<{ competency: Competency }> = props => {
+const DragableCompetency: React.FC<{ competency: Competency }> = props => {
     const [{ isDragging }, drag] = useDrag({
         item: { type: 'Competency' },
         end: (item, monitor) => {

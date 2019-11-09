@@ -61,7 +61,7 @@ const EvaluatedCompetencyItem = ({ competency }) => {
     </div>
 }
 
-export const EvaluationItem: React.FunctionComponent<EvaluationItemProps> = observer(props => {
+export const EvaluationItem: React.FC<EvaluationItemProps> = observer(props => {
     React.useEffect(() => {
         jQuery('[data-toggle="tooltip"]').tooltip({ trigger: 'hover', placement: 'auto' });
     });

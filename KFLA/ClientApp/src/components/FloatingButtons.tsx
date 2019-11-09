@@ -16,7 +16,7 @@ const ButtonWithIcon = ({ icon, label, onClick, disabled = false, hidden = false
     </button>
 }
 
-export const FloatingActionButtons: React.FunctionComponent<{ floatingButtons: FloatingButtonProps[] }> = props => {
+export const FloatingActionButtons: React.FC<{ floatingButtons: FloatingButtonProps[] }> = props => {
     return <div className='btn-floating-container'>
         {props.floatingButtons.map((button, i) => <ButtonWithIcon {...button} key={i} />)}
     </div>

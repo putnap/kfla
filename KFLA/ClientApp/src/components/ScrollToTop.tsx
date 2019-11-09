@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 
-const ScrollToTop: React.FunctionComponent<RouteComponentProps> = props => {
+const ScrollToTop: React.FC<RouteComponentProps> = props => {
     const { children, location: { pathname } } = props;
 
     React.useEffect(() => {

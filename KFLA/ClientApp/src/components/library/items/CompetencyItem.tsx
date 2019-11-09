@@ -11,7 +11,7 @@ interface CompetencyItemProps extends RouteComponentProps<{}> {
     competency: Competency;
 }
 
-const CompetencyItem: React.FunctionComponent<CompetencyItemProps> = props => {
+const CompetencyItem: React.FC<CompetencyItemProps> = props => {
 
     const localizationStore = useStore(stores => stores.localizationStore);
     const { competency, match: { path } } = props;
