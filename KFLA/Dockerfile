@@ -31,9 +31,11 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
 RUN apt-get install -y nodejs
+ENV CHOKIDAR_USEPOLLING true
 
 WORKDIR /app
 EXPOSE 80
+EXPOSE 35729
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
 WORKDIR /src
