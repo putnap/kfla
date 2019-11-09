@@ -9,8 +9,8 @@ import { QuestionsResult } from "../../components/questions/QuestionsResult";
 import { CompetenciesContainer } from "../../components/competencies/CompetenciesContainer";
 import { EvaluationResultContainer } from "../../components/competencies/EvaluationResult";
 import { LibraryContainer } from "../../components/library/LibraryContainer";
-import { CompetencyContainer } from "../../components/library/items/CompetencyContainer";
-import { StopperContainer } from "../../components/library/items/StopperContainer";
+import CompetencyContainer from "../../components/library/items/CompetencyContainer";
+import StopperContainer from "../../components/library/items/StopperContainer";
 import ScrollToTop from "../../components/ScrollToTop";
 import { LanguageParam } from "../../@types/types";
 
