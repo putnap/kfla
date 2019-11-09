@@ -42,6 +42,8 @@ const getNumberOfColumns = () => {
 
 export const CompetencyList: React.FC<CompetencyListProps> = props => {
 
+    const { competencies } = props;
+
     const [numberOfColumns, setNumberOfColumns] = React.useState(getNumberOfColumns())
     const [rows, setRows] = React.useState(buildColumns(numberOfColumns, props.competencies))
 
@@ -50,14 +52,14 @@ export const CompetencyList: React.FC<CompetencyListProps> = props => {
     }, []);
 
     const numberOfColumnsChangeCallback = React.useCallback(() => {
-        setRows(buildColumns(numberOfColumns, props.competencies));
-    }, []);
+        setRows(buildColumns(numberOfColumns, competencies));
+    }, [numberOfColumns, competencies]);
 
     React.useEffect(numberOfColumnsChangeCallback, [numberOfColumns]);
     React.useEffect(() => {
         window.addEventListener("resize", resizeCallback);
         return () => window.removeEventListener("resize", resizeCallback);
-    }, [event, resizeCallback]);
+    }, [resizeCallback]);
 
     return <div className='row card mb-2'>
         <div className='col card-body'>

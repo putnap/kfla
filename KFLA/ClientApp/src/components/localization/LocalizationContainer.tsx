@@ -1,7 +1,6 @@
 ﻿import * as React from "react";
-import { observer, inject } from "mobx-react";
 import { RouteComponentProps, Route, Switch } from "react-router";
-import { LocalizationStore } from "../../stores/LocalizationStore";
+import { observer } from "mobx-react-lite";
 import { Loader } from "../../components/Loader";
 import { Home } from '../../components/Home';
 import { QuestionsContainer } from "../../components/questions/QuestionsContainer";
@@ -11,53 +10,49 @@ import { EvaluationResultContainer } from "../../components/competencies/Evaluat
 import { LibraryContainer } from "../../components/library/LibraryContainer";
 import { CompetencyContainer } from "../../components/library/items/CompetencyContainer";
 import { StopperContainer } from "../../components/library/items/StopperContainer";
-import ScrollToTop from "../../components/ScrollToTop";
 import { LanguageParam } from "../../@types/types";
-
+import { useStore } from "../../stores/hook";
+import ScrollToTop from "../../components/ScrollToTop";
 
 const getSafeLanguage = (language: string): string => {
     return language ? language : 'en';
 }
 
-interface LocalizationContainerProps extends RouteComponentProps<LanguageParam> {
-    localizationStore?: LocalizationStore
-}
+export const LocalizationContainer: React.FC<RouteComponentProps<LanguageParam>> = observer(props => {
+    const localizationStore = useStore(stores => stores.localizationStore);
+    const { match } = props;
+    const { language } = match.params;
 
-@inject("localizationStore")
-@observer
-export class LocalizationContainer extends React.Component<LocalizationContainerProps, {}> {
-
-    async componentDidMount() {
-        const { localizationStore } = this.props;
-        if (!localizationStore.isLoaded) {
+    React.useEffect(() => {
+        async function loadLanguages() {
             await localizationStore.loadLanguages();
         }
-    }
 
-    async componentDidUpdate(prevProps: LocalizationContainerProps) {
-        const { language } = this.props.match.params;
-        const { localizationStore } = this.props;
-        if (!prevProps || prevProps.match.params.language !== language || !localizationStore.isLoaded) {
-            await localizationStore.loadStrings(getSafeLanguage(language));
+        if (!localizationStore.isLoaded && !localizationStore.isLoading)
+            loadLanguages();
+    }, [localizationStore]);
+
+    React.useEffect(() => {
+        async function loadStrings(lang) {
+            await localizationStore.loadStrings(getSafeLanguage(lang));
         }
-    }
 
-    public render() {
-        const { localizationStore, match } = this.props;
-        return <ScrollToTop {...this.props} >
-            {!localizationStore.isLoaded || localizationStore.isLoading ?
-                <Loader /> :
-                <Switch>
-                    <Route path={`${match.path}/questions`} component={QuestionsContainer} />
-                    <Route path={`${match.path}/questionaire`} component={QuestionsResult} />
-                    <Route path={`${match.path}/competencies`} component={CompetenciesContainer} />
-                    <Route path={`${match.path}/evaluation`} component={EvaluationResultContainer} />
-                    <Route path={`${match.path}/library/competencies/:competencyId`} component={CompetencyContainer} />
-                    <Route path={`${match.path}/library/stoppers/:stopperId`} component={StopperContainer} />
-                    <Route path={`${match.path}/library`} component={LibraryContainer} />
-                    <Route path={`${match.path}/`} component={Home} />
-                </Switch>
-            }
-        </ScrollToTop>
-    }
-}
+        loadStrings(language);
+    }, [language, localizationStore]);
+
+    return <ScrollToTop {...props} >
+        {!localizationStore.isLoaded || localizationStore.isLoading ?
+            <Loader /> :
+            <Switch>
+                <Route path={`${match.path}/questions`} component={QuestionsContainer} />
+                <Route path={`${match.path}/questionaire`} component={QuestionsResult} />
+                <Route path={`${match.path}/competencies`} component={CompetenciesContainer} />
+                <Route path={`${match.path}/evaluation`} component={EvaluationResultContainer} />
+                <Route path={`${match.path}/library/competencies/:competencyId`} component={CompetencyContainer} />
+                <Route path={`${match.path}/library/stoppers/:stopperId`} component={StopperContainer} />
+                <Route path={`${match.path}/library`} component={LibraryContainer} />
+                <Route path={`${match.path}/`} component={Home} />
+            </Switch>
+        }
+    </ScrollToTop>
+});

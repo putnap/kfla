@@ -12,6 +12,8 @@ import { useStore } from '../../stores/hook';
 
 export const QuestionsResult: React.FC<RouteComponentProps<LanguageParam>> = observer(props => {
 
+    const { language } = props.match.params;
+    const { history } = props;
     const { localizationStore, competencyStore, stoppersStore } = useStore(stores => stores);
     const questionaireReady = stoppersStore.questionaireReady || competencyStore.questionaireReady;
 
@@ -21,10 +23,9 @@ export const QuestionsResult: React.FC<RouteComponentProps<LanguageParam>> = obs
         navigateToQuestions();
     }
 
-    const navigateToQuestions = () => {
-        const { language } = props.match.params;
-        props.history.push(`/${language}/questions`);
-    }
+    const navigateToQuestions = React.useCallback(() => {
+        history.push(`/${language}/questions`);
+    }, [language, history]);
 
     React.useEffect(() => {
         if (!questionaireReady) {
