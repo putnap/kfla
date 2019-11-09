@@ -378,7 +378,17 @@ body, html {
             visibility: hidden;
             -webkit-transform: rotateY(180deg);
             transform: rotateY(180deg);
+            background: #5798AC;
         }
+
+.btn-flip {
+    font-size: 200%;
+    color: #5798AC;
+}
+
+.flipped .btn-flip {
+    color: #FFFFFF;
+}
 
 .check-container {
     display: block;
