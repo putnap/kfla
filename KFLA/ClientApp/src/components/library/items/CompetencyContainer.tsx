@@ -1,5 +1,5 @@
 ﻿import * as React from "react";
-import { RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps } from "react-router";
 import { observer } from "mobx-react-lite";
 
 import { LocalizationStore } from "../../../stores/LocalizationStore";
@@ -29,7 +29,7 @@ const CompetencyWithLoader: React.FC<{ competencyId: string }> = observer(props 
 
 })
 
-const CompetencyContainer: React.FC<CompetencyContainerProps> = props => {
+export const CompetencyContainer: React.FC<CompetencyContainerProps> = props => {
     const localizationStore = useStore(stores => stores.localizationStore);
     const { competencyId } = props.match.params;
 
@@ -46,5 +46,3 @@ const CompetencyContainer: React.FC<CompetencyContainerProps> = props => {
         </div>
     </div>
 }
-
-export default withRouter(CompetencyContainer);

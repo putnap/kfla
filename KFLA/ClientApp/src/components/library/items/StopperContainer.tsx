@@ -1,5 +1,5 @@
 ﻿import * as React from "react";
-import { RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps } from "react-router";
 import { observer } from "mobx-react-lite";
 import NavMenu from '../../NavMenu';
 import { Loader } from '../../Loader';
@@ -28,7 +28,7 @@ const StopperWithLoader: React.FC<{ stopperId: string }> = observer(props => {
 
 })
 
-const StopperContainer: React.FC<StopperContainerProps> = props => {
+export const StopperContainer: React.FC<StopperContainerProps> = props => {
     const localizationStore = useStore(stores => stores.localizationStore);
     const { stopperId } = props.match.params;
 
@@ -46,5 +46,3 @@ const StopperContainer: React.FC<StopperContainerProps> = props => {
     </div>
 
 }
-
-export default withRouter(StopperContainer);

@@ -23,8 +23,7 @@ const CompetencyItemFunction = (competency: Competency) => {
 
 export const LibraryContainer: React.FC = props => {
 
-    const localizationStore = useStore(stores => stores.localizationStore);
-    const competencyStore = useStore(stores => stores.competencyStore);
+    const { localizationStore, competencyStore } = useStore(stores => stores);
 
     const [numericSort, setSort] = React.useState(false);
     React.useEffect(() => localizationStore.setTitle('PageTitles.LIBRARY'));

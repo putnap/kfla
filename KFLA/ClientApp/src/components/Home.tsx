@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 import LanguageBar from './LanguageBar';
 import { isIE } from 'react-device-detect';
 import { useStore } from '../stores/hook';
 
-const Home: React.FC<RouteComponentProps<{}>> = props => {
+export const Home: React.FC<RouteComponentProps<{}>> = props => {
     const localizationStore = useStore(stores => stores.localizationStore);
     React.useEffect(() => localizationStore.setTitle('Home.Title'));
     const { match } = props;
@@ -63,6 +63,4 @@ const Home: React.FC<RouteComponentProps<{}>> = props => {
         </div>
     </div>;
 }
-
-export default withRouter(Home);
 
