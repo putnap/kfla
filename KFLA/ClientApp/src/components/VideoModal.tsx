@@ -1,68 +1,46 @@
 ﻿import * as React from 'react';
 import * as jQuery from 'jquery';
 import YouTube from 'react-youtube';
-import { inject, observer } from 'mobx-react';
-import { LocalizationStore } from '../stores/LocalizationStore';
+import { useStore } from '../stores/hook';
 
 export interface VideoModalProps {
     id: string;
     videoId: string;
-    localizationStore?: LocalizationStore;
 }
 
-export interface VideoModalState {
-    player: any;
-}
+export const VideoModal: React.FC<VideoModalProps> = props => {
 
-@inject("localizationStore")
-@observer
-export class VideoModal extends React.Component<VideoModalProps, VideoModalState> {
+    const localizationStore = useStore(stores => stores.localizationStore);
+    const { id, videoId } = props;
 
-    constructor(props: VideoModalProps) {
-        super(props);
+    const [player, setPlayer] = React.useState(null);
 
-        this.state = {
-            player: null
+    React.useEffect(() => {
+        if (player) {
+            jQuery('#' + id).on('hidden.bs.modal', () => {
+                player.pauseVideo();
+            });
         }
 
-        this.onReady = this.onReady.bind(this);
-    }
+        return () => jQuery('#' + id).modal('hide');
+    }, [player]);
 
-    componentDidMount() {
-        jQuery('#' + this.props.id).on('hidden.bs.modal', () => {
-            this.state.player.pauseVideo();
-        });
-    }
-
-    componentWillUnmount() {
-        jQuery('#' + this.props.id).modal('hide');
-    }   
-
-    onReady(event: any) {
-        this.setState({
-            player: event.target,
-        });
-    }
-
-    public render() {
-
-        return <div className='modal fade' id={this.props.id} tabIndex={-1} role='dialog' aria-labelledby={this.props.id + 'label'} aria-hidden='true'>
-            <div className='modal-dialog modal-dialog-centered' role='document'>
-                <div className='modal-content'>
-                    <div className='modal-body'>
-                        <YouTube
-                            containerClassName='video-container'
-                            className='video-player-frame'
-                            videoId={this.props.videoId}
-                            onReady={this.onReady}
-                            />
-                    </div>
-                    <div className='modal-footer'>
-                        <span className='w-100' style={{ fontSize: '10px' }}>{this.props.localizationStore.getString('RightsReserved')}</span>
-                        <button type='button' className='btn btn-secondary' data-dismiss='modal'>Close</button>
-                    </div>
+    return <div className='modal fade' id={id} tabIndex={-1} role='dialog' aria-labelledby={id + 'label'} aria-hidden='true'>
+        <div className='modal-dialog modal-dialog-centered' role='document'>
+            <div className='modal-content'>
+                <div className='modal-body'>
+                    <YouTube
+                        containerClassName='video-container'
+                        className='video-player-frame'
+                        videoId={videoId}
+                        onReady={e => setPlayer(e.target)}
+                    />
+                </div>
+                <div className='modal-footer'>
+                    <span className='w-100' style={{ fontSize: '10px' }}>{localizationStore.getString('RightsReserved')}</span>
+                    <button type='button' className='btn btn-secondary' data-dismiss='modal'>Close</button>
                 </div>
             </div>
         </div>
-    }
+    </div>
 }

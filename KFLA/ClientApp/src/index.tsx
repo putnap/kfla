@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './css/site.css';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Provider } from 'mobx-react';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -20,10 +19,8 @@ library.add(fas, faLeanpub);
 const stores = createStores();
 
 ReactDOM.render(
-    <Provider {...stores}>
-        <StoreProvider createStores={() => stores}>
-            <App />
-        </StoreProvider>
-    </Provider>,
+    <StoreProvider createStores={() => stores}>
+        <App />
+    </StoreProvider>,
     document.getElementById('react-app')
 );
