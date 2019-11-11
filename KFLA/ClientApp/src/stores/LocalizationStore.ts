@@ -1,10 +1,17 @@
-﻿import axios from 'axios';
-import { observable, action, runInAction, autorun } from "mobx";
+﻿import { observable, action, runInAction, autorun } from "mobx";
 import { LocalizedString } from "../models/LocalizedString";
+import { IGetLanguages, IGetLocalizedStrings } from '../api';
 
 const wait = (ms) => new Promise(res => setTimeout(res, ms));
 
 export class LocalizationStore {
+    getLanguages: IGetLanguages;
+    getLocalizedStrings: IGetLocalizedStrings;
+
+    constructor(getLanguages: IGetLanguages, getLocalizedStrings: IGetLocalizedStrings) {
+        this.getLanguages = getLanguages;
+        this.getLocalizedStrings = getLocalizedStrings;
+    }
 
     @observable languages: string[] = [];
     @observable language: string;
@@ -37,9 +44,9 @@ export class LocalizationStore {
             this.isLoading = true;
 
             try {
-                const response = await axios.get<string[]>('api/languages');
+                const response = await this.getLanguages();
                 runInAction(() => {
-                    this.languages = response.data;
+                    this.languages = response;
                     this.isLoading = false;
                 });
             }
@@ -51,19 +58,17 @@ export class LocalizationStore {
     }
 
     @action async loadStrings(lang: string) {
-        if (!this.isLoading || lang !== this.language) {
+        if (!this.isLoaded || lang !== this.language) {
             this.language = lang;
             this.isLoaded = false;
             this.isLoading = true;
 
             try {
-                const response = await axios.get<LocalizedString[]>('api/strings', {
-                    headers: { 'Accept-Language': lang }
-                });
+                const response = await this.getLocalizedStrings(lang);
 
                 await wait(500);
                 runInAction(() => {
-                    this.strings = response.data;
+                    this.strings = response;
                     this.isLoading = false;
                     this.isLoaded = true;
                 });

@@ -1,15 +1,17 @@
-﻿import axios from 'axios';
-import { observable, computed, action, runInAction, autorun } from 'mobx';
-import { Stopper, StopperJSON } from '../models/Stopper';
+﻿import { observable, computed, action, runInAction, autorun } from 'mobx';
+import { Stopper } from '../models/Stopper';
 import { StopperCluster } from '../models/StopperCluster';
 import { LocalizationStore } from './LocalizationStore';
+import { IGetStoppers } from '../api';
 
 export class StoppersStore {
 
     localizationStore: LocalizationStore;
+    getStoppers: IGetStoppers;
 
-    constructor(localizationStore: LocalizationStore) {
+    constructor(localizationStore: LocalizationStore, getStoppers: IGetStoppers) {
         this.localizationStore = localizationStore;
+        this.getStoppers = getStoppers;
 
         autorun(() => this.fetchLocalizedStoppers(this.localizationStore.language));
     }
@@ -48,11 +50,10 @@ export class StoppersStore {
             this.isLoading = true;
 
             try {
-                const response = await axios.get<StopperJSON[]>('api/stoppers', {
-                    headers: { 'Accept-Language': lang },
-                });
+                const response = await this.getStoppers(lang);
+
                 runInAction(() => {
-                    this.stoppers = response.data.map(stopperJSON => Stopper.fromJSON(stopperJSON));
+                    this.stoppers = response;
                     this.stopperClusters = this.groupStoppers(this.stoppers);
                     this.isLoading = false;
                     this.isLoaded = true;

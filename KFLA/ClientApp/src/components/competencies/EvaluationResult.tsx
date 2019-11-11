@@ -14,7 +14,7 @@ import { FloatingButtonProps, FloatingActionButtons } from '../FloatingButtons';
 
 const EvaluatedCompetency = ({ competency }) => {
 
-    return <div className='row competencyItem' key={competency.ID} >
+    return <div className='row competencyItem' >
         <div className='col-1 text-right p-0'>
             <span>{competency.ID}.</span>
         </div>
@@ -75,7 +75,7 @@ export const EvaluationResultContainer: React.FC<RouteComponentProps<LanguagePar
                 {
                     competencyStore.evaluationReady ?
                         <div>
-                            <FactorList factors={competencyStore.factors} renderCompetency={competency => <EvaluatedCompetency competency={competency} />} animate={true} />
+                            <FactorList factors={competencyStore.factors} renderCompetency={competency => <EvaluatedCompetency competency={competency} key={competency.ID} />} animate={true} />
                             <div className='row bg-white mb-2 py-2'>
                                 <div className='col-12'>
                                     <span className='font-weight-bold'>{localizationStore.getString('EvaluationResult.Legend')}:</span>

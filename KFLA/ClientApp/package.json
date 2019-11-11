@@ -30,15 +30,15 @@
   },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.11.0",
+    "customize-cra": "^0.8.0",
     "popper.js": "^1.16.0",
-    "react-app-rewire-hot-loader": "^2.0.1",
     "react-app-rewired": "^2.1.5",
     "react-hot-loader": "^4.12.16"
   },
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-scripts test",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

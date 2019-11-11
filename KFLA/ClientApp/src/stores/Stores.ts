@@ -1,13 +1,14 @@
 ﻿import { CompetencyStore } from "./CompetencyStore";
 import { StoppersStore } from "./StoppersStore";
 import { LocalizationStore } from "./LocalizationStore";
+import { getLanguages, getLocalizedStrings, getEvaluations, getCompetencies, getStoppers } from "../api";
 
-export function createStores() {
-    const localizationStore = new LocalizationStore();
+export const createStores = () => {
+    const localizationStore = new LocalizationStore(getLanguages, getLocalizedStrings);
     const stores = {
         localizationStore: localizationStore,
-        competencyStore: new CompetencyStore(localizationStore),
-        stoppersStore: new StoppersStore(localizationStore),
+        competencyStore: new CompetencyStore(localizationStore, getEvaluations, getCompetencies),
+        stoppersStore: new StoppersStore(localizationStore, getStoppers),
     };
 
     return stores;

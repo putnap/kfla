@@ -1,16 +1,20 @@
-﻿import axios from 'axios';
-import { observable, computed, action, runInAction, autorun } from 'mobx';
-import { Competency, CompetencyJSON } from '../models/Competency';
-import { Evaluation, EvaluationJSON } from '../models/Evaluation';
+﻿import { observable, computed, action, runInAction, autorun } from 'mobx';
+import { Competency } from '../models/Competency';
+import { Evaluation } from '../models/Evaluation';
 import { Factor } from '../models/Factor';
 import { Cluster } from '../models/Cluster';
 import { LocalizationStore } from './LocalizationStore';
+import { IGetEvaluations, IGetCompetencies } from '../api';
 
 export class CompetencyStore {
     localizationStore: LocalizationStore;
+    getEvaluations: IGetEvaluations;
+    getCompetencies: IGetCompetencies;
 
-    constructor(localizationStore: LocalizationStore) {
+    constructor(localizationStore: LocalizationStore, getEvaluations: IGetEvaluations, getCompetencies: IGetCompetencies) {
         this.localizationStore = localizationStore;
+        this.getEvaluations = getEvaluations;
+        this.getCompetencies = getCompetencies;
 
         autorun(() => {
             this.fetchLocalizedEvalutions(this.localizationStore.language);
@@ -64,11 +68,10 @@ export class CompetencyStore {
         if (lang) {
 
             try {
-                const response = await axios.get<EvaluationJSON[]>('api/evaluations', {
-                    headers: { 'Accept-Language': lang },
-                });
+                const response = await this.getEvaluations(lang);
+
                 runInAction(() => {
-                    this.evaluations = response.data.map(evaluationJSON => Evaluation.fromJSON(evaluationJSON));
+                    this.evaluations = response;
                 });
             }
             catch (error) {
@@ -89,11 +92,10 @@ export class CompetencyStore {
             this.isLoading = true;
 
             try {
-                const response = await axios.get<CompetencyJSON[]>('api/competencies', {
-                    headers: { 'Accept-Language': lang },
-                });
+                const response = await this.getCompetencies(lang);
+
                 runInAction(() => {
-                    this.competencies = response.data.map(competencyJSON => Competency.fromJSON(competencyJSON));
+                    this.competencies = response;
                     this.factors = this.groupCompetencies(this.competencies);
                     this.isLoading = false;
                     this.isLoaded = true;

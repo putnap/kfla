@@ -23,7 +23,7 @@ export const VideoModal: React.FC<VideoModalProps> = props => {
         }
 
         return () => jQuery('#' + id).modal('hide');
-    }, [player]);
+    }, [player, id]);
 
     return <div className='modal fade' id={id} tabIndex={-1} role='dialog' aria-labelledby={id + 'label'} aria-hidden='true'>
         <div className='modal-dialog modal-dialog-centered' role='document'>

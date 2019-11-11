@@ -61,10 +61,13 @@ export const CompetenciesContainer: React.FC<RouteComponentProps<LanguageParam>>
 
     const floatingButtons: FloatingButtonProps[] = [
         { label: localizationStore.getString('Buttons.Submit'), icon: "check", onClick: submitEvaluation, disabled: !competencyStore.evaluationReady },
-        //{ label: localizationStore.getString('Buttons.Submit'), icon: "random", onClick: randomEvaluation },
         { label: localizationStore.getString('Buttons.Reset'), icon: "redo", onClick: resetEvaluation },
         { label: localizationStore.getString('Buttons.Info'), icon: "info", onClick: () => jQuery('#competenciesVideo').modal() },
     ]
+
+    if (process.env.NODE_ENV === "development") {
+        floatingButtons.push({ label: localizationStore.getString('Buttons.Submit'), icon: "random", onClick: randomEvaluation });
+    }
 
     return <DndProvider backend={HTML5Backend}>
         <div className='row background-light height-100'>

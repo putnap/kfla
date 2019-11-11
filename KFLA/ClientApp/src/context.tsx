@@ -1,14 +1,14 @@
 import React from 'react';
-import { useLocalStore } from 'mobx-react-lite';
-import { Stores } from './stores/Stores';
+import { Stores, createStores } from './stores/Stores';
 
 export const storeContext = React.createContext<Stores | null>(null);
 
-export const StoreProvider: React.FC<{ createStores: () => Stores }> = props => {
-    const store = useLocalStore(props.createStores);
+export const StoreProvider: React.FC<{ stores?: Stores }> = props => {
+
+    const stores = props.stores || createStores();
 
     return (
-        <storeContext.Provider value={store}>
+        <storeContext.Provider value={stores}>
             {props.children}
         </storeContext.Provider>
     );
