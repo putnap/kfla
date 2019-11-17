@@ -13,14 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Log in to registry
-      uses: actions/docker/login@master
-      env:
-        DOCKER_REGISTRY_URL: docker.pkg.github.com
-        DOCKER_USERNAME: ${{ github.actor }}
-        DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Docker image
       run: |
+        docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
         docker build . --file KFLA/Dockerfile --tag docker.pkg.github.com/putnap/kfla/kfla:$(date +%s)
         docker push docker.pkg.github.com/putnap/kfla/kfla:$(date +%s)
       
