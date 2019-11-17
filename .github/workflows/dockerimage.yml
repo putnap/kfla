@@ -19,5 +19,5 @@ jobs:
         docker build . -f KFLA/Dockerfile -t docker.pkg.github.com/putnap/kfla/kfla-app:${VERSION_NAME}
         docker push docker.pkg.github.com/putnap/kfla/kfla-app:${VERSION_NAME}
       env: 
-        VERSION_NAME: ${(date +%s)}
+        VERSION_NAME: ${{ date +%s }}
       
