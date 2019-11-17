@@ -16,8 +16,6 @@ jobs:
     - name: Build the Docker image
       run: |
         docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-        docker build . -f KFLA/Dockerfile -t docker.pkg.github.com/putnap/kfla/kfla-app:${VERSION_NAME}
-        docker push docker.pkg.github.com/putnap/kfla/kfla-app:${VERSION_NAME}
-      env: 
-        VERSION_NAME: ${{ date +%s }}
+        docker build . -f KFLA/Dockerfile -t docker.pkg.github.com/putnap/kfla/kfla-app:latest
+        docker push docker.pkg.github.com/putnap/kfla/kfla-app:latest
       
