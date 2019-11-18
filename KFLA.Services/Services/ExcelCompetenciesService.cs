@@ -47,7 +47,7 @@ namespace KFLA.Services.Services
                     pck.Load(stream);
                 }
 
-                result.AddRange(GetLocalizedStrings(pck.Workbook.Worksheets[3]));
+                result.AddRange(GetLocalizedStrings(pck.Workbook.Worksheets[2]));
             }
 
             using (var pck = new ExcelPackage())
@@ -93,7 +93,7 @@ namespace KFLA.Services.Services
                 pck.Load(stream);
             }
 
-            return Task.FromResult(GetEvaluations(pck.Workbook.Worksheets[4]).ToList().AsEnumerable());
+            return Task.FromResult(GetEvaluations(pck.Workbook.Worksheets[3]).ToList().AsEnumerable());
         }
 
         public Task<IEnumerable<string>> GetLanguages()
@@ -542,7 +542,7 @@ namespace KFLA.Services.Services
 
         private static IEnumerable<(int ID, string Question)> GetCompetencyQuestions(ExcelPackage pck)
         {
-            var ws = pck.Workbook.Worksheets[1];
+            var ws = pck.Workbook.Worksheets[0];
             using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)
@@ -571,7 +571,7 @@ namespace KFLA.Services.Services
 
         private static IEnumerable<(int ID, string Question)> GetStopperQuestions(ExcelPackage pck)
         {
-            var ws = pck.Workbook.Worksheets[2];
+            var ws = pck.Workbook.Worksheets[1];
             using var tbl = GetDataTable(ws);
 
             foreach (DataRow row in tbl.Rows)

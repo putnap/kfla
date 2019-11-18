@@ -3,6 +3,10 @@ version: '3.7'
 services:
 
   kfla:
+    image: ${DOCKER_REGISTRY-}kfla
+    build:
+      context: .
+      dockerfile: KFLA/Dockerfile.debug
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - CHOKIDAR_USEPOLLING=true

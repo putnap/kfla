@@ -20,16 +20,26 @@ services:
     depends_on:
       - mongo
 
+  elk:
+    container_name: elk
+    image: sebp/elk
+    restart: always
+    ports:
+      - 5601:5601
+      - 9200:9200 
+      - 5044:504
+
   kfla:
     container_name: kfla
-    image: ${DOCKER_REGISTRY-}kfla
-    build:
-      context: .
-      dockerfile: KFLA/Dockerfile
+    image: docker.pkg.github.com/putnap/kfla/kfla-app
     environment:
       - DBSettings__ConnectionString=mongodb://mongo:27017
+      - ElasticSearch__Uri=http://elk:9200
     depends_on:
       - mongo
+      - elk
+    ports:
+      - 8080:80
 
 volumes:
   mongodb:
